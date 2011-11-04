@@ -1,0 +1,9 @@
+Tsoha, käyttötapaukset
+
+-lisää käärme
+-poista käärme
+-haku ominaisuuden perusteella
+-lainaa
+-luo käyttäjä
+-poista käyttäjä
+
