@@ -1,0 +1,18 @@
+työn aihe:
+
+Työn aihe on käärmetietokanta, joka toimii apuvälineenä käärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista käärmelajeista ja yksilöistä tiettyine ominaisuuksineen sekä käyttäjän mahdollisuus varata itselleen käärme ja palauttaa se.
+
+kielestä: php
+
+käyttötapaukset:
+
+-lisää käärme
+-lisää ominaisuus
+-poista käärme
+-poista ominaisuus
+-haku ominaisuuden perusteella
+-luo käyttäjä
+-poista käyttäjä
+-lainaa käärme
+-palauta käärme
+
