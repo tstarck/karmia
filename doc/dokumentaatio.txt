@@ -37,6 +37,8 @@ tähän tulee kaavio!
 
           o Ohjelmiston yleisrakenne 4p
 
+Ohjelmiston pääasiallinen logiikka toteutetaan PHP:lla. Muita käytössä olevia tekniikoita ovat SQL, XHTML, CSS ja Javascript sopivissa suhteissa.
+
           o Järjestelmän komponentit 5p
 
           o Asennustiedot 1p
@@ -48,4 +50,3 @@ tähän tulee kaavio!
           o Create Table -lauseet 5p
 
           o SQL-hienosäätö 1p (Viewit, tarkistukset, yms.)
-
