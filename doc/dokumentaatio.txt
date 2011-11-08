@@ -2,7 +2,7 @@
 
           o Aiheen kuvaus 1p
 		
-Työn aihe on myrkkykäärmetietokanta, joka toimii apuvälineenä myrkkykäärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista myrkkykäärmelajeista ja yksilöistä tiettyine ominaisuuksineen sekä käyttäjän mahdollisuus varata itselleen käärme ja palauttaa se. Vain järjestelmänvalvoja voi syöttää tietokantaan uusia käärmeitä.
+Työn aihe on myrkkykäärmetietokanta, joka toimii apuvälineenä myrkkykäärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista myrkkykäärmelajeista ja yksilöistä tiettyine ominaisuuksineen sekä käyttäjän mahdollisuus varata itselleen käärme ja palauttaa se.
 
           o Ympäristöt 1p
 
@@ -16,9 +16,10 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 
 		+ Käyttötapaukset 3p
 			
+			-tunnistautuminen
 			-lisää käärme
-			-lisää ominaisuus
-			-poista ominaisuus
+			-lisää käärmeelle ominaisuus
+			-poista käärmeeltä ominaisuus
 			-poista käärme
 			-haku ominaisuuden perusteella
 			-luo käyttäjä
@@ -27,17 +28,24 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 			-palauta käärme
 
           o Tietosisältö 4p
+
+tähän tulee kaavio!
+
           o Käyttöliittymähahmotelma 2p
 
     * Toteutusdokumentti 11p
 
           o Ohjelmiston yleisrakenne 4p
+
           o Järjestelmän komponentit 5p
+
           o Asennustiedot 1p
+
           o Käynnistys- /käyttöohjeet 1p
 
     * SQL 6p
 
           o Create Table -lauseet 5p
+
           o SQL-hienosäätö 1p (Viewit, tarkistukset, yms.)
 
