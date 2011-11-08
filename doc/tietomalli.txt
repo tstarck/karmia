@@ -1,0 +1,21 @@
+
+taulu Käyttäjät:
+ - id
+ - nimi
+ - ylläpeto
+
+taulu Käärmeet:
+ - id
+ - nimi
+ - laji
+
+taulu Laji:
+ - id
+ - <ominaisuudet>
+
+taulu Lainat:
+ - id
+ - käärme
+ - lainaaja
+ - lainan alku
+ - lainan loppu
