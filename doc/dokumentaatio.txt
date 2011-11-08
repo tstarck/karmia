@@ -26,6 +26,8 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 			-poista käyttäjä
 			-lainaa käärme
 			-palauta käärme
+			-käärmeyksilön lainahistorian tulostus
+			-lainaajan lainahistorian tulostus
 
           o Tietosisältö 4p
 
