@@ -1,3 +1,6 @@
+
+Karmia:
+
     *   Johdanto 2p
 
           o Aiheen kuvaus 1p
@@ -31,7 +34,10 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 
           o Tietosisältö 4p
 
-tähän tulee kaavio!
+			-taulu Käyttäjät: ( id, nimi, ylläpeto )
+			-taulu Käärmeet: ( id, nimi, laji )
+			-taulu Laji: ( id, väri, alkuperä, myrkyllisyys, uhanalaisuus, agressiivisuus )
+			-taulu Lainat: ( id, käärme, lainaaja, lainan alku, lainan loppu )
 
           o Käyttöliittymähahmotelma 2p
 
