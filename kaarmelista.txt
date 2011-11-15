@@ -1,0 +1,174 @@
+Käärmeet tietokantaa varten
+
+*aggressiivisuus vankeudessa
+
+1)
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Enska
+	laji paraguaynanakonda
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: paraguaynanakonda
+	latin: Eunectes notaeus
+	alkupera: Etelä-Amerikka
+	vari: keltainen, mustat täplät
+	myrkyllisyys: ei myrkyllinen
+	aggressiivisuus: [arvaamaton]*
+	uhanalaisuus: NE
+
+2)
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Ofelia
+	laji viheranakonda
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: viheranakonda
+	latin: Eunectes murinus
+	alkupera: Etelä-Amerikka
+	vari: oliivinvihreä, mustat täplät
+	myrkyllisyys: ei myrkyllinen
+	aggressiivisuus: [aggressiivinen]*
+	uhanalaisuus: ei tiedossa
+
+3) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Tuomas
+	laji aavikkotaipaani
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: aavikkotaipaani
+	latin: Oxyuranus microlepitodus
+	alkupera: Australia
+	vari: talvella ruskea, kesällä oliivinvihreä
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: vetäytyvä
+	uhanalaisuus: ei tiedossa
+
+4)
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Alf
+	laji teksasinkalkkarokäärme
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: teksasinkalkkarokäärme
+	latin: Crotalus atrox
+	alkupera: Pohjois-Amerikka
+	vari: kirjava harmaan ruskea
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: [aggressiivinen]
+	uhanalaisuus: LC (least concern)
+
+5) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Krtek
+	laji kuningaskobra
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: kuningaskobra
+	latin: Ophiophagus hannah
+	alkupera: Kaakkois-Aasia
+	vari: oliivinvihreä/musta, kelt. raidallinen
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: uhattuna aggressiivinen
+	uhanalaisuus: VU (vulnerable)
+
+6) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Mustikka
+	laji mustamamba
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: mustamamba
+	latin: Dendroaspis polylepsis
+	alkupera: Afrikka
+	vari: oliivinvihreä/metallinharmaa
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: aggressiivinen
+	uhanalaisuus: LC
+
+7) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Billy-Bob
+	laji vihermamba
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: vihermamba
+	latin: Dendroaspis angusticeps
+	alkupera: Afrikka
+	vari: ruohonvihreä, vatsa keltaisenvihreä
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: vetäytyvä, uhattuna aggressiivinen
+	uhanalaisuus: ei tiedossa
+
+8) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Hydra
+	laji Hydrophis belcheri
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: Hydrophis belcheri
+	latin: Hydrophis belcheri
+	alkupera: Intian valtameri
+	vari: keltainen, tummat raidat
+	myrkyllisyys: tappavan myrkyllinen
+	aggressiivisuus: ei aggressiivinen
+	uhanalaisuus: ei tiedossa
+
+9) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Kyylä
+	laji kyy
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: kyy
+	latin: Vipera berus
+	alkupera: Eurooppa
+	vari: harmaanruskea, sahalaitakuvio
+	myrkyllisyys: myrkyllinen
+	aggressiivisuus: uhattuna aggressiivinen
+	uhanalaisuus: ei tiedossa
+
+10) 
+
+CREATE TABLE kaarmeet 
+	id int PRIMARY KEY,
+	nimi Rantsi
+	laji rantakäärme
+
+CREATE TABLE lajit 
+	id int PRIMARY KEY,
+	nimi: rantakäärme
+	latin: Natrix natrix
+	alkupera: Eurooppa
+	vari: oliivinvihreä/harmaanvihreä, niskatäplät
+	myrkyllisyys: ei myrkyllinen
+	aggressiivisuus: ei aggressiivinen
+	uhanalaisuus: LC
+

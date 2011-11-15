@@ -1,4 +1,3 @@
-
 Karmia:
 
     *   Johdanto 2p
@@ -20,10 +19,10 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 		+ Käyttötapaukset 3p
 			
 			-tunnistautuminen
-			-lisää käärme
-			-lisää käärmeelle ominaisuus
-			-poista käärmeeltä ominaisuus
-			-poista käärme
+			-lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
+			-lisää käärmeelle ominaisuus: järjestelmänvalvoja voi lisätä käärmeelle uuden ominaisuuden
+			-poista käärmeeltä ominaisuus: järjestelmänvalvoja voi poistaa käärmeeltä ominaisuuden
+			-poista käärme: järjestelmänvalvoja voi poistaa käärmeen tietokannasta
 			-haku ominaisuuden perusteella
 			-luo käyttäjä
 			-poista käyttäjä
@@ -40,6 +39,8 @@ Vain järjestelmänvalvoja pystyy hallinnoimaan tietokannan sisältöä eli lis�
 			-taulu Lainat: ( id, käärme, lainaaja, lainan alku, lainan loppu )
 
           o Käyttöliittymähahmotelma 2p
+
+Aluksi ohjelma pyytää käyttäjätunnusta ja salasanaa, jos sellaisia ei ole, ne voidaan luoda kirjautumisen yhteydessä. Kirjauduttuaan, käyttäjä voi listata tietokannassa olevat käärmeet klikkaamalla 'kaikki käärmeet' tai hakea käärmeitä tietyn tai tiettyjen ominaisuuksien perusteella valitsemalla ohjelman tulostamista ominaisuuksista. Esimerkiksi klikkaamalla auki 'väri'-kohdan, ohjelma tuottaa listan tietokannassa olevien käärmeiden väreistä, joista käyttäjä voi rastittaa mieleisensä lähempää tarkastelua varten. Hakua voi rajata useamman ominaisuuden perusteella yhtä aikaa. Yksittäisen käärmeen kohdalla voi 'lainaa'-painikkeella lainata käärmeen omalle käyttäjätunnukselleen ja vastaavasti merkitä käärmeen palautetuksi 'palauta'-painikkeella.
 
     * Toteutusdokumentti 11p
 
