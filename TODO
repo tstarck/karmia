@@ -1,0 +1,37 @@
+
+# TODOS
+
+  + debug.php eli jokin keino pysyä kärryillä siinä, mitä tekee
+    on - ei testattu
+
+  - error.php eli jokin nätti mekanismi virheistä toipumiseen
+
+  - dokumentointi ajan tasalle
+
+# Käyttötapaukset
+
+  + tunnistautuminen
+    autentikoinnin tarkistus olemassa - ei testattu
+    ei sisäänkirjautumismahdollisuutta
+
+  - luo käyttäjä
+
+  - lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
+
+  - lisää käärmeelle ominaisuus: järjestelmänvalvoja voi lisätä käärmeelle uuden ominaisuuden
+
+  - poista käärmeeltä ominaisuus: järjestelmänvalvoja voi poistaa käärmeeltä ominaisuuden
+
+  - poista käärme: järjestelmänvalvoja voi poistaa käärmeen tietokannasta
+
+  - haku ominaisuuden perusteella
+
+  - poista käyttäjä
+
+  - lainaa käärme
+
+  - palauta käärme
+
+  - käärmeyksilön lainahistorian tulostus
+
+  - lainaajan lainahistorian tulostus
