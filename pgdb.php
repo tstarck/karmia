@@ -47,14 +47,12 @@ class PGDB {
 	/* Palauttaa kaikki edellisen tietokantakyselyn tietueet.
 	 */
 	public function getall() {
-		if ($this->resource === false) return;
 		return pg_fetch_all($this->resource);
 	}
 
 	/* Palauttaa seuraavan rivin edellisestä vastauksesta.
 	 */
 	public function getline() {
-		if ($this->resource === false) return;
 		return pg_fetch_assoc($this->resource);
 	}
 }
