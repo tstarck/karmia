@@ -26,7 +26,7 @@ class AUTH {
 		$this->valid_user = false;
 		$this->is_admin = false;
 
-		$user = pg_escape_string(get_cookie("id"));
+		$user = pg_escape_string(get_cookie("user"));
 		$passwd = pg_escape_string(get_cookie("pass"));
 
 		$debug->debug(sprintf("[u/p]:: %s / %s", $user, $passwd));

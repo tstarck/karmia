@@ -1,0 +1,23 @@
+/* karmia.css */
+
+h1 {
+	margin: 1em;
+}
+
+form > label {
+	display: block;
+	float: left;
+	width: 8em;
+	margin: 0.4em;
+	text-align: right;
+}
+
+form > input {
+	margin: 0.4em;
+	padding: 0.2em 0.4em;
+	border: solid 1px gray;
+}
+
+form > br {
+	clear: left;
+}
