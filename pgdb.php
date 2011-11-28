@@ -6,7 +6,7 @@
  */
 
 /* Asetustiedosto, josta täytyy löytyä pg_connect:lle
- * kelpaava muuttuja $db_connection_string.
+ * kelpaava muuttuja $__karmia_db_config.
  */
 require 'config/db.php';
 
@@ -18,7 +18,7 @@ class PGDB {
 	 */
 	function __construct() {
 		$this->resource = false;
-		$this->connection = pg_connect($db_connection_string);
+		$this->connection = pg_connect($__karmia_db_config);
 	}
 
 	/* Hävittää olio ja sulkee yhteyden.
