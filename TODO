@@ -8,13 +8,16 @@
 
   - dokumentointi ajan tasalle
 
+  - päällekkäisyyksien siivous: login.php user.php
+
 # Käyttötapaukset
 
   + tunnistautuminen
     autentikoinnin tarkistus olemassa - ei testattu
-    ei sisäänkirjautumismahdollisuutta
+    sisäänkirjautuminen tehty - ei testattu
 
-  - luo käyttäjä
+  + luo käyttäjä
+    koodattu - ei testattu
 
   - lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
 
