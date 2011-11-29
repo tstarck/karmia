@@ -4,6 +4,17 @@ h1 {
 	margin: 1em;
 }
 
+#errorreseptor {
+	display: none;
+}
+
+#errorreseptor > * {
+	padding: 0.4em;
+	width: 20em;
+	color: #b00;
+	border: dashed 2px #a00;
+}
+
 form > label {
 	display: block;
 	float: left;

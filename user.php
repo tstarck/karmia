@@ -13,11 +13,15 @@ $passone = get_param("passone");
 $passtwo = get_param("passtwo");
 
 if (!preg_match("/^[a-z][0-9a-z_]+$/i", $newuser)) {
-	array_push("username");
+	array_push("invalid_username");
 }
 
 if ($passone !== $passtwo) {
-	array_push("password");
+	array_push("password_mismatch");
+}
+
+if (!empty($error)) {
+	header("Location: user.xhtml#".join(",", $error));
 }
 
 $kanto = new PGDB();
