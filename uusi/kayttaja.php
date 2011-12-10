@@ -35,13 +35,8 @@ if ($kanto->query(sprintf($tietojentalletus, $newuser, sha1($passone)))) {
 	// FIXME
 }
 
-if (!setcookie("user", $newuser, 3600+time())) {
-	die; // FIXME
-}
-
-if (!setcookie("pass", sha1($passone), 3600+time())) {
-	die; // FIXME
-}
+aseta_pipari("user", $newuser);
+aseta_pipari("pass", sha1($passone));
 
 header("Location: ".$__karmia_root);
 

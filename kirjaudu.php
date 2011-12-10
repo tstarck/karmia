@@ -25,13 +25,8 @@ if (empty($user) or empty($pass)) {
 	exit;
 }
 
-if (!setcookie("user", $user, 3600+time())) {
-	die; // FIXME
-}
-
-if (!setcookie("pass", sha1($pass), 3600+time())) {
-	die; // FIXME
-}
+aseta_pipari("user", $user);
+aseta_pipari("pass", sha1($pass));
 
 header("Location: ".$_SERVER["SCRIPT_NAME"]);
 

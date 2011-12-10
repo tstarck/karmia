@@ -27,8 +27,8 @@ class AUTH {
 		$this->is_admin = false;
 		$this->errors = array();
 
-		$user = pg_escape_string(get_cookie("user"));
-		$pass = pg_escape_string(get_cookie("pass"));
+		$user = pg_escape_string(hae_pipari("user"));
+		$pass = pg_escape_string(hae_pipari("pass"));
 
 		if (empty($user) and empty($pass)) {
 			return;
