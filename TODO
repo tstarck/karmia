@@ -1,8 +1,8 @@
 
 # TODOS
 
-  + debug.php eli jokin keino pysyä kärryillä siinä, mitä tekee
-    on - ei testattu
+  + debug.php eli jokin keino reagoida kunnon wtf-tilanteisiin
+    toimii
 
   - error.php eli jokin nätti mekanismi virheistä toipumiseen
 
@@ -13,11 +13,10 @@
 # Käyttötapaukset
 
   + tunnistautuminen
-    autentikoinnin tarkistus olemassa - ei testattu
-    sisäänkirjautuminen tehty - ei testattu
+    toimii
 
   + luo käyttäjä
-    koodattu - ei testattu
+    toimii
 
   - lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
 
