@@ -31,9 +31,31 @@ function tarkista_virheet() {
 			kirjaa_virhe(err_salasana);
 			break;
 		}
-
-		console.log("hih :: " + vihreet[i]);
 	}
 }
 
-window.addEventListener("load", tarkista_virheet);
+function tarkista_paritus() {
+	var eka   = document.getElementById('passone');
+	var toka  = document.getElementById('passtwo');
+	var virhe = document.getElementById('virhemerkki');
+
+	if (eka.value == "" || toka.value == "") {
+		virhe.style.display = "none";
+	}
+	else if (eka.value.length <= toka.value.length && eka.value != toka.value) {
+		virhe.style.display = "inline";
+	}
+	else {
+		virhe.style.display = "none";
+	}
+}
+
+window.addEventListener("load", function() {
+	var setoinen = document.getElementById('passtwo');
+
+	if (setoinen != null) {
+		setoinen.addEventListener('keyup', tarkista_paritus);
+	}
+
+	tarkista_virheet();
+});

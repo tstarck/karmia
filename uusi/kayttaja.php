@@ -35,11 +35,11 @@ if ($kanto->query(sprintf($tietojentalletus, $newuser, sha1($passone)))) {
 	// FIXME
 }
 
-if (!setcookie("user", $user, 3600+time())) {
+if (!setcookie("user", $newuser, 3600+time())) {
 	die; // FIXME
 }
 
-if (!setcookie("pass", sha1($pass), 3600+time())) {
+if (!setcookie("pass", sha1($passone), 3600+time())) {
 	die; // FIXME
 }
 

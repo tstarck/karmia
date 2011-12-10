@@ -1,19 +1,9 @@
 /* karmia.css */
 
+@import url(virhe.css) screen;
+
 h1 {
 	margin: 1em;
-}
-
-#virheloki {
-	display: none;
-}
-
-#virheloki > * {
-	margin: 1em 2em;
-	padding: 0.4em;
-	width: 24em;
-	color: #e33;
-	border: dotted 1px #c00;
 }
 
 form > label {
