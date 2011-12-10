@@ -1,3 +1,4 @@
+.htaccess
 debug.log
 config/db.php
 config/karmia.php
