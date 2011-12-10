@@ -7,7 +7,7 @@ require 'debug.php';
 $user = get_param("user");
 $pass = get_param("pass");
 
-$debug = new DEBUG("login.php");
+$debug = new DEBUG("kirjaudu.php");
 $debug->debug(sprintf("[u/p]:: %s / %s", $user, $pass));
 $debug->debug("hash :: ".sha1($pass));
 

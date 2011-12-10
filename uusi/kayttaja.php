@@ -1,9 +1,9 @@
 <?php
 
-require 'pgdb.php';
-require 'common.php';
-require 'config/karmia.php';
-require 'debug.php';
+require '../pgdb.php';
+require '../common.php';
+require '../config/karmia.php';
+require '../debug.php';
 
 $error = array();
 $tietojentalletus = "INSERT INTO kayttajat VALUES ('%s', '%s')";
@@ -21,7 +21,7 @@ if ($passone !== $passtwo) {
 }
 
 if (!empty($error)) {
-	header("Location: user.xhtml#".join(",", $error));
+	header("Location: kayttaja.xhtml#".join(",", $error));
 }
 
 $kanto = new PGDB();
