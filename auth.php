@@ -1,8 +1,7 @@
 <?php
 
-require 'pgdb.php';
-require 'common.php';
-require 'debug.php';
+require_once 'pgdb.php';
+require_once 'common.php';
 
 /* Luokka, joka pitää visusti huolta käyttäjien
  * tunnistamisesta. On tarvittaessa hyvin ankara.
@@ -22,7 +21,7 @@ class AUTH {
 	 * kertoa, onko käyttäjä kosher.
 	 */
 	function __construct() {
-		$debug = new DEBUG();
+		// $debug = new DEBUG();
 
 		$this->valid_user = false;
 		$this->is_admin = false;
@@ -32,11 +31,10 @@ class AUTH {
 		$pass = pg_escape_string(get_cookie("pass"));
 
 		if (empty($user) and empty($pass)) {
-			array_push($this->errors, "piparitieto_uupuu");
 			return;
 		}
 
-		$debug->debug(sprintf("[u/p]:: %s / %s", $user, $pass));
+		// $debug->debug(sprintf("[u/p]:: %s / %s", $user, $pass));
 
 		$kanto = new PGDB();
 
@@ -44,29 +42,26 @@ class AUTH {
 
 		$kysely = sprintf($this->sql_query, $user, $pass);
 
-		$debug->debug("[qry]:: ".$kysely);
-
 		if ($kanto->query($kysely)) {
 			$vastaus = $kanto->getline();
 
 			if (!empty($vastaus)) {
-				$debug->debug(" :-) :: ".$vastaus["tunnus"]);
+				// $debug->debug(" :-) :: ".$vastaus["tunnus"]." on tunnistettu");
 
 				$this->valid_user = true;
 				$this->username = $vastaus["tunnus"];
 			}
 			else {
-				array_push($this->errors, "virheellinen_tunnus_tai_salasana");
+				array_push($this->errors, "virheellinen_kirjautuminen");
 			}
 
 			if ($vastaus["yllapeto"] === true) {
-				$debug->debug(" ^_^ :: on jopa admin");
+				// $debug->debug(" ^_^ :: ja jopa admin");
 
 				$this->is_admin = true;
 			}
 		}
 		else {
-			$debug->debug(" :-| Strömssö-tapahtuma jäi uupumaan");
 			die;; // FIXME
 		}
 	}
@@ -93,7 +88,7 @@ class AUTH {
 	/* Palauttaa katenoidun merkkijonon kohdattuja virheitä.
 	 */
 	public function err_str() {
-		return ($this->errors)? implode($this->errors): "";
+		return join(",", $this->errors);
 	}
 }
 

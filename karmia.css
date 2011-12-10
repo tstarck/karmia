@@ -4,15 +4,16 @@ h1 {
 	margin: 1em;
 }
 
-#errorreseptor {
+#virheloki {
 	display: none;
 }
 
-#errorreseptor > * {
+#virheloki > * {
+	margin: 1em 2em;
 	padding: 0.4em;
-	width: 20em;
-	color: #b00;
-	border: dashed 2px #a00;
+	width: 24em;
+	color: #e33;
+	border: dotted 1px #c00;
 }
 
 form > label {

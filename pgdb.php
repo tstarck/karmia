@@ -8,7 +8,7 @@
 /* Asetustiedosto, josta täytyy löytyä pg_connect:lle
  * kelpaava muuttuja $__karmia_db_config.
  */
-require 'config/db.php';
+require_once 'config/db.php';
 
 class PGDB {
 	private $resource;

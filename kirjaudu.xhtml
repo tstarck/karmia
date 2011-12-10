@@ -3,21 +3,24 @@
 <head>
 <title>Karmia > kirjaudu sisään</title>
 <link rel="stylesheet" href="karmia.css" type="text/css" />
+<script type="text/javascript" src="karmia.js"></script>
 </head>
 <body>
 
 <h1>Kirjautuminen</h1>
 
-<form name="karmia" method="POST" action="kirjaudu.php">
+<div id="virheloki"></div>
+
+<form name="karmia" method="post" action="kirjaudu.php">
 
 <label for="user">Tunnus</label>
-<input type="text" id="user" name="user" value="" /><a href="uusi/kayttaja.xhtml">Uusi käyttäjä?</a><br />
+<input type="text" id="user" name="user" autofocus="autofocus" /><a href="uusi/kayttaja.xhtml">Uusi käyttäjä?</a><br />
 
 <label for="pass">Salasana</label>
-<input type="password" id="pass" name="pass" value="" /><br />
+<input type="password" id="pass" name="pass" autofocus="autofocus" /><br />
 
 <label for="submit"></label>
-<input type="submit" />
+<input type="submit" value="Kirjaudu sisään" />
 
 </form>
 

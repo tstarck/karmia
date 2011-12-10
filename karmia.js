@@ -1,9 +1,15 @@
 /* karmia.js */
 
+var err_tunnus = "Tunnuksen tulee olla korkeintaan 8 merkkiä eikä se saa alkaa numerolla.";
+var err_salasana = "Annetut salasanat eivät täsmää.";
+var err_kirjautuminen = "Väärä tunnus tai salasana.";
+
 function kirjaa_virhe(msg) {
-	var virheloota = document.getElementById('errorreseptor');
+	var virheloota = document.getElementById('virheloki');
 	var paragraph = document.createElement('p');
 	var text = document.createTextNode(msg);
+
+	if (virheloota == null) return;
 
 	paragraph.appendChild(text);
 	virheloota.appendChild(paragraph);
@@ -15,11 +21,14 @@ function tarkista_virheet() {
 
 	for (var i=0; i<vihreet.length; i++) {
 		switch (vihreet[i]) {
-		case "invalid_username":
-			kirjaa_virhe("Käyttäjänimi tarttee olla [a-z][0-9a-z_]+");
+		case "virheellinen_kirjautuminen":
+			kirjaa_virhe(err_kirjautuminen);
 			break;
-		case "password_mismatch":
-			kirjaa_virhe("Salasanat eivät täsmää. Oleppas hiukka huolellisempi.");
+		case "huono_tunnus":
+			kirjaa_virhe(err_tunnus);
+			break;
+		case "sovittamattomat_salasanat":
+			kirjaa_virhe(err_salasana);
 			break;
 		}
 
