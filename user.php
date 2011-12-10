@@ -13,11 +13,11 @@ $passone = get_param("passone");
 $passtwo = get_param("passtwo");
 
 if (!preg_match("/^[a-z][0-9a-z_]+$/i", $newuser)) {
-	array_push("invalid_username");
+	array_push($error, "invalid_username");
 }
 
 if ($passone !== $passtwo) {
-	array_push("password_mismatch");
+	array_push($error, "password_mismatch");
 }
 
 if (!empty($error)) {
@@ -32,11 +32,11 @@ if ($kanto->query(sprintf($tietojentalletus, $newuser, sha1($passone)))) {
 	// FIXME
 }
 
-if (setcookie("user", $user, 3600+time())) {
+if (!setcookie("user", $user, 3600+time())) {
 	die; // FIXME
 }
 
-if (setcookie("pass", sha1($pass), 3600+time())) {
+if (!setcookie("pass", sha1($pass), 3600+time())) {
 	die; // FIXME
 }
 

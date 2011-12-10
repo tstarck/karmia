@@ -29,6 +29,14 @@ form > input {
 	border: solid 1px gray;
 }
 
+form > a {
+	font: 10pt sans-serif;
+	text-decoration: none;
+}
+form > a:hover {
+	text-decoration: underline;
+}
+
 form > br {
 	clear: left;
 }

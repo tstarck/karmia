@@ -17,6 +17,7 @@ class PGDB {
 	/* Alustaa olion ja avaan tietokantayhteyden.
 	 */
 	function __construct() {
+		global $__karmia_db_config;
 		$this->resource = false;
 		$this->connection = pg_connect($__karmia_db_config);
 	}
@@ -24,13 +25,13 @@ class PGDB {
 	/* Hävittää olio ja sulkee yhteyden.
 	 */
 	function __destruct() {
-		pg_close($connection);
+		pg_close($this->connection);
 	}
 
 	/* Kertoo, onko kaikki varmasti kunnossa.
 	 */
 	public function ok() {
-		return ($connection !== false);
+		return ($this->connection !== false);
 	}
 
 	/* Suorittaa tietokantakyselyn, joka annetaan argumentiksi.

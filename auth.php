@@ -4,8 +4,6 @@ require 'pgdb.php';
 require 'common.php';
 require 'debug.php';
 
-$tarkistuskysely = "SELECT tunnus, yllapeto FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
-
 /* Luokka, joka pitää visusti huolta käyttäjien
  * tunnistamisesta. On tarvittaessa hyvin ankara.
  */
@@ -13,6 +11,9 @@ class AUTH {
 	private $valid_user;
 	private $username;
 	private $is_admin;
+	private $errors;
+
+	private $sql_query = "SELECT tunnus, yllapeto FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
 
 	/* Oletuskonstruktori:
 	 * Olion luonnin yhteydessä mennään suoraan asiaan ja
@@ -25,27 +26,38 @@ class AUTH {
 
 		$this->valid_user = false;
 		$this->is_admin = false;
+		$this->errors = array();
 
 		$user = pg_escape_string(get_cookie("user"));
-		$passwd = pg_escape_string(get_cookie("pass"));
+		$pass = pg_escape_string(get_cookie("pass"));
 
-		$debug->debug(sprintf("[u/p]:: %s / %s", $user, $passwd));
+		if (empty($user) and empty($pass)) {
+			array_push($this->errors, "piparitieto_uupuu");
+			return;
+		}
+
+		$debug->debug(sprintf("[u/p]:: %s / %s", $user, $pass));
 
 		$kanto = new PGDB();
 
 		if (!$kanto->ok()) die; // FIXME
 
-		$kysely = sprintf($tarkistuskysely, $user, $passwd);
+		$kysely = sprintf($this->sql_query, $user, $pass);
 
 		$debug->debug("[qry]:: ".$kysely);
 
 		if ($kanto->query($kysely)) {
 			$vastaus = $kanto->getline();
 
-			$debug->debug(" :-) :: ".$vastaus["tunnus"]);
+			if (!empty($vastaus)) {
+				$debug->debug(" :-) :: ".$vastaus["tunnus"]);
 
-			$this->valid_user = true;
-			$this->username = $vastaus["tunnus"];
+				$this->valid_user = true;
+				$this->username = $vastaus["tunnus"];
+			}
+			else {
+				array_push($this->errors, "virheellinen_tunnus_tai_salasana");
+			}
 
 			if ($vastaus["yllapeto"] === true) {
 				$debug->debug(" ^_^ :: on jopa admin");
@@ -55,6 +67,7 @@ class AUTH {
 		}
 		else {
 			$debug->debug(" :-| Strömssö-tapahtuma jäi uupumaan");
+			die;; // FIXME
 		}
 	}
 
@@ -75,6 +88,12 @@ class AUTH {
 	 */
 	public function admin() {
 		return $this->is_admin;
+	}
+
+	/* Palauttaa katenoidun merkkijonon kohdattuja virheitä.
+	 */
+	public function err_str() {
+		return ($this->errors)? implode($this->errors): "";
 	}
 }
 
