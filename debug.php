@@ -1,13 +1,15 @@
 <?php
 
-$debugfilename = "debug.log";
-
 class DEBUG {
 	private $kahva;
 
 	function __construct() {
-		$this->kahva = @fopen($debugfilename, "a");
-		fwrite($this->kahva, date("\n>>> %y%m%d %H:%i:%s.%u\n"));
+		$this->kahva = fopen("debug.log", "a");
+		if ($this->kahva === false) {
+			echo " !!! debug error\n";
+			die;
+		}
+		fwrite($this->kahva, date("\n>>> ymd H:i:s.u\n"));
 	}
 
 	function __destruct() {
