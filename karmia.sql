@@ -4,31 +4,32 @@
 CREATE TABLE kayttajat (
 	tunnus varchar(8) PRIMARY KEY,
 	salasana varchar(40) DEFAULT '',
-	yllapeto boolean DEFAULT 'false'
+	yllapeto boolean DEFAULT 'false',
+	luotu timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE kaarmeet (
-	id int PRIMARY KEY,
 	nimi varchar(60),
-	laji int DEFAULT 0
+	laji int DEFAULT 0,
+	id SERIAL PRIMARY KEY
 );
 
 CREATE TABLE lajit (
-	id int PRIMARY KEY,
 	nimi varchar(40),
-	latin varchar(100),
+	latin varchar(80),
 	alkupera int,
-	vari varchar(100),
+	vari varchar(100) DEFAULT '',
 	myrkyllisyys int DEFAULT 0,
-	uhanalaisuus varchar(2) DEFAULT ''
+	uhanalaisuus varchar(2) DEFAULT '',
+	id SERIAL PRIMARY KEY
 );
 
 CREATE TABLE lainat (
-	id int PRIMARY KEY,
-	kaarme varchar(40),
+	kaarme int,
 	lainaaja varchar(8),
 	alku timestamp DEFAULT CURRENT_TIMESTAMP,
-	loppu timestamp
+	loppu timestamp,
+	id SERIAL PRIMARY KEY
 );
 
 CREATE TABLE alkupera (
@@ -41,7 +42,7 @@ CREATE TABLE myrkyllisyys (
 	myrkyllisyys varchar(20)
 );
 
-INSERT INTO lajit VALUES (0, 'tuntematon', 'obscura vermis', NULL, '', 0, '');
+INSERT INTO lajit (nimi, latin) VALUES ('tuntematon', 'obscura vermis');
 
 INSERT INTO alkupera VALUES (0, 'Australia');
 INSERT INTO alkupera VALUES (1, 'Etelä-Amerikka');
@@ -58,10 +59,3 @@ INSERT INTO myrkyllisyys VALUES (0, 'ei tiedossa');
 INSERT INTO myrkyllisyys VALUES (1, 'ei myrkyllinen');
 INSERT INTO myrkyllisyys VALUES (2, 'myrkyllinen');
 INSERT INTO myrkyllisyys VALUES (3, 'tappavan myrkyllinen');
-
- -- DROP TABLE kayttajat;
- -- DROP TABLE kaarmeet;
- -- DROP TABLE lajit;
- -- DROP TABLE lainat;
- -- DROP TABLE alkupera;
- -- DROP TABLE myrkyllisyys;
