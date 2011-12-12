@@ -1,0 +1,35 @@
+/* karmia.css */
+
+h1 {
+	margin: 1em;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+tr {
+	border-top: dotted 1px gray;
+}
+tr:first-child {
+	border-top: none;
+}
+tr:hover {
+	background-color: #eee;
+}
+
+td {
+	padding: 0.2em 1em;
+}
+td.nimi {
+	font: bold 12pt sans-serif;
+}
+td.laji {
+	font: 10pt sans-serif;
+}
+td.alkup {
+	font: 11pt sans-serif;
+}
+td.vari {
+	font: 10pt sans-serif;
+}
