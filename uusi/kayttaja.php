@@ -22,7 +22,8 @@ if ($passone !== $passtwo) {
 }
 
 if (!empty($error)) {
-	header("Location: kayttaja.xhtml#virheellinen_kirjautuminen");
+	$str = (empty($error))? "": "#".join(",", $error);
+	header("Location: kayttaja.xhtml".$str);
 	exit;
 }
 
