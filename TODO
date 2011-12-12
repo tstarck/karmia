@@ -10,6 +10,10 @@
 
   - päällekkäisyyksien siivous: login.php user.php
 
+  - piparin päivitys, ettei kirjautuminen katoa
+
+  - uloskirjautuminen
+
 # Käyttötapaukset
 
   + tunnistautuminen
