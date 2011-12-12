@@ -3,7 +3,6 @@
 require_once '../pgdb.php';
 require_once '../common.php';
 require_once '../config/karmia.php';
-require_once '../debug.php';
 
 $error = array();
 $tietojentalletus = "INSERT INTO kayttajat VALUES ('%s', '%s')";
@@ -23,17 +22,11 @@ if ($passone !== $passtwo) {
 }
 
 if (!empty($error)) {
-	header("Location: kayttaja.xhtml#".join(",", $error));
+	header("Location: kayttaja.xhtml#virheellinen_kirjautuminen");
 	exit;
 }
 
-$kanto = new PGDB();
-
-if (!$kanto->ok()) die; // FIXME
-
-if ($kanto->query(sprintf($tietojentalletus, $newuser, sha1($passone)))) {
-	// FIXME
-}
+with(new PGDB)->kysele(sprintf($tietojentalletus, $newuser, sha1($passone))); // FIXME virheet?
 
 aseta_pipari("user", $newuser);
 aseta_pipari("pass", sha1($passone));

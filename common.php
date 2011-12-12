@@ -20,4 +20,6 @@ function aseta_pipari($avain, $arvo) {
 	}
 }
 
+function with($olio) { /* Python-o-matic */ return $olio; }
+
 ?>

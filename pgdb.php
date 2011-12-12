@@ -11,50 +11,55 @@
 require_once 'config/db.php';
 
 class PGDB {
-	private $resource;
-	private $connection;
+	private $yhteys;
+	private $vastaus;
+	private $kama;
 
 	/* Alustaa olion ja avaan tietokantayhteyden.
 	 */
 	function __construct() {
 		global $__karmia_db_config;
-		$this->resource = false;
-		$this->connection = pg_connect($__karmia_db_config);
+		$this->vastaus = false;
+		$this->yhteys = pg_connect($__karmia_db_config);
 	}
 
 	/* Hävittää olio ja sulkee yhteyden.
 	 */
 	function __destruct() {
-		pg_close($this->connection);
+		pg_close($this->yhteys);
 	}
 
-	/* Kertoo, onko kaikki varmasti kunnossa.
+	/* Suorittaa tietokantakyselyn, kunhan yhteys on avattu.
 	 */
-	public function ok() {
-		return ($this->connection !== false);
-	}
-
-	/* Suorittaa tietokantakyselyn, joka annetaan argumentiksi.
-	 * Palauttaa toden, mikäli kysely onnistui. Muutoin epätoden.
-	 */
-	public function query($query) {
-		if ($this->ok()) {
-			$this->resource = pg_query($this->connection, $query);
+	public function kysele($kysely = false) {
+		if ($kysely and $this->yhteys !== false) {
+			$this->vastaus = pg_query($this->yhteys, $kysely);
 		}
-
-		return ($this->resource !== false);
+		return $this;
 	}
 
-	/* Palauttaa kaikki edellisen tietokantakyselyn tietueet.
+	/* Ottaa tietokantavastauksesta yhden rivin.
 	 */
-	public function getall() {
-		return pg_fetch_all($this->resource);
+	public function anna_rivi() {
+		if ($this->vastaus !== false) {
+			$this->kama = pg_fetch_assoc($this->vastaus);
+		}
+		return $this;
 	}
 
-	/* Palauttaa seuraavan rivin edellisestä vastauksesta.
+	/* Ottaa tietokantavastauksesta kaiken, minkä irti saa.
 	 */
-	public function getline() {
-		return pg_fetch_assoc($this->resource);
+	public function anna_kaikki() {
+		if ($this->vastaus !== false) {
+			$this->kama = pg_fetch_all($this->vastaus);
+		}
+		return $this;
+	}
+
+	/* Palauttaa vastauksen taulukossa.
+	 */
+	public function taulukkona() {
+		return $this->kama;
 	}
 }
 
