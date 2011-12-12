@@ -1,24 +1,39 @@
 /* json.js */
 
-function tee_solu() {
-	if (arguments.length <= 1) console.log("arg.len <= 1");
+function yksityiskohdat() {
+}
 
+function tee_solu() {
 	var solu = document.createElement('td');
-	solu.className = arguments[0];
+
+	if (arguments[0] != '') solu.className = arguments[0];
 
 	for (var i=1; i<arguments.length; i++) {
-		var t = document.createTextNode(arguments[i]);
-		solu.appendChild(t);
+		var tmp = arguments[i];
+
+		if (typeof tmp == "string") {
+			solu.appendChild(document.createTextNode(tmp));
+		}
+		else {
+			solu.appendChild(tmp);
+		}
 	}
 
 	return solu;
 }
 
-function tee_rivi(nimi, laji, latin, alkupera, vari) {
+function tee_rivi(tunnus, laina, nimi, laji, latin, alkupera, vari) {
 	var rivi = document.createElement('tr');
 
-	rivi.appendChild(tee_solu('nimi', nimi));
-	rivi.appendChild(tee_solu('laji', laji, ' / ', latin));
+	var linkki = document.createElement('a');
+	linkki.href = '#' + tunnus;
+	linkki.addEventListener('click', yksityiskohdat);
+	linkki.appendChild(document.createTextNode(nimi));
+
+	rivi.appendChild(tee_solu('tunnus', tunnus));
+	rivi.appendChild(tee_solu('laina', (laina == 't')? '✓': ''));
+	rivi.appendChild(tee_solu('nimi', linkki));
+	rivi.appendChild(tee_solu('laji', latin, ', ', laji));
 	rivi.appendChild(tee_solu('alkup', alkupera));
 	rivi.appendChild(tee_solu('vari', vari));
 
@@ -26,17 +41,17 @@ function tee_rivi(nimi, laji, latin, alkupera, vari) {
 }
 
 function kaarmeile(data) {
-	var taulu = document.createElement('table');
+	var taulu = $('<table></table>');
 
 	data.forEach(function(e, i, a) {
-		taulu.appendChild(tee_rivi(e.nimi, e.laji, e.latin, e.alkupera, e.vari));
+		taulu.append(tee_rivi(e.id, e.laina, e.nimi, e.laji, e.latin, e.alkupera, e.vari));
 	});
 
-	document.body.appendChild(taulu);
+	$('body').append(taulu);
 }
 
 function handlaa(data) {
-	window.addEventListener('load', function() {
+	$(document).ready(function() {
 		kaarmeile(data);
 	});
 }
