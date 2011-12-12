@@ -1,7 +1,5 @@
 /* karmia.css */
 
-@import url(virhe.css) screen;
-
 h1 {
 	margin: 1em;
 }
@@ -30,4 +28,22 @@ form > a:hover {
 
 form > br {
 	clear: left;
+}
+
+#virheloki {
+	display: none;
+}
+
+#virheloki > * {
+	margin: 1em 2em;
+	padding: 0.4em;
+	width: 24em;
+	color: #e33;
+	border: dotted 1px #c00;
+}
+
+#virhemerkki {
+	display: none;
+	color: #c00;
+	font-size: 22px;
 }
