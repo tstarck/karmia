@@ -17,9 +17,17 @@ tr:first-child {
 tr:hover {
 	background-color: #eee;
 }
+tr.popup {
+	background-color: #eee;
+	border-top: solid 1px #eee;
+	border-bottom: solid 1px black;
+}
+tr.popup > td {
+	padding: 0.4em 1em 1em 1em;
+}
 
 td {
-	padding: 0.2em 1em;
+	padding: 0.2em 1.2em;
 }
 td.tunnus {
 	font: bold 10pt monospace;
@@ -30,20 +38,28 @@ td.laina {
 td.nimi {
 	font: bold 12pt sans-serif;
 }
-td.nimi > a {
-	color: black;
-	text-decoration: none;
-}
-td.nimi > a:hover {
-	color: black;
-	text-decoration: underline;
-}
 td.laji {
 	font: 10pt sans-serif;
 }
-td.alkup {
-	font: 11pt sans-serif;
+td.latin {
+	font-style: italic;
 }
-td.vari {
+td > p {
+	margin: 0.4em;
 	font: 10pt sans-serif;
+}
+td > a {
+	color: black;
+	text-decoration: none;
+}
+td > a:hover {
+	color: black;
+	text-decoration: underline;
+}
+td > input {
+	float: right;
+	margin: 1em;
+	padding: 0.2em 1.2em;
+	font-weight: bold;
+	border: solid 1px black;
 }

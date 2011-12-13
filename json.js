@@ -1,10 +1,30 @@
 /* json.js */
 
+var tieto = null;
+
 function yksityiskohdat(tapahtuma) {
-	console.log("yksityiskohtia :: " + tapahtuma.target.text);
+	var n = tapahtuma.data;
+
+	var nappi = $('<input />').attr('type', 'button').attr('value', 'Lainaa').on('click', function() {
+		window.location = '?kaarme=' + n;
+	});
+
+	var popup = $('<tr></tr>').addClass('popup').append(
+		$('<td></td>').attr('colspan', '2'),
+		$('<td></td>').attr('colspan', '3').append(
+			nappi,
+			$('<p></p>').append($('<b></b>').text('Väri: '), tieto[n].vari),
+			$('<p></p>').append($('<b></b>').text('Alkuperä: '), tieto[n].alkupera),
+			$('<p></p>').append($('<b></b>').text('Uhanalaisuus: '), tieto[n].uhanalaisuus)
+		)
+	);
+
+	$('.popup').remove();
+
+	$(tapahtuma.target.parentNode.parentNode).after(popup);
 }
 
-function rivittele(tunnus, laina, nimi, laji, latin, alkup, vari) {
+function rivittele(i, tunnus, laina, nimi, laji, latin) {
 	var rivi = $('<tr></tr>');
 
 	laina = (laina == 't')? '✗': ''; // U+2717 U+2713
@@ -13,30 +33,26 @@ function rivittele(tunnus, laina, nimi, laji, latin, alkup, vari) {
 	rivi.append($('<td></td>').addClass('laina').append(laina));
 
 	rivi.append($('<td></td>').addClass('nimi').append(
-		$('<a></a>').attr('href', '#' + tunnus).on('click', yksityiskohdat).text(nimi)
+		$('<a></a>').on('click', null, i, yksityiskohdat).text(nimi)
 	));
 
-	rivi.append($('<td></td>').addClass('laji').
-		append($('<i></i>').text(latin)).
-		append(', ' + laji)
-	);
-
-	rivi.append($('<td></td>').addClass('alkup').text(alkup));
-	rivi.append($('<td></td>').addClass('vari').text(vari));
+	rivi.append($('<td></td>').addClass('laji').append(laji));
+	rivi.append($('<td></td>').addClass('laji latin').append(latin));
 
 	return rivi;
 }
 
-function kaarmeile(data) {
+function kaarmeile() {
 	var taulu = $('<table></table>');
 
-	data.forEach(function(e, i, a) {
-		taulu.append(rivittele(e.id, e.laina, e.nimi, e.laji, e.latin, e.alkupera, e.vari));
+	tieto.forEach(function(e, i, a) {
+		taulu.append(rivittele(i, e.id, e.laina, e.nimi, e.laji, e.latin));
 	});
 
 	$('body').append(taulu);
 }
 
-function handlaa(data) {
-	$(document).ready(function() { kaarmeile(data); });
+function handlaa(json) {
+	tieto = json;
+	$(document).ready(kaarmeile);
 }
