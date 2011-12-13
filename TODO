@@ -14,6 +14,9 @@
 
   - uloskirjautuminen
 
+  - virheilmoitus varatun tunnuksen luonnista
+    [error] pg_query(): Query failed: duplicate key value violates unique constraint in /home/tljstarc/htdocs/karmia/pgdb.php on line 36
+
 # Käyttötapaukset
 
   + tunnistautuminen
