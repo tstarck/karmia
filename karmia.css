@@ -24,9 +24,6 @@ td {
 td.tunnus {
 	font: bold 10pt monospace;
 }
-td.tunnus:after {
-	content: ".";
-}
 td.laina {
 	font: 12pt sans-serif;
 }

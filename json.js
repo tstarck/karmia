@@ -1,41 +1,28 @@
 /* json.js */
 
-function yksityiskohdat() {
+function yksityiskohdat(tapahtuma) {
+	console.log("yksityiskohtia :: " + tapahtuma.target.text);
 }
 
-function tee_solu() {
-	var solu = document.createElement('td');
+function rivittele(tunnus, laina, nimi, laji, latin, alkup, vari) {
+	var rivi = $('<tr></tr>');
 
-	if (arguments[0] != '') solu.className = arguments[0];
+	laina = (laina == 't')? '✗': ''; // U+2717 U+2713
 
-	for (var i=1; i<arguments.length; i++) {
-		var tmp = arguments[i];
+	rivi.append($('<td></td>').addClass('tunnus').text(tunnus + '.'));
+	rivi.append($('<td></td>').addClass('laina').append(laina));
 
-		if (typeof tmp == "string") {
-			solu.appendChild(document.createTextNode(tmp));
-		}
-		else {
-			solu.appendChild(tmp);
-		}
-	}
+	rivi.append($('<td></td>').addClass('nimi').append(
+		$('<a></a>').attr('href', '#' + tunnus).on('click', yksityiskohdat).text(nimi)
+	));
 
-	return solu;
-}
+	rivi.append($('<td></td>').addClass('laji').
+		append($('<i></i>').text(latin)).
+		append(', ' + laji)
+	);
 
-function tee_rivi(tunnus, laina, nimi, laji, latin, alkupera, vari) {
-	var rivi = document.createElement('tr');
-
-	var linkki = document.createElement('a');
-	linkki.href = '#' + tunnus;
-	linkki.addEventListener('click', yksityiskohdat);
-	linkki.appendChild(document.createTextNode(nimi));
-
-	rivi.appendChild(tee_solu('tunnus', tunnus));
-	rivi.appendChild(tee_solu('laina', (laina == 't')? '✓': ''));
-	rivi.appendChild(tee_solu('nimi', linkki));
-	rivi.appendChild(tee_solu('laji', latin, ', ', laji));
-	rivi.appendChild(tee_solu('alkup', alkupera));
-	rivi.appendChild(tee_solu('vari', vari));
+	rivi.append($('<td></td>').addClass('alkup').text(alkup));
+	rivi.append($('<td></td>').addClass('vari').text(vari));
 
 	return rivi;
 }
@@ -44,14 +31,12 @@ function kaarmeile(data) {
 	var taulu = $('<table></table>');
 
 	data.forEach(function(e, i, a) {
-		taulu.append(tee_rivi(e.id, e.laina, e.nimi, e.laji, e.latin, e.alkupera, e.vari));
+		taulu.append(rivittele(e.id, e.laina, e.nimi, e.laji, e.latin, e.alkupera, e.vari));
 	});
 
 	$('body').append(taulu);
 }
 
 function handlaa(data) {
-	$(document).ready(function() {
-		kaarmeile(data);
-	});
+	$(document).ready(function() { kaarmeile(data); });
 }
