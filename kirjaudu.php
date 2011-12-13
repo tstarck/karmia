@@ -4,8 +4,8 @@ require_once 'config/karmia.php';
 require_once 'auth.php';
 require_once 'common.php';
 
-$user = get_param("user");
-$pass = get_param("pass");
+$user = hae_arvo("user");
+$pass = hae_arvo("pass");
 
 if (empty($user) or empty($pass)) {
 	if (with(new AUTH)->ok()) {

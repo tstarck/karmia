@@ -7,10 +7,10 @@ require_once '../config/karmia.php';
 $error = array();
 $tietojentalletus = "INSERT INTO kayttajat VALUES ('%s', '%s')";
 
-$newuser = get_param("newuser");
+$newuser = hae_arvo("newuser");
 $ulength = strlen($newuser);
-$passone = get_param("passone");
-$passtwo = get_param("passtwo");
+$passone = hae_arvo("passone");
+$passtwo = hae_arvo("passtwo");
 
 if ($ulength < 1 or $ulength > 8 or
 	!preg_match("/^[a-z][0-9a-z_]+$/i", $newuser)) {

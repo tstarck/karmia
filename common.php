@@ -2,9 +2,15 @@
 
 require_once 'config/karmia.php';
 
-function get_param($id) {
+function hae_arvo($id) {
 	if (isset($_GET[$id])) return $_GET[$id];
 	if (isset($_POST[$id])) return $_POST[$id];
+	return false;
+}
+
+function hae_oikea_arvo($id, $re) {
+	$arvo = hae_arvo($id);
+	if (preg_match($re, $arvo)) return $arvo;
 	return false;
 }
 
