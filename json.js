@@ -27,7 +27,7 @@ function yksityiskohdat(tapahtuma) {
 function rivittele(i, tunnus, laina, nimi, laji, latin) {
 	var rivi = $('<tr></tr>');
 
-	laina = (laina == 't')? '✗': ''; // U+2717 U+2713
+	laina = (laina == 't')? '✓': ''; // U+2713 U+2717
 
 	rivi.append($('<td></td>').addClass('tunnus').text(tunnus + '.'));
 	rivi.append($('<td></td>').addClass('laina').append(laina));
