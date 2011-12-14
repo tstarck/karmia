@@ -18,7 +18,7 @@ class INDEX {
 			exit;
 		}
 
-		with(new KAARME($lupa->kayttaja()))->juokse();
+		with(new KAARME($lupa->kayttaja()))->handlaa();
 
 		if (!headers_sent()) {
 			header("Content-Type: application/xhtml+xml; charset=utf-8");

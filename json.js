@@ -3,7 +3,8 @@
 var tieto = null;
 
 function yksityiskohdat(tapahtuma) {
-	var n = tapahtuma.data;
+	var i = tapahtuma.data[0];
+	var n = tapahtuma.data[1];
 
 	var nappi = $('<input />').attr('type', 'button').attr('value', 'Lainaa').on('click', function() {
 		window.location = '?kaarme=' + n;
@@ -13,9 +14,9 @@ function yksityiskohdat(tapahtuma) {
 		$('<td></td>').attr('colspan', '2'),
 		$('<td></td>').attr('colspan', '3').append(
 			nappi,
-			$('<p></p>').append($('<b></b>').text('Väri: '), tieto[n].vari),
-			$('<p></p>').append($('<b></b>').text('Alkuperä: '), tieto[n].alkupera),
-			$('<p></p>').append($('<b></b>').text('Uhanalaisuus: '), tieto[n].uhanalaisuus)
+			$('<p></p>').append($('<b></b>').text('Väri: '), tieto[i].vari),
+			$('<p></p>').append($('<b></b>').text('Alkuperä: '), tieto[i].alkupera),
+			$('<p></p>').append($('<b></b>').text('Uhanalaisuus: '), tieto[i].uhanalaisuus)
 		)
 	);
 
@@ -33,7 +34,7 @@ function rivittele(i, tunnus, laina, nimi, laji, latin) {
 	rivi.append($('<td></td>').addClass('laina').append(laina));
 
 	rivi.append($('<td></td>').addClass('nimi').append(
-		$('<a></a>').on('click', null, i, yksityiskohdat).text(nimi)
+		$('<a></a>').on('click', null, [i, tunnus], yksityiskohdat).text(nimi)
 	));
 
 	rivi.append($('<td></td>').addClass('laji').append(laji));
