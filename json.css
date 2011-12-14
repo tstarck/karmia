@@ -1,8 +1,6 @@
-/* karmia.css */
+/* json.css */
 
-h1 {
-	margin: 1em;
-}
+@import url(main.css) screen;
 
 table {
 	border-collapse: collapse;
