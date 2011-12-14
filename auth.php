@@ -7,7 +7,7 @@ require_once 'common.php';
  * tunnistamisesta. On tarvittaessa hyvin ankara.
  */
 class AUTH {
-	private $tunnistettu;
+	private $kayttaja;
 	private $yllapitelija;
 
 	private $kysely = "SELECT tunnus, yllapeto FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
@@ -19,7 +19,7 @@ class AUTH {
 	 * kosher.
 	 */
 	function __construct() {
-		$this->tunnistettu = false;
+		$this->kayttaja = false;
 		$this->yllapitelija = false;
 
 		$user = pg_escape_string(hae_pipari("user"));
@@ -34,7 +34,7 @@ class AUTH {
 		$vastaus = with(new PGDB)->kysele($kysely)->anna_rivi()->taulukkona();
 
 		if ($vastaus !== false) {
-			$this->tunnistettu = true;
+			$this->kayttaja = $vastaus["tunnus"];
 			$this->yllapitelija = $vastaus["yllapeto"];
 		}
 	}
@@ -44,13 +44,19 @@ class AUTH {
 	 * tunnistettu tai ei.
 	 */
 	public function ok() {
-		return $this->tunnistettu;
+		return ($this->kayttaja !== false);
 	}
 
 	/* Kertoo, kuten yllä, onko käyttäjällä ylläpeto-oikeudet.
 	 */
 	public function yllapeto() {
-		return $this->yllapitelija;
+		return ($this->yllapitelija !== false);
+	}
+
+	/* Palauttaa käyttäjänimen, jos käyttäjä on tunnistettu.
+	 */
+	public function kayttaja() {
+		return $this->kayttaja;
 	}
 }
 
