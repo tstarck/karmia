@@ -11,33 +11,45 @@ SELECT k.id,
        l.latin,
        a.alkupera,
        l.vari,
+       m.myrkyllisyys,
        l.uhanalaisuus,
-       COALESCE(CAST(t.id AS bool), false) AS laina
+       CASE WHEN t.lainaaja = '%s' THEN 'sulla'
+            WHEN t.lainaaja IS NOT NULL THEN 'varattu'
+            ELSE 'vapaa'
+       END AS laina
 FROM   lajit l,
        alkupera a,
+       myrkyllisyys m,
        kaarmeet k
-       LEFT OUTER JOIN lainat t ON k.id = t.kaarme AND t.loppu IS NULL
+       LEFT OUTER JOIN lainat t
+       ON k.id = t.kaarme AND
+          t.loppu IS NULL
 WHERE  k.laji = l.id AND
-       l.alkupera = a.id
+       l.alkupera = a.id AND
+       l.myrkyllisyys = m.id
 KYSELY;
 
 class JSON {
-	private $lupa;
+	private $tunnistus;
 
 	/* Oletuskonstruktori:
-	 * Tarkistetaan, onko käyttäjällä multipass.
+	 * Alustetaan käyttäjän tunnistus.
 	 */
 	function __construct() {
-		$this->lupa = with(new AUTH)->ok();
+		$this->tunnistus = new AUTH;
 	}
 
 	function json() {
 		global $kysely;
 
-		if (!$this->lupa) return;
+		if (!$this->tunnistus->ok()) return;
 
+		header("Pragma: no-cache");
+		header("Cache-Control: no-cache");
 		header("Content-Type: application/json");
-		echo "handlaa(", json_encode(with(new PGDB)->kysele($kysely)->anna_kaikki()->taulukkona()), ")";
+
+		$tmp = sprintf($kysely, $this->tunnistus->kayttaja());
+		echo "handlaa(", json_encode(with(new PGDB)->kysele($tmp)->anna_kaikki()->taulukkona()), ")";
 	}
 }
 

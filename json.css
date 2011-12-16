@@ -2,19 +2,34 @@
 
 @import url(main.css) screen;
 
-table {
-	border-collapse: collapse;
+table { border-collapse: collapse; }
+
+/* Katkoviivat riveille */
+tr             { border-top: dotted 1px gray; }
+tr:first-child { border-top: none; }
+tr:hover       { background-color: #eee; }
+
+/* Taulukon tekstityylit */
+td       { padding: 0.2em 1.2em; }
+td.nro   { font: bold 10pt monospace; }
+td.nimi  { font: bold 11pt sans-serif; }
+td.laji  { font: 10pt sans-serif; }
+td.latin { font-style: italic; }
+
+td > abbr {
+	font: 13pt sans-serif;
+	border: none;
 }
 
-tr {
-	border-top: dotted 1px gray;
+td > a {
+	color: black;
+	text-decoration: none;
 }
-tr:first-child {
-	border-top: none;
+td > a:hover {
+	text-decoration: underline;
 }
-tr:hover {
-	background-color: #eee;
-}
+
+/* Lisätietolaatikko */
 tr.popup {
 	background-color: #eee;
 	border-top: solid 1px #eee;
@@ -24,40 +39,20 @@ tr.popup > td {
 	padding: 0.4em 1em 1em 1em;
 }
 
-td {
-	padding: 0.2em 1.2em;
-}
-td.tunnus {
-	font: bold 10pt monospace;
-}
-td.laina {
-	font: 12pt sans-serif;
-}
-td.nimi {
-	font: bold 12pt sans-serif;
-}
-td.laji {
-	font: 10pt sans-serif;
-}
-td.latin {
-	font-style: italic;
-}
 td > p {
 	margin: 0.4em;
 	font: 10pt sans-serif;
 }
-td > a {
-	color: black;
-	text-decoration: none;
-}
-td > a:hover {
-	color: black;
-	text-decoration: underline;
-}
+
+/* Lainahallintanappi */
 td > input {
 	float: right;
 	margin: 1em;
 	padding: 0.2em 1.2em;
 	font-weight: bold;
 	border: solid 1px black;
+}
+td > input[disabled="disabled"] {
+	color: silver;
+	border: solid 1px silver;
 }
