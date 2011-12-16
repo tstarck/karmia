@@ -5,6 +5,7 @@ $alku = <<<ALKU
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>%s</title>
+<link rel="shortcut icon" type="image/png" href="icon.png" />
 <link rel="stylesheet" title="Karmia" href="%s" media="screen" />
 </head>
 <body>
