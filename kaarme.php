@@ -7,7 +7,7 @@ require_once 'common.php';
 $matokysely = <<<MATO
 SELECT k.id,
        k.nimi,
-       l.nimi AS laji,
+       l.laji,
        l.latin,
        a.alkupera,
        l.vari,

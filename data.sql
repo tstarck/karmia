@@ -11,15 +11,15 @@ INSERT INTO lajit VALUES ('vihermamba', 'Dendroaspis angusticeps', 5, 'ruohonvih
 INSERT INTO lajit VALUES ('kyy', 'Vipera berus', 5, 'harmaanruskea, sahalaitakuvio', 2, 'LC');
 INSERT INTO lajit VALUES ('rantakäärme', 'Natrix natrix', 5, 'oliivinvihreä, harmaanvihreä, niskatäplät', 1, 'LC');
 
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Enska', (SELECT id FROM lajit WHERE nimi = 'paraguaynanakonda'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Ofelia', (SELECT id FROM lajit WHERE nimi = 'viheranakonda'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Tuomas', (SELECT id FROM lajit WHERE nimi = 'aavikkotaipaani'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Alf', (SELECT id FROM lajit WHERE nimi = 'teksasinkalkkarokäärme'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Krtek', (SELECT id FROM lajit WHERE nimi = 'kuningaskobra'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Mustikka', (SELECT id FROM lajit WHERE nimi = 'mustamamba'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Billy-Bob', (SELECT id FROM lajit WHERE nimi = 'vihermamba'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Kalevi', (SELECT id FROM lajit WHERE nimi = 'kyy'));
-INSERT INTO kaarmeet (nimi, laji) VALUES ('Rane', (SELECT id FROM lajit WHERE nimi = 'rantakäärme'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Enska', (SELECT id FROM lajit WHERE laji = 'paraguaynanakonda'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Ofelia', (SELECT id FROM lajit WHERE laji = 'viheranakonda'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Tuomas', (SELECT id FROM lajit WHERE laji = 'aavikkotaipaani'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Alf', (SELECT id FROM lajit WHERE laji = 'teksasinkalkkarokäärme'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Krtek', (SELECT id FROM lajit WHERE laji = 'kuningaskobra'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Mustikka', (SELECT id FROM lajit WHERE laji = 'mustamamba'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Billy-Bob', (SELECT id FROM lajit WHERE laji = 'vihermamba'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Kalevi', (SELECT id FROM lajit WHERE laji = 'kyy'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Rane', (SELECT id FROM lajit WHERE laji = 'rantakäärme'));
 
  -- LC, Least Concern, elinvoimainen
  -- NT, Near Threatened, silmälläpidettävä

@@ -15,7 +15,7 @@ CREATE TABLE kaarmeet (
 );
 
 CREATE TABLE lajit (
-	nimi varchar(40),
+	laji varchar(40),
 	latin varchar(80),
 	alkupera int,
 	vari varchar(100) DEFAULT '',

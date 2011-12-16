@@ -6,8 +6,8 @@ require_once 'common.php';
 
 $kysely = <<<KYSELY
 SELECT k.id,
-       k.nimi AS nimi,
-       l.nimi AS laji,
+       k.nimi,
+       l.laji,
        l.latin,
        a.alkupera,
        l.vari,

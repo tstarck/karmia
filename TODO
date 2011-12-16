@@ -8,14 +8,18 @@
 
   - dokumentointi ajan tasalle
 
-  - päällekkäisyyksien siivous: login.php user.php
+  + päällekkäisyyksien siivous: login.php user.php
+    deprekoitunut bugi
 
   - piparin päivitys, ettei kirjautuminen katoa
 
   - uloskirjautuminen
 
   - virheilmoitus varatun tunnuksen luonnista
-    [error] pg_query(): Query failed: duplicate key value violates unique constraint in /home/tljstarc/htdocs/karmia/pgdb.php on line 36
+    [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
+
+  + lajit.nimi -> lajit.laji
+    muutettu
 
 # Käyttötapaukset
 
