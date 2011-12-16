@@ -22,26 +22,31 @@ class AUTH {
 		$this->kayttaja = false;
 		$this->yllapitelija = false;
 
-		$user = pg_escape_string(hae_pipari("user"));
-		$pass = pg_escape_string(hae_pipari("pass"));
+		$user = hae_pipari("user");
+		$pass = hae_pipari("pass");
 
-		if (empty($user) and empty($pass)) {
+		if (empty($user) or empty($pass)) {
 			return;
 		}
 
-		$kysely = sprintf($this->kysely, $user, $pass);
+		$kysely = sprintf($this->kysely, pg_escape_string($user), pg_escape_string($pass));
 
 		$vastaus = with(new PGDB)->kysele($kysely)->anna_rivi()->taulukkona();
 
 		if ($vastaus !== false) {
 			$this->kayttaja = $vastaus["tunnus"];
 			$this->yllapitelija = $vastaus["yllapeto"];
+
+			if (!headers_sent()) {
+				aseta_pipari("user", $user);
+				aseta_pipari("pass", $pass);
+			}
 		}
 	}
 
 	/* Kertoo, onko käyttäjä tunnistettu eli palauttaa
-	 * totuusarvon true tai false jos käyttäjä on
-	 * tunnistettu tai ei.
+	 * totuusarvon true tai false sen mukaan onko käyttäjä
+	 * tunnistettu vai ei.
 	 */
 	public function ok() {
 		return ($this->kayttaja !== false);

@@ -1,25 +1,29 @@
 
 # TODOS
 
-  + debug.php eli jokin keino reagoida kunnon wtf-tilanteisiin
-    toimii
+  – error.php eli jokin nätti mekanismi virheistä toipumiseen
 
-  - error.php eli jokin nätti mekanismi virheistä toipumiseen
+  – dokumentointi ajan tasalle
 
-  - dokumentointi ajan tasalle
+  – uloskirjautuminen
+
+  – virheilmoitus varatun tunnuksen luonnista
+    [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
+
+  – uuden käyttäjän tunnusta ei sanitoida
+    !!! kriittinen aukko !!!
+    pg_escape kannattaisi paketoida fiksusti PGDB-luokkaan
+
+  + piparin päivitys, ettei kirjautuminen katoa
+
+  + lajit.nimi > lajit.laji
+    muutettu
 
   + päällekkäisyyksien siivous: login.php user.php
     deprekoitunut bugi
 
-  - piparin päivitys, ettei kirjautuminen katoa
-
-  - uloskirjautuminen
-
-  - virheilmoitus varatun tunnuksen luonnista
-    [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
-
-  + lajit.nimi -> lajit.laji
-    muutettu
+  + debug.php eli jokin keino reagoida kunnon wtf-tilanteisiin
+    toimii
 
 # Käyttötapaukset
 
@@ -29,22 +33,22 @@
   + luo käyttäjä
     toimii
 
-  - lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
+  – lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
 
-  - lisää käärmeelle ominaisuus: järjestelmänvalvoja voi lisätä käärmeelle uuden ominaisuuden
+  – lisää käärmeelle ominaisuus: järjestelmänvalvoja voi lisätä käärmeelle uuden ominaisuuden
 
-  - poista käärmeeltä ominaisuus: järjestelmänvalvoja voi poistaa käärmeeltä ominaisuuden
+  – poista käärmeeltä ominaisuus: järjestelmänvalvoja voi poistaa käärmeeltä ominaisuuden
 
-  - poista käärme: järjestelmänvalvoja voi poistaa käärmeen tietokannasta
+  – poista käärme: järjestelmänvalvoja voi poistaa käärmeen tietokannasta
 
-  - haku ominaisuuden perusteella
+  – haku ominaisuuden perusteella
 
-  - poista käyttäjä
+  – poista käyttäjä
 
-  - lainaa käärme
+  – lainaa käärme
 
-  - palauta käärme
+  – palauta käärme
 
-  - käärmeyksilön lainahistorian tulostus
+  – käärmeyksilön lainahistorian tulostus
 
-  - lainaajan lainahistorian tulostus
+  – lainaajan lainahistorian tulostus
