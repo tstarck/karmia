@@ -20,7 +20,7 @@ CREATE TABLE lajit (
 	alkupera int,
 	vari varchar(100) DEFAULT '',
 	myrkyllisyys int DEFAULT 0,
-	uhanalaisuus varchar(2) DEFAULT '',
+	uhanalaisuus varchar(2) DEFAULT '-',
 	id SERIAL PRIMARY KEY
 );
 
