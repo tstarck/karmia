@@ -6,7 +6,7 @@ function yksityiskohdat(tapahtuma) {
 	var i = tapahtuma.data[0];
 	var n = tapahtuma.data[1];
 
-	var nappi = $('<input />').attr('type', 'button').attr('value', 'Lainaa').on('click', function() {
+	var nappi = $('<input />').attr('type', 'button').attr('value', 'Hallinnoi').on('click', function() {
 		window.location = '?kaarme=' + n;
 	});
 

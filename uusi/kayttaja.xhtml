@@ -14,13 +14,13 @@
 <form name="karmia" method="post" action="kayttaja.php">
 
 <label for="newuser">Tunnus</label>
-<input type="text" id="newuser" name="newuser" autofocus="autofocus" /><br />
+<input type="text" id="newuser" name="newuser" autofocus="autofocus" required="required" autocomplete="off" maxlength="8" /><br />
 
 <label for="passone">Salasana</label>
-<input type="password" id="passone" name="passone" /><br />
+<input type="password" id="passone" name="passone" required="required" /><br />
 
 <label for="passtwo">Uudestaan</label>
-<input type="password" id="passtwo" name="passtwo" />
+<input type="password" id="passtwo" name="passtwo" required="required" />
 <span id="virhemerkki">&#9785;</span><br />
 
 <label for="submit"></label>
