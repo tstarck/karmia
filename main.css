@@ -1,8 +1,29 @@
 /* main.css */
 
+html, body { margin: 0; }
+
 h1 {
-	margin: 1em;
+	margin: 0;
+	padding: 10px 10px 10px 42px;
 }
 
-p {
+a { text-decoration: none; }
+
+ul {
+	display: block;
+	margin: 0 0 1em 0;
+	padding: 6px 6px 6px 42px;
+	color: white;
+	background-color: #333;
 }
+
+ul > li {
+	display: inline;
+	margin: 0 1em 0 0;
+	list-style: none;
+}
+
+ul > li > a        { color: white; }
+ul > li > a:before { content: "\bb\20"; }
+ul > li > a:after  { content: "\20\ab"; }
+ul > li > a:hover  { text-shadow: 0 0 2px white; }

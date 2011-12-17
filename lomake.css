@@ -2,6 +2,8 @@
 
 @import url(main.css) screen;
 
+form { margin: 1em; }
+
 form > label {
 	display: block;
 	float: left;
