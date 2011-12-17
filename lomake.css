@@ -41,7 +41,7 @@ form > br {
 }
 
 #virhemerkki {
-	display: inline;
+	display: none;
 	color: #c00;
 	font: bold 12pt serif;
 	font-variant: small-caps;
