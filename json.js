@@ -2,14 +2,28 @@
 
 var tieto = null;
 
-function lainaa(tapahtuma) {
-	var id = tapahtuma.data;
-	console.log("Lainaa " + id);
+function httpget(url, kysymys) {
+	if (window.confirm(kysymys)) {
+		$.get(url, function(vastaus) {
+			if (vastaus == '200 OK') {
+				window.location.reload(true);
+			}
+		});
+	}
 }
 
-function palauta(tapahtuma) {
-	var id = tapahtuma.data;
-	console.log("Palauta " + id);
+function lainaa(x) {
+	httpget(
+		'?lainaa=' + x.data.id,
+		"Tahdotko lainata " + x.data.nimi + "-käärmeen? Siis ihan oikeasti?"
+	);
+}
+
+function palauta(x) {
+	httpget(
+		'?palauta=' + x.data.id,
+		"Olet palauttamassa " + x.data.nimi + "-käärmettä. Oletko aivan tosissasi?"
+	);
 }
 
 function yksityiskohdat(tapahtuma) {
@@ -18,9 +32,9 @@ function yksityiskohdat(tapahtuma) {
 	var nappi = $('<input />').attr('type', 'button');
 
 	switch (otus.laina) {
-		case 'sulla':   nappi.attr('value', 'Palauta').on('click', null, otus.id, palauta); break;
+		case 'sulla':   nappi.attr('value', 'Palauta').on('click', null, otus, palauta); break;
 		case 'varattu': nappi.attr('value', 'Lainaa').attr('disabled', 'disabled'); break;
-		case 'vapaa':   nappi.attr('value', 'Lainaa').on('click', null, otus.id, lainaa); break;
+		case 'vapaa':   nappi.attr('value', 'Lainaa').on('click', null, otus, lainaa); break;
 	}
 
 	var popup = $('<tr></tr>').addClass('popup').append(

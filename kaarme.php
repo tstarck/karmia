@@ -126,7 +126,8 @@ class KAARME {
 	private function lainaa() {
 		global $__karmia_root, $lainauskysely;
 		with(new PGDB)->kysele(sprintf($lainauskysely, $this->lainaus, $this->tunnus));
-		header("Location: ".$__karmia_root);
+		header("Content-Type: text/plain");
+		echo "200 OK";
 	}
 
 	/* Palauta käärme.
@@ -134,7 +135,8 @@ class KAARME {
 	private function palauta() {
 		global $__karmia_root, $palautuskysely;
 		with(new PGDB)->kysele(sprintf($palautuskysely, $this->tunnus, $this->palautus));
-		header("Location: ".$__karmia_root);
+		header("Content-Type: text/plain");
+		echo "200 OK";
 	}
 }
 
