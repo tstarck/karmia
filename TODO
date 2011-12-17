@@ -14,6 +14,8 @@
     !!! kriittinen aukko !!!
     pg_escape kannattaisi paketoida fiksusti PGDB-luokkaan
 
+  – navigointituki
+
   + piparin päivitys, ettei kirjautuminen katoa
 
   + lajit.nimi > lajit.laji
@@ -33,17 +35,17 @@
   + luo käyttäjä
     toimii
 
-  – lisää käärme: järjestelmänvalvoja voi lisätä uuden käärmeen tietokantaan
+  – lisää käärme (ylläpeto)
 
-  – lisää käärmeelle ominaisuus: järjestelmänvalvoja voi lisätä käärmeelle uuden ominaisuuden
+  – lisää käärmeelle ominaisuus (ylläpeto)
 
-  – poista käärmeeltä ominaisuus: järjestelmänvalvoja voi poistaa käärmeeltä ominaisuuden
+  – poista käärmeeltä ominaisuus (ylläpeto)
 
-  – poista käärme: järjestelmänvalvoja voi poistaa käärmeen tietokannasta
+  – poista käärme (ylläpeto)
 
   – haku ominaisuuden perusteella
 
-  – poista käyttäjä
+  – poista käyttäjä (ylläpeto)
 
   + lainaa käärme
     pelittää
@@ -51,6 +53,6 @@
   + palauta käärme
     pelittää
 
-  – käärmeyksilön lainahistorian tulostus
+  – käärmeyksilön lainahistorian tulostus (ylläpeto)
 
   – lainaajan lainahistorian tulostus
