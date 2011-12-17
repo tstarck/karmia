@@ -1,11 +1,7 @@
 
 # TODOS
 
-  – error.php eli jokin nätti mekanismi virheistä toipumiseen
-
   – dokumentointi ajan tasalle
-
-  – uloskirjautuminen
 
   – virheilmoitus varatun tunnuksen luonnista
     [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
@@ -15,6 +11,12 @@
     pg_escape kannattaisi paketoida fiksusti PGDB-luokkaan
 
   – navigointituki
+
+  + uloskirjautuminen
+    valmis
+
+  + error.php eli jokin nätti mekanismi virheistä toipumiseen
+	wontfix: error_log toimii riittävän hyvin
 
   + piparin päivitys, ettei kirjautuminen katoa
 
