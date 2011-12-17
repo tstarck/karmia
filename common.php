@@ -26,6 +26,11 @@ function aseta_pipari($avain, $arvo) {
 	}
 }
 
+function poista_pipari($avain) {
+	global $__karmia_root;
+	setcookie($avain, "", -100+time(), $__karmia_root);
+}
+
 function with($olio) { /* Python-o-matic */ return $olio; }
 
 ?>
