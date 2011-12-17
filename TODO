@@ -45,9 +45,11 @@
 
   – poista käyttäjä
 
-  – lainaa käärme
+  + lainaa käärme
+    pelittää
 
-  – palauta käärme
+  + palauta käärme
+    pelittää
 
   – käärmeyksilön lainahistorian tulostus
 
