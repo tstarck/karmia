@@ -21,12 +21,8 @@ td > abbr {
 	border: none;
 }
 
-td > a {
-	color: black;
-}
-td > a:hover {
-	text-decoration: underline;
-}
+td > a       { color: black; }
+td > a:hover { text-decoration: underline; }
 
 /* Lisätietolaatikko */
 tr.popup {

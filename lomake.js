@@ -1,4 +1,4 @@
-/* karmia.js */
+/* lomake.js */
 
 var err_tunnus = "Tunnuksen tulee olla korkeintaan 8 merkkiä eikä se saa alkaa numerolla.";
 var err_salasana = "Annetut salasanat eivät täsmää.";
