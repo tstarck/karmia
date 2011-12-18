@@ -46,7 +46,7 @@ class JSON {
 
 		header("Pragma: no-cache");
 		header("Cache-Control: no-cache");
-		header("Content-Type: application/json");
+		header("Content-Type: application/javascript");
 
 		$tmp = sprintf($kysely, $this->tunnistus->kayttaja());
 		echo "handlaa(", json_encode(with(new PGDB)->kysele($tmp)->anna_kaikki()->taulukkona()), ")";
