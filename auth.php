@@ -35,7 +35,10 @@ class AUTH {
 
 		if ($vastaus !== false) {
 			$this->kayttaja = $vastaus["tunnus"];
-			$this->yllapitelija = $vastaus["yllapeto"];
+
+			if ($vastaus["yllapeto"] === "t") {
+				$this->yllapitelija = true;
+			}
 
 			if (!headers_sent()) {
 				aseta_pipari("user", $user);
@@ -55,7 +58,7 @@ class AUTH {
 	/* Kertoo, kuten yllä, onko käyttäjällä ylläpeto-oikeudet.
 	 */
 	public function yllapeto() {
-		return ($this->yllapitelija !== false);
+		return ($this->yllapitelija);
 	}
 
 	/* Palauttaa käyttäjänimen, jos käyttäjä on tunnistettu.
