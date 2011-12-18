@@ -10,7 +10,8 @@
     !!! kriittinen aukko !!!
     pg_escape kannattaisi paketoida fiksusti PGDB-luokkaan
 
-  – navigointituki
+  + navigointituki
+    tehty
 
   + uloskirjautuminen
     valmis

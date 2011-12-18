@@ -21,6 +21,7 @@ ul > li {
 	display: inline;
 	margin: 0 1em 0 0;
 	list-style: none;
+	font: 10pt serif;
 }
 
 ul > li > a        { color: white; }

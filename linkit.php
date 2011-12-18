@@ -1,0 +1,33 @@
+<?php
+
+require_once 'config/karmia.php';
+require_once 'auth.php';
+require_once 'common.php';
+
+class LINKKILISTA {
+	private $yllapeto;
+
+	function __construct() {
+		global $__karmia_root;
+
+		$this->yllapeto = with(new AUTH)->yllapeto();
+
+		$linkit = array(
+			array(true,  "kayttaja.php", "Oma sivu"),
+			array(true,  $__karmia_root, "Käärmeet"),
+			array(false, "hallinta.php", "Halinta"),
+			array(true,  "pois.php",     "Kirjaudu ulos")
+		);
+
+		header("Content-Type: application/javascript");
+		echo "linkita(", json_encode(array_filter($linkit, array($this, "ehto"))), ")";
+	}
+
+	private function ehto($tapaus) {
+		return ($this->yllapeto or $tapaus[0]);
+	}
+}
+
+new LINKKILISTA;
+
+?>
