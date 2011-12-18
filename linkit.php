@@ -15,7 +15,7 @@ class LINKKILISTA {
 		$linkit = array(
 			array(true,  "kayttaja.php", "Oma sivu"),
 			array(true,  $__karmia_root, "Käärmeet"),
-			array(false, "hallinta.php", "Halinta"),
+			array(false, "isohali.php",  "Isohali"),
 			array(true,  "pois.php",     "Kirjaudu ulos")
 		);
 
