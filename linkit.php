@@ -13,10 +13,10 @@ class LINKKILISTA {
 		$this->yllapeto = with(new AUTH)->yllapeto();
 
 		$linkit = array(
-			array(true,  "kayttaja.php", "Oma sivu"),
-			array(true,  $_karmia_root,  "Käärmeet"),
-			array(false, "isohali.php",  "Isohali"),
-			array(true,  "pois.php",     "Kirjaudu ulos")
+			array(true,   "oma.php",      "Oma sivu"),
+			array(true,   $_karmia_root,  "Käärmeet"),
+			array(false,  "isohali.php",  "Isohali"),
+			array(true,   "pois.php",     "Kirjaudu ulos")
 		);
 
 		header("Content-Type: application/javascript");

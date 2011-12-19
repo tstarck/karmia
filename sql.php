@@ -1,11 +1,24 @@
 <?php
 
-$_sql_auth_tunnistus = "SELECT tunnus, yllapeto FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
+$_sql_auth_tunnistus = "SELECT tunnus, yllapeto, luotu FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
 
-$_sql_uusi_kayttaja = "INSERT INTO kayttajat VALUES ('%s', '%s')";
+$_sql_uusi_kayttaja  = "INSERT INTO kayttajat VALUES ('%s', '%s')";
 
 $_sql_lainaa_kaarme  = "INSERT INTO lainat (kaarme, lainaaja) VALUES (%s, '%s')";
 $_sql_palauta_kaarme = "UPDATE lainat SET loppu = CURRENT_TIMESTAMP WHERE lainaaja = '%s' AND kaarme = %s AND loppu IS NULL";
+
+$_sql_oma_lainat = <<<LAINAT
+SELECT   l.id,
+         k.nimi,
+         l.alku,
+         l.loppu
+FROM     lainat l,
+         kaarmeet k
+WHERE    l.kaarme = k.id AND
+         l.lainaaja = '%s'
+ORDER BY l.loppu DESC NULLS FIRST
+LIMIT    42
+LAINAT;
 
 $_sql_json_megakysely = <<<MEGA
 SELECT k.id,
