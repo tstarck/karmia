@@ -1,11 +1,11 @@
 <?php
 
-require_once '../pgdb.php';
-require_once '../common.php';
 require_once '../config/karmia.php';
+require_once '../common.php';
+require_once '../sql.php';
+require_once '../pgdb.php';
 
 $error = array();
-$tietojentalletus = "INSERT INTO kayttajat VALUES ('%s', '%s')";
 
 $newuser = hae_arvo("newuser");
 $ulength = strlen($newuser);
@@ -27,7 +27,7 @@ if (!empty($error)) {
 	exit;
 }
 
-with(new PGDB)->kysele($tietojentalletus, $newuser, sha1($passone)); // FIXME virheet?
+with(new PGDB)->kysele($_sql_uusi_kayttaja, $newuser, sha1($passone)); // FIXME virheet?
 
 aseta_pipari("user", $newuser);
 aseta_pipari("pass", sha1($passone));

@@ -76,6 +76,10 @@ class PGDB {
 
 		if ($this->yhteys !== false) {
 			$this->vastaus = pg_query($this->yhteys, $kysely);
+
+			if ($this->vastaus === false) {
+				error_log($kysely);
+			}
 		}
 
 		return $this;

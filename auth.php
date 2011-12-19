@@ -1,7 +1,8 @@
 <?php
 
-require_once 'pgdb.php';
 require_once 'common.php';
+require_once 'pgdb.php';
+require_once 'sql.php';
 
 /* Luokka, joka pitää visusti huolta käyttäjien
  * tunnistamisesta. On tarvittaessa hyvin ankara.
@@ -10,8 +11,6 @@ class AUTH {
 	private $kayttaja;
 	private $yllapitelija;
 
-	private $kysely = "SELECT tunnus, yllapeto FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
-
 	/* Oletuskonstruktori:
 	 * Olion luonnin yhteydessä mennään suoraan asiaan ja
 	 * tarkistaan käyttäjän paperit eli ajetaan pikkuleipä-
@@ -19,6 +18,8 @@ class AUTH {
 	 * kosher.
 	 */
 	function __construct() {
+		global $_sql_auth_tunnistus;
+
 		$this->kayttaja = false;
 		$this->yllapitelija = false;
 
@@ -29,7 +30,7 @@ class AUTH {
 			return;
 		}
 
-		$vastaus = with(new PGDB)->kysele($this->kysely, $user, $pass)->anna_rivi()->taulukkona();
+		$vastaus = with(new PGDB)->kysele($_sql_auth_tunnistus, $user, $pass)->anna_rivi()->taulukkona();
 
 		if ($vastaus !== false) {
 			$this->kayttaja = $vastaus["tunnus"];

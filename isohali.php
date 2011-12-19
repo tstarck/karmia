@@ -2,15 +2,8 @@
 
 require_once 'auth.php';
 require_once 'common.php';
+require_once 'sql.php';
 require_once 'xhtml.php';
-
-$_sql_hali_kayttajat = "SELECT tunnus, yllapeto, luotu FROM kayttajat ORDER BY luotu";
-$_sql_hali_kaarmeet = "SELECT id, nimi, laji FROM kaarmeet ORDER BY id";
-$_sql_hali_lajit = "SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit ORDER BY id";
-
-$_sql_hali_poista_kayttaja = "DELETE FROM kayttajat WHERE tunnus = '%s'";
-$_sql_hali_poista_kaarme   = "DELETE FROM kaarmeet WHERE id = %s";
-$_sql_hali_poista_laji     = "DELETE FROM lajit WHERE laji = '%s'";
 
 /* Interaktiivinen selkärangattomien otusten hallintalista
  * ^               ^                 ^       ^^      ^^

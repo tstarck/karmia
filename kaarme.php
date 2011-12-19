@@ -1,20 +1,9 @@
 <?php
 
 require_once 'config/karmia.php';
-require_once 'xhtml.php';
 require_once 'common.php';
-
-$lainauskysely = <<<LAINA
-INSERT INTO lainat (kaarme, lainaaja) VALUES (%s, '%s')
-LAINA;
-
-$palautuskysely = <<<PALAUTUS
-UPDATE lainat
-SET    loppu = CURRENT_TIMESTAMP
-WHERE  lainaaja = '%s' AND
-       kaarme = %s AND
-       loppu IS NULL
-PALAUTUS;
+require_once 'sql.php';
+require_once 'xhtml.php';
 
 class KAARME {
 	private $tunnus;
@@ -50,8 +39,8 @@ class KAARME {
 	/* Lainaa käärme.
 	 */
 	private function lainaa() {
-		global $_karmia_root, $lainauskysely;
-		with(new PGDB)->kysele($lainauskysely, $this->lainaus, $this->tunnus);
+		global $_karmia_root, $_sql_lainaa_kaarme;
+		with(new PGDB)->kysele($_sql_lainaa_kaarme, $this->lainaus, $this->tunnus);
 		header("Content-Type: text/plain");
 		echo "200 OK";
 	}
@@ -59,8 +48,8 @@ class KAARME {
 	/* Palauta käärme.
 	 */
 	private function palauta() {
-		global $_karmia_root, $palautuskysely;
-		with(new PGDB)->kysele($palautuskysely, $this->tunnus, $this->palautus);
+		global $_karmia_root, $_sql_palauta_kaarme;
+		with(new PGDB)->kysele($_sql_palauta_kaarme, $this->tunnus, $this->palautus);
 		header("Content-Type: text/plain");
 		echo "200 OK";
 	}
