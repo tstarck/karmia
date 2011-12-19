@@ -8,6 +8,12 @@ function hae_arvo($id) {
 	return false;
 }
 
+function hae_numeroarvo($id) {
+	$arvo = hae_arvo($id);
+	if (ctype_digit($arvo)) return $arvo;
+	return false;
+}
+
 function hae_oikea_arvo($id, $re) {
 	$arvo = hae_arvo($id);
 	if (preg_match($re, $arvo)) return $arvo;

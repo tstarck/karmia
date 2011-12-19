@@ -4,58 +4,122 @@ require_once 'auth.php';
 require_once 'common.php';
 require_once 'xhtml.php';
 
-$kayttajakysely = <<<KAYTTAJAT
-SELECT tunnus, yllapeto, luotu FROM kayttajat
-KAYTTAJAT;
+$_sql_hali_kayttajat = "SELECT tunnus, yllapeto, luotu FROM kayttajat ORDER BY luotu";
+$_sql_hali_kaarmeet = "SELECT id, nimi, laji FROM kaarmeet ORDER BY id";
+$_sql_hali_lajit = "SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit ORDER BY id";
 
-$kaarmekysely = <<<KAARMEET
-SELECT id, nimi, laji FROM kaarmeet
-KAARMEET;
-
-$lajikysely = <<<LAJIT
-SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit
-LAJIT;
+$_sql_hali_poista_kayttaja = "DELETE FROM kayttajat WHERE tunnus = '%s'";
+$_sql_hali_poista_kaarme   = "DELETE FROM kaarmeet WHERE id = %s";
+$_sql_hali_poista_laji     = "DELETE FROM lajit WHERE laji = '%s'";
 
 /* Interaktiivinen selkärangattomien otusten hallintalista
  * ^               ^                 ^       ^^      ^^
  */
 class ISOHALI {
-	private $sivu;
+	private $moodi;
 
-	function __construct() {
-		$this->sivu = null;
+	private $kayttaja_pois;
+	private $kaarme_pois;
+	private $laji_pois;
 
+	public function __construct() {
 		if (!with(new AUTH)->yllapeto()) {
 			header("HTTP/1.1 401 Unauthorized");
 			die("401 Unauthorized");
 			exit;
 		}
+
+		$this->moodi = hae_oikea_arvo("moodi", "/^\w+$/");
+
+		$this->kayttaja_pois = hae_arvo("tunnus");
+		$this->kaarme_pois = hae_numeroarvo("id");
+		$this->laji_pois = hae_arvo("laji");
 	}
 
-	function duunaa() {
+	private function debug($msg) { echo "<!-- ", $msg, " -->\n"; }
+
+	private function kayttajan_poisto() {
+		global $_sql_hali_poista_kayttaja;
+
+		if (!empty($this->kayttaja_pois)) {
+			with(new PGDB)->kysele(sprintf($_sql_hali_poista_kayttaja, $this->kayttaja_pois))->anna_rivi()->taulukkona();
+		}
+	}
+
+	private function kaarmeen_poisto() {
+		global $_sql_hali_poista_kaarme;
+
+		if (!empty($this->kaarme_pois)) {
+			with(new PGDB)->kysele(sprintf($_sql_hali_poista_kaarme, $this->kaarme_pois))->anna_rivi()->taulukkona();
+		}
+	}
+
+	private function lajin_poisto() {
+		global $_sql_hali_poista_laji;
+
+		if (!empty($this->laji_pois)) {
+			with(new PGDB)->kysele(sprintf($_sql_hali_poista_laji, $this->laji_pois))->anna_rivi()->taulukkona();
+		}
+	}
+
+	public function duunaa() {
+		if ($this->moodi === "poista") {
+
+			$this->kayttajan_poisto();
+			$this->kaarmeen_poisto();
+			$this->lajin_poisto();
+		}
+
 		return $this;
 	}
 
-	function ja_tulosta() {
-		global $kayttajakysely, $kaarmekysely, $lajikysely;
+	private function poistolinkki($foo, $bar) {
+		$a = "<a href=\"?moodi=poista&%s=%s\">&#215;</a>";
+
+		return array_merge(
+			$foo,
+			array("poista" => sprintf($a, $bar, $foo[$bar]))
+		);
+	}
+
+	public function ja_tulosta() {
+		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit;
 
 		$sivu = new XHTML;
 		$sivu->kappale("Interaktiivinen Selkärangattomien Otusten Hallintalista");
 
-		$kayttajat= with(new PGDB)->kysele($kayttajakysely)->anna_kaikki()->taulukkona();
-		$kaarmeet = with(new PGDB)->kysele($kaarmekysely)->anna_kaikki()->taulukkona();
-		$lajit    = with(new PGDB)->kysele($lajikysely)->anna_kaikki()->taulukkona();
+		$kayttajat= with(new PGDB)->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
+		$kaarmeet = with(new PGDB)->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
+		$lajit    = with(new PGDB)->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
 
 		$sivu->taulukoi(
 			"Palvelun käyttäjät.",
-			array( "tunnus" => "Tunnus", "yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>", "luotu" => "Luontiaika"),
-			array_map($kayttajat)
+			array(
+				"tunnus" => "Tunnus",
+				"yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>",
+				"luotu" => "Luontiaika",
+				"poista" => "<abbr title=\"Poista käyttäjä\">&#10013;</abbr>"
+			),
+			array_map(
+				array($this, "poistolinkki"),
+				$kayttajat,
+				array_fill(0, count($kayttajat), "tunnus")
+			)
 		);
 
 		$sivu->taulukoi(
 			"Ihan simona matoja.",
-			array( "id" => "#", "nimi" => "Nimi", "laji" => "Laji"),
-			$kaarmeet
+			array(
+				"id" => "#",
+				"nimi" => "Nimi",
+				"laji" => "Laji",
+				"poista" => "<abbr title=\"Lopeta käärme\">&#10013;</abbr>"
+			),
+			array_map(
+				array($this, "poistolinkki"),
+				$kaarmeet,
+				array_fill(0, count($kaarmeet), "id")
+			)
 		);
 
 		$sivu->taulukoi(
@@ -66,10 +130,15 @@ class ISOHALI {
 				"latin" => "Latinaksi",
 				"alkupera" => "Alkupera",
 				"vari" => "Väri",
-				"myrkyllisyys" => "Myrkyllisyys",
-				"uhanalaisuus" => "Uhanalaisuus"
+				"myrkyllisyys" => "<abbr title=\"Myrkyllisyys\">Myrk.</abbr>",
+				"uhanalaisuus" => "<abbr title=\"Uhanalaisuus\">Uhka</abbr>",
+				"poista" => "<abbr title=\"Poista laji\">&#215;</abbr>"
 			),
-			$lajit
+			array_map(
+				array($this, "poistolinkki"),
+				$lajit,
+				array_fill(0, count($lajit), "laji")
+			)
 		);
 	}
 }

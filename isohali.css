@@ -25,3 +25,11 @@ td {
 	font: 11pt sans-serif;
 	border: solid 1px gray;
 }
+
+td.id, td.alkupera, td.yllapeto, td.myrkyllisyys, td.uhanalaisuus, td.poista {
+	text-align: center;
+}
+
+td > a {
+	color: #911;
+}
