@@ -42,7 +42,7 @@ CREATE TABLE myrkyllisyys (
 	myrkyllisyys varchar(20)
 );
 
-INSERT INTO lajit (nimi, latin) VALUES ('tuntematon', 'obscura vermis');
+INSERT INTO lajit (nimi, latin) VALUES ('tuntematon', 'vermis obscura');
 
 INSERT INTO alkupera VALUES (0, 'Australia');
 INSERT INTO alkupera VALUES (1, 'Etelä-Amerikka');
