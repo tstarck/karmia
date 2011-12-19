@@ -10,6 +10,7 @@ $alku = <<<ALKU
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="linkit.js"></script>
 <script src="linkit.php"></script>
+<script src="isohali.js"></script>
 </head>
 <body>
 <h1>Karmia</h1>
