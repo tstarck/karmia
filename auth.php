@@ -29,9 +29,7 @@ class AUTH {
 			return;
 		}
 
-		$kysely = sprintf($this->kysely, pg_escape_string($user), pg_escape_string($pass));
-
-		$vastaus = with(new PGDB)->kysele($kysely)->anna_rivi()->taulukkona();
+		$vastaus = with(new PGDB)->kysele($this->kysely, $user, $pass)->anna_rivi()->taulukkona();
 
 		if ($vastaus !== false) {
 			$this->kayttaja = $vastaus["tunnus"];

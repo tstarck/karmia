@@ -10,9 +10,8 @@
   – virheilmoitus varatun tunnuksen luonnista
     [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
 
-  – uuden käyttäjän tunnusta ei sanitoida
-    !!! kriittinen aukko !!!
-    pg_escape kannattaisi paketoida fiksusti PGDB-luokkaan
+  + uuden käyttäjän tunnusta ei sanitoida
+    nyt sanitoidaan ja pg_escape_string on kivasti paketoitu
 
   + navigointituki
     tehty
@@ -21,7 +20,7 @@
     valmis
 
   + error.php eli jokin nätti mekanismi virheistä toipumiseen
-	wontfix: error_log toimii riittävän hyvin
+    wontfix: error_log toimii riittävän hyvin
 
   + piparin päivitys, ettei kirjautuminen katoa
 

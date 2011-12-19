@@ -48,8 +48,12 @@ class JSON {
 		header("Cache-Control: no-cache");
 		header("Content-Type: application/javascript");
 
-		$tmp = sprintf($kysely, $this->tunnistus->kayttaja());
-		echo "handlaa(", json_encode(with(new PGDB)->kysele($tmp)->anna_kaikki()->taulukkona()), ")";
+		echo "handlaa(", json_encode(
+			with(new PGDB)
+			->kysele($kysely, $this->tunnistus->kayttaja())
+			->anna_kaikki()
+			->taulukkona()
+		), ")";
 	}
 }
 

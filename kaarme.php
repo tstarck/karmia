@@ -51,7 +51,7 @@ class KAARME {
 	 */
 	private function lainaa() {
 		global $_karmia_root, $lainauskysely;
-		with(new PGDB)->kysele(sprintf($lainauskysely, $this->lainaus, $this->tunnus));
+		with(new PGDB)->kysele($lainauskysely, $this->lainaus, $this->tunnus);
 		header("Content-Type: text/plain");
 		echo "200 OK";
 	}
@@ -60,7 +60,7 @@ class KAARME {
 	 */
 	private function palauta() {
 		global $_karmia_root, $palautuskysely;
-		with(new PGDB)->kysele(sprintf($palautuskysely, $this->tunnus, $this->palautus));
+		with(new PGDB)->kysele($palautuskysely, $this->tunnus, $this->palautus);
 		header("Content-Type: text/plain");
 		echo "200 OK";
 	}

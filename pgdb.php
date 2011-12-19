@@ -29,12 +29,55 @@ class PGDB {
 		pg_close($this->yhteys);
 	}
 
-	/* Suorittaa tietokantakyselyn, kunhan yhteys on avattu.
+	/* Sanitoi annetun syötteen tietokantaa varten.
 	 */
-	public function kysele($kysely = false) {
-		if ($kysely and $this->yhteys !== false) {
+	private function sanitoi($likapyykki) {
+		return pg_escape_string($likapyykki);
+	}
+
+	/* Suorittaa tietokantakyselyn, kunhan yhteys on avattu.
+	 *
+	 * Metodi hyväksyy 1–4 argumenttia.
+	 *
+	 * Ensimmäinen argumentti tulee olla joko puhdas SQL-kysely tai
+	 * printf:lle annettava SQL-kyselyn muotoilu. Kummassakaan tapauksessa
+	 * argumentin TULEE EHDOTTOMASTI OLLA SANITOITU tai muutoin turvallinen.
+	 *
+	 * Ensimmäistä seuraavat argumentit – jos sellaisia on annettu –
+	 * sanitoidaan ja niitä käytetään lopullisen SQL-kyselyn muodostamiseen.
+	 */
+	public function kysele() {
+		if (func_num_args() <= 0) {
+			error_log("kysele() kutsuttu ilman argumentteja");
+			die;
+		}
+
+		$likaiset = func_get_args();
+		$muoto = array_shift($likaiset);
+		$puhtaat = array_map(array($this, "sanitoi"), $likaiset);
+
+		/* Tää ois kiva tehdä jotenkin elegantimmin, mutta kuinka?
+		 * Ainakaan sprintf() ei suostu nomnommaamaan taulukkoa
+		 * sellaisenaan :-\
+		 */
+		switch (count($puhtaat)) {
+			case 0:
+				$kysely = $muoto; break;
+			case 1:
+				$kysely = sprintf($muoto, $puhtaat[0]); break;
+			case 2:
+				$kysely = sprintf($muoto, $puhtaat[0], $puhtaat[1]); break;
+			case 3:
+				$kysely = sprintf($muoto, $puhtaat[0], $puhtaat[1], $puhtaat[2]); break;
+			default:
+				error_log("kysely(args > 3) on toteuttamatta");
+				die;
+		}
+
+		if ($this->yhteys !== false) {
 			$this->vastaus = pg_query($this->yhteys, $kysely);
 		}
+
 		return $this;
 	}
 

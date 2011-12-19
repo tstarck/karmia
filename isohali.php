@@ -42,7 +42,7 @@ class ISOHALI {
 		global $_sql_hali_poista_kayttaja;
 
 		if (!empty($this->kayttaja_pois)) {
-			with(new PGDB)->kysele(sprintf($_sql_hali_poista_kayttaja, $this->kayttaja_pois))->anna_rivi()->taulukkona();
+			with(new PGDB)->kysele($_sql_hali_poista_kayttaja, $this->kayttaja_pois);
 		}
 	}
 
@@ -50,7 +50,7 @@ class ISOHALI {
 		global $_sql_hali_poista_kaarme;
 
 		if (!empty($this->kaarme_pois)) {
-			with(new PGDB)->kysele(sprintf($_sql_hali_poista_kaarme, $this->kaarme_pois))->anna_rivi()->taulukkona();
+			with(new PGDB)->kysele($_sql_hali_poista_kaarme, $this->kaarme_pois);
 		}
 	}
 
@@ -58,7 +58,7 @@ class ISOHALI {
 		global $_sql_hali_poista_laji;
 
 		if (!empty($this->laji_pois)) {
-			with(new PGDB)->kysele(sprintf($_sql_hali_poista_laji, $this->laji_pois))->anna_rivi()->taulukkona();
+			with(new PGDB)->kysele($_sql_hali_poista_laji, $this->laji_pois);
 		}
 	}
 

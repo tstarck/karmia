@@ -27,7 +27,7 @@ if (!empty($error)) {
 	exit;
 }
 
-with(new PGDB)->kysele(sprintf($tietojentalletus, $newuser, sha1($passone))); // FIXME virheet?
+with(new PGDB)->kysele($tietojentalletus, $newuser, sha1($passone)); // FIXME virheet?
 
 aseta_pipari("user", $newuser);
 aseta_pipari("pass", sha1($passone));
