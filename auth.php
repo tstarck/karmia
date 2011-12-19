@@ -10,6 +10,7 @@ require_once 'sql.php';
 class AUTH {
 	private $kayttaja;
 	private $yllapitelija;
+	private $luontiaika;
 
 	/* Oletuskonstruktori:
 	 * Olion luonnin yhteydessä mennään suoraan asiaan ja
@@ -22,6 +23,7 @@ class AUTH {
 
 		$this->kayttaja = false;
 		$this->yllapitelija = false;
+		$this->luontiaika = false;
 
 		$user = hae_pipari("user");
 		$pass = hae_pipari("pass");
@@ -34,6 +36,7 @@ class AUTH {
 
 		if ($vastaus !== false) {
 			$this->kayttaja = $vastaus["tunnus"];
+			$this->luontiaika = $vastaus["luotu"];
 
 			if ($vastaus["yllapeto"] === "t") {
 				$this->yllapitelija = true;
@@ -60,10 +63,16 @@ class AUTH {
 		return ($this->yllapitelija);
 	}
 
-	/* Palauttaa käyttäjänimen, jos käyttäjä on tunnistettu.
+	/* Palauttaa käyttäjän tunnuksen.
 	 */
 	public function kayttaja() {
 		return $this->kayttaja;
+	}
+
+	/* Palauttaa tunnuksen luontiajankohdan.
+	 */
+	public function luontiaika() {
+		return $this->luontiaika;
 	}
 }
 
