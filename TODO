@@ -5,6 +5,8 @@
 
   – dokumentointi ajan tasalle
 
+  – piä tietokanta konsistenttina poistotilanteessa
+
   – virheilmoitus varatun tunnuksen luonnista
     [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
 
@@ -46,11 +48,13 @@
 
   – poista käärmeeltä ominaisuus (ylläpeto)
 
-  – poista käärme (ylläpeto)
+  + poista käärme (ylläpeto)
+    pelittää
 
   – haku ominaisuuden perusteella
 
-  – poista käyttäjä (ylläpeto)
+  + poista käyttäjä (ylläpeto)
+    pelittää
 
   + lainaa käärme
     pelittää
