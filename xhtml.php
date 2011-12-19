@@ -4,18 +4,22 @@ $alku = <<<ALKU
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Karmia > Isohali</title>
+<title>%s</title>
 <link rel="shortcut icon" type="image/png" href="icon.png" />
-<link rel="stylesheet" title="Isohali" href="isohali.css" media="screen" />
+<link rel="stylesheet" href="%s" media="screen" />
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="linkit.js"></script>
 <script src="linkit.php"></script>
-<script src="isohali.js"></script>
-</head>
+%s</head>
 <body>
 <h1>Karmia</h1>
 <ul id="linkit"></ul>
 ALKU;
+
+$tagit = array(
+	"script" => "<script src=\"%s\"></script>\n",
+	"style"  => "<link rel=\"stylesheet\" href=\"%s\" media=\"screen\" />\n"
+);
 
 $loppu = <<<LOPPU
 </body>
@@ -23,9 +27,18 @@ $loppu = <<<LOPPU
 LOPPU;
 
 class XHTML {
-	function __construct() {
+	function __construct($otsake="Karmia", $tyyli="main.css", $ekstrat=null) {
 		global $alku;
-		echo $alku;
+
+		$tmp = "";
+
+		if (!empty($ekstrat)) {
+			foreach ($ekstrat as $avain => $arvo) {
+				$tmp .= sprintf($tagit[$avain], $arvo);
+			}
+		}
+
+		echo sprintf($alku, $otsake, $tyyli, $tmp);
 	}
 
 	function __destruct() {
@@ -71,14 +84,8 @@ class XHTML {
 		echo "</table>\n";
 	}
 
-	public function kappale($asia) {
-		echo "<p>", $asia, "</p>\n";
-	}
-
-	public function linkki($teksti, $href) { // FIXME unused
-		$a = "<a href=\"$href\">$teksti</a>\n";
-		echo sprintf($a, $href);
-		return $this;
+	public function kappale() {
+		echo "<p>", join(func_get_args()), "</p>\n";
 	}
 }
 

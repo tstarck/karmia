@@ -19,7 +19,6 @@ class ISOHALI {
 		if (!with(new AUTH)->yllapeto()) {
 			header("HTTP/1.1 401 Unauthorized");
 			die("401 Unauthorized");
-			exit;
 		}
 
 		$this->moodi = hae_oikea_arvo("moodi", "/^\w+$/");
@@ -28,8 +27,6 @@ class ISOHALI {
 		$this->kaarme_pois = hae_numeroarvo("id");
 		$this->laji_pois = hae_arvo("laji");
 	}
-
-	private function debug($msg) { echo "<!-- ", $msg, " -->\n"; }
 
 	private function kayttajan_poisto() {
 		global $_sql_hali_poista_kayttaja;
@@ -78,7 +75,8 @@ class ISOHALI {
 	public function ja_tulosta() {
 		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit;
 
-		$sivu = new XHTML;
+		$sivu = new XHTML("Karmia > Isohali", "isohali.css", array("script" => "isohali.js"));
+
 		$sivu->kappale("Interaktiivinen Selkärangattomien Otusten Hallintalista");
 
 		$kayttajat= with(new PGDB)->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
@@ -91,7 +89,7 @@ class ISOHALI {
 				"tunnus" => "Tunnus",
 				"yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>",
 				"luotu" => "Luontiaika",
-				"poista" => "<abbr title=\"Poista käyttäjä\">&#10013;</abbr>"
+				"poista" => "<abbr title=\"Poista käyttäjä\">&#215;</abbr>"
 			),
 			array_map(
 				array($this, "poistolinkki"),
@@ -106,7 +104,7 @@ class ISOHALI {
 				"id" => "#",
 				"nimi" => "Nimi",
 				"laji" => "Laji",
-				"poista" => "<abbr title=\"Lopeta käärme\">&#10013;</abbr>"
+				"poista" => "<abbr title=\"Lopeta käärme\">&#215;</abbr>"
 			),
 			array_map(
 				array($this, "poistolinkki"),
@@ -121,10 +119,10 @@ class ISOHALI {
 				"id" => "#",
 				"laji" => "Laji",
 				"latin" => "Latinaksi",
-				"alkupera" => "Alkupera",
+				"alkupera" => "Alkuperä",
 				"vari" => "Väri",
 				"myrkyllisyys" => "<abbr title=\"Myrkyllisyys\">Myrk.</abbr>",
-				"uhanalaisuus" => "<abbr title=\"Uhanalaisuus\">Uhka</abbr>",
+				"uhanalaisuus" => "<abbr title=\"Uhanalaisuus\">Uhan.</abbr>",
 				"poista" => "<abbr title=\"Poista laji\">&#215;</abbr>"
 			),
 			array_map(
@@ -137,17 +135,5 @@ class ISOHALI {
 }
 
 with(new ISOHALI)->duunaa()->ja_tulosta();
-
-/*
-   – lisää käärme (ylläpeto)
-   – poista käärme (ylläpeto)
-
-   – lisää laji (ylläpeto)
-   – poista laji (ylläpeto)
-
-   – poista käyttäjä (ylläpeto)
-
-   – käärmeyksilön lainahistorian tulostus (ylläpeto)
-*/
 
 ?>

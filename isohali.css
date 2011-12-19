@@ -2,10 +2,6 @@
 
 @import url(main.css) screen;
 
-p {
-	margin: 1em 2em;
-}
-
 table {
 	margin: 2em;
 	border-collapse: collapse;
