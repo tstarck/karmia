@@ -32,6 +32,6 @@ with(new PGDB)->kysele(sprintf($tietojentalletus, $newuser, sha1($passone))); //
 aseta_pipari("user", $newuser);
 aseta_pipari("pass", sha1($passone));
 
-header("Location: ".$__karmia_root);
+header("Location: ".$_karmia_root);
 
 ?>

@@ -26,15 +26,15 @@ function hae_pipari($id) {
 }
 
 function aseta_pipari($avain, $arvo) {
-	global $__karmia_root;
-	if (!setcookie($avain, $arvo, 3600+time(), $__karmia_root)) {
+	global $_karmia_root;
+	if (!setcookie($avain, $arvo, 3600+time(), $_karmia_root)) {
 		error_log("Piparin laitto ei onnistunut");
 	}
 }
 
 function poista_pipari($avain) {
-	global $__karmia_root;
-	setcookie($avain, "", -100+time(), $__karmia_root);
+	global $_karmia_root;
+	setcookie($avain, "", -100+time(), $_karmia_root);
 }
 
 function with($olio) { /* Python-o-matic */ return $olio; }

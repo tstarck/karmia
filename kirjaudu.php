@@ -9,7 +9,7 @@ $pass = hae_arvo("pass");
 
 if (empty($user) or empty($pass)) {
 	if (with(new AUTH)->ok()) {
-		header("Location: ".$__karmia_root);
+		header("Location: ".$_karmia_root);
 	}
 	else {
 		header("Location: kirjaudu.xhtml#virheellinen_kirjautuminen");

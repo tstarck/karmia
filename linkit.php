@@ -8,13 +8,13 @@ class LINKKILISTA {
 	private $yllapeto;
 
 	function __construct() {
-		global $__karmia_root;
+		global $_karmia_root;
 
 		$this->yllapeto = with(new AUTH)->yllapeto();
 
 		$linkit = array(
 			array(true,  "kayttaja.php", "Oma sivu"),
-			array(true,  $__karmia_root, "Käärmeet"),
+			array(true,  $_karmia_root,  "Käärmeet"),
 			array(false, "isohali.php",  "Isohali"),
 			array(true,  "pois.php",     "Kirjaudu ulos")
 		);
