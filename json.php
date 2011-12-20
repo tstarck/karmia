@@ -15,7 +15,7 @@ class JSON {
 	}
 
 	function json() {
-		global $_sql_json_megakysely;
+		global $_sql_json_kaikkimullehetinyt;
 
 		if (!$this->tunnistus->ok()) return;
 
@@ -25,7 +25,7 @@ class JSON {
 
 		echo "handlaa(", json_encode(
 			with(new PGDB)
-			->kysele($_sql_json_megakysely, $this->tunnistus->kayttaja())
+			->kysele($_sql_json_kaikkimullehetinyt, $this->tunnistus->kayttaja())
 			->anna_kaikki()
 			->taulukkona()
 		), ")";

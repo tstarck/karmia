@@ -1,12 +1,20 @@
 <?php
 
+/* Käyttäjätietojen kysely
+ */
 $_sql_auth_tunnistus = "SELECT tunnus, yllapeto, luotu FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
 
+/* Käyttjän lisääminen
+ */
 $_sql_uusi_kayttaja  = "INSERT INTO kayttajat VALUES ('%s', '%s')";
 
+/* Käärmeen lainaaminen ja palauttaminen
+ */
 $_sql_lainaa_kaarme  = "INSERT INTO lainat (kaarme, lainaaja) VALUES (%s, '%s')";
 $_sql_palauta_kaarme = "UPDATE lainat SET loppu = CURRENT_TIMESTAMP WHERE lainaaja = '%s' AND kaarme = %s AND loppu IS NULL";
 
+/* Käyttäjän lainalista
+ */
 $_sql_oma_lainat = <<<LAINAT
 SELECT   l.id,
          k.nimi,
@@ -20,7 +28,7 @@ ORDER BY l.loppu DESC NULLS FIRST
 LIMIT    42
 LAINAT;
 
-$_sql_json_megakysely = <<<MEGA
+$_sql_json_kaikkimullehetinyt = <<<JSON
 SELECT k.id,
        k.nimi,
        l.laji,
@@ -43,14 +51,30 @@ FROM   lajit l,
 WHERE  k.laji = l.id AND
        l.alkupera = a.id AND
        l.myrkyllisyys = m.id
-MEGA;
+JSON;
 
+/* Isohalin listat
+ */
 $_sql_hali_kayttajat = "SELECT tunnus, yllapeto, luotu FROM kayttajat ORDER BY luotu";
 $_sql_hali_kaarmeet  = "SELECT id, nimi, laji FROM kaarmeet ORDER BY id";
 $_sql_hali_lajit     = "SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit ORDER BY id";
 
-$_sql_hali_poista_kayttaja = "DELETE FROM kayttajat WHERE tunnus = '%s'";
-$_sql_hali_poista_kaarme   = "DELETE FROM kaarmeet WHERE id = %s";
-$_sql_hali_poista_laji     = "DELETE FROM lajit WHERE laji = '%s'";
+/* Käyttäjän avoimet lainat suljetaan,
+ * jos käyttäjä poistetaan
+ */
+$_sql_hali_pois_kayt_lainat = "UPDATE lainat SET loppu = CURRENT_TIMESTAMP WHERE lainaaja = '%s' AND loppu IS NULL";
+$_sql_hali_poista_kayttaja  = "DELETE FROM kayttajat WHERE tunnus = '%s'";
+
+/* Käärmettä koskevat avoimet lainat
+ * suljetaan, jos käärme poistetaan
+ */
+$_sql_hali_pois_kaar_lainat = "UPDATE lainat SET loppu = CURRENT_TIMESTAMP WHERE kaarme = '%s' AND loppu IS NULL";
+$_sql_hali_poista_kaarme    = "DELETE FROM kaarmeet WHERE id = %s";
+
+/* Jos lajiluokka poistetaan, pitää lajin
+ * käärmeet merkitä tuntemattomiksi
+ */
+$_sql_hali_refaktoroi_kaarmeet = "UPDATE";
+$_sql_hali_poista_laji         = "DELETE FROM lajit WHERE laji = '%s'";
 
 ?>
