@@ -17,14 +17,18 @@ $_sql_palauta_kaarme = "UPDATE lainat SET loppu = CURRENT_TIMESTAMP WHERE lainaa
  */
 $_sql_oma_lainat = <<<LAINAT
 SELECT   l.id,
-         k.nimi,
+         COALESCE(k.nimi, '-') AS nimi,
          l.alku,
          l.loppu
-FROM     lainat l,
-         kaarmeet k
-WHERE    l.kaarme = k.id AND
-         l.lainaaja = '%s'
+FROM     lainat l
+
+LEFT OUTER JOIN kaarmeet k
+         ON k.id = l.kaarme
+
+WHERE    l.lainaaja = '%s'
+
 ORDER BY l.loppu DESC NULLS FIRST
+
 LIMIT    42
 LAINAT;
 
@@ -41,13 +45,15 @@ SELECT k.id,
             WHEN t.lainaaja IS NOT NULL THEN 'varattu'
             ELSE 'vapaa'
        END AS laina
+
 FROM   lajit l,
        alkupera a,
        myrkyllisyys m,
        kaarmeet k
-       LEFT OUTER JOIN lainat t
-       ON k.id = t.kaarme AND
-          t.loppu IS NULL
+
+LEFT OUTER JOIN lainat t
+       ON k.id = t.kaarme AND t.loppu IS NULL
+
 WHERE  k.laji = l.id AND
        l.alkupera = a.id AND
        l.myrkyllisyys = m.id
@@ -58,6 +64,10 @@ JSON;
 $_sql_hali_kayttajat = "SELECT tunnus, yllapeto, luotu FROM kayttajat ORDER BY luotu";
 $_sql_hali_kaarmeet  = "SELECT id, nimi, laji FROM kaarmeet ORDER BY id";
 $_sql_hali_lajit     = "SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit ORDER BY id";
+
+/* Anna käyttäjälle ylläpeto-oikeudet
+ */
+$_sql_hali_promoa_kayttaja  = "UPDATE kayttajat SET yllapeto = true WHERE tunnus = '%s'";
 
 /* Käyttäjän avoimet lainat suljetaan,
  * jos käyttäjä poistetaan
@@ -74,7 +84,7 @@ $_sql_hali_poista_kaarme    = "DELETE FROM kaarmeet WHERE id = %s";
 /* Jos lajiluokka poistetaan, pitää lajin
  * käärmeet merkitä tuntemattomiksi
  */
-$_sql_hali_refaktoroi_kaarmeet = "UPDATE";
+$_sql_hali_refaktoroi_kaarmeet = "UPDATE kaarmeet SET laji = 1 WHERE laji = (SELECT id FROM lajit WHERE laji LIKE '%s')";
 $_sql_hali_poista_laji         = "DELETE FROM lajit WHERE laji = '%s'";
 
 ?>

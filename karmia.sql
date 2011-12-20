@@ -42,18 +42,19 @@ CREATE TABLE myrkyllisyys (
 	myrkyllisyys varchar(20)
 );
 
-INSERT INTO lajit (nimi, latin) VALUES ('tuntematon', 'vermis obscura');
+INSERT INTO lajit (laji, latin, alkupera) VALUES ('tuntematon', 'vermis obscura', 0);
 
-INSERT INTO alkupera VALUES (0, 'Australia');
-INSERT INTO alkupera VALUES (1, 'Etelä-Amerikka');
-INSERT INTO alkupera VALUES (2, 'Väli-Amerikka');
-INSERT INTO alkupera VALUES (3, 'Pohjois-Amerikka');
-INSERT INTO alkupera VALUES (4, 'Eurooppa');
-INSERT INTO alkupera VALUES (5, 'Afrikka');
-INSERT INTO alkupera VALUES (6, 'Kaukasia');
-INSERT INTO alkupera VALUES (7, 'Aasia');
-INSERT INTO alkupera VALUES (8, 'Etelä-Aasia');
-INSERT INTO alkupera VALUES (9, 'Kaakkois-Aasia');
+INSERT INTO alkupera VALUES ( 0, 'tuntematon');
+INSERT INTO alkupera VALUES ( 1, 'Australia');
+INSERT INTO alkupera VALUES ( 2, 'Etelä-Amerikka');
+INSERT INTO alkupera VALUES ( 3, 'Väli-Amerikka');
+INSERT INTO alkupera VALUES ( 4, 'Pohjois-Amerikka');
+INSERT INTO alkupera VALUES ( 5, 'Eurooppa');
+INSERT INTO alkupera VALUES ( 6, 'Afrikka');
+INSERT INTO alkupera VALUES ( 7, 'Kaukasia');
+INSERT INTO alkupera VALUES ( 8, 'Aasia');
+INSERT INTO alkupera VALUES ( 9, 'Etelä-Aasia');
+INSERT INTO alkupera VALUES (10, 'Kaakkois-Aasia');
 
 INSERT INTO myrkyllisyys VALUES (0, 'ei tiedossa');
 INSERT INTO myrkyllisyys VALUES (1, 'ei myrkyllinen');

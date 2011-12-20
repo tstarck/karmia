@@ -1,6 +1,4 @@
 
- -- Testidataa
-
 INSERT INTO lajit VALUES ('paraguaynanakonda', 'Eunectes notaeus', 1, 'keltainen, mustat täplät', 1, 'NE');
 INSERT INTO lajit VALUES ('viheranakonda', 'Eunectes murinus', 1, 'oliivinvihreä, mustat täplät', 1, '');
 INSERT INTO lajit VALUES ('aavikkotaipaani', 'Oxyuranus microlepitodus', 0, 'talvella ruskea, kesällä oliivinvihreä', 3, '');
@@ -16,17 +14,9 @@ INSERT INTO kaarmeet (nimi, laji) VALUES ('Ofelia', (SELECT id FROM lajit WHERE 
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Tuomas', (SELECT id FROM lajit WHERE laji = 'aavikkotaipaani'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Alf', (SELECT id FROM lajit WHERE laji = 'teksasinkalkkarokäärme'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Krtek', (SELECT id FROM lajit WHERE laji = 'kuningaskobra'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Nget', (SELECT id FROM lajit WHERE laji = 'kuningaskobra'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Mustikka', (SELECT id FROM lajit WHERE laji = 'mustamamba'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Billy-Bob', (SELECT id FROM lajit WHERE laji = 'vihermamba'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Kalevi', (SELECT id FROM lajit WHERE laji = 'kyy'));
+INSERT INTO kaarmeet (nimi, laji) VALUES ('Toivo', (SELECT id FROM lajit WHERE laji = 'kyy'));
 INSERT INTO kaarmeet (nimi, laji) VALUES ('Rane', (SELECT id FROM lajit WHERE laji = 'rantakäärme'));
-
- -- LC, Least Concern, elinvoimainen
- -- NT, Near Threatened, silmälläpidettävä
- -- VU, Vulnerable, vaarantunut
- -- EN, Endangered, erittäin uhanalainen
- -- CR, Critically Endangered, äärimmäisen uhanalainen
- -- EW, Extinct in the Wild, luonnosta hävinnyt
- -- EX, Extinct, hävinnyt
- -- DD, Data Deficient, puutteellisesti tunnettu
- -- NE, Not Evaluated, arvioimatta jätetty
