@@ -37,8 +37,6 @@ class XHTML {
 			}
 		}
 
-		echo "<!-- ", $raw, " -->\n";
-
 		echo sprintf($alku, $otsikko, $raw);
 	}
 

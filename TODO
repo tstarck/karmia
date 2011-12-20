@@ -5,10 +5,14 @@
 
   – dokumentointi ajan tasalle
 
-  – piä tietokanta konsistenttina poistotilanteessa
-
   – virheilmoitus varatun tunnuksen luonnista
     [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
+
+  – salasanamallista turvallisempi
+    pelkkä sha1() ilman suolaa on heikkoa settiä
+
+  + piä tietokanta konsistenttina poistotilanteessa
+    pitäis olla nyt
 
   + uuden käyttäjän tunnusta ei sanitoida
     nyt sanitoidaan ja pg_escape_string on kivasti paketoitu
