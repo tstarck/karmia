@@ -1,5 +1,5 @@
 
-# TODOS
+# BUGS
 
   – yhdistä kaarme.php indeksiin
 
@@ -27,6 +27,7 @@
     wontfix: error_log toimii riittävän hyvin
 
   + piparin päivitys, ettei kirjautuminen katoa
+    pelittää
 
   + lajit.nimi > lajit.laji
     muutettu
@@ -34,10 +35,7 @@
   + päällekkäisyyksien siivous: login.php user.php
     deprekoitunut bugi
 
-  + debug.php eli jokin keino reagoida kunnon wtf-tilanteisiin
-    toimii
-
-# Käyttötapaukset
+# TODOS / use cases
 
   + tunnistautuminen
     toimii
@@ -45,16 +43,24 @@
   + luo käyttäjä
     toimii
 
+  + käyttäjän ylennys ylläpedoksi (ylläpeto)
+    toimii
+
   – lisää käärme (ylläpeto)
 
-  – lisää käärmeelle ominaisuus (ylläpeto)
+  – lisää laji (ylläpeto)
 
-  – poista käärmeeltä ominaisuus (ylläpeto)
+  * lisää käärmeelle ominaisuus (ylläpeto)
+    wontfix: suunniteltu huonosti
+
+  * poista käärmeeltä ominaisuus (ylläpeto)
+    wontfix: suunniteltu huonosti
 
   + poista käärme (ylläpeto)
     pelittää
 
-  – haku ominaisuuden perusteella
+  * haku ominaisuuden perusteella
+    wontfix: aikabudjetti ei salli
 
   + poista käyttäjä (ylläpeto)
     pelittää
@@ -65,7 +71,8 @@
   + palauta käärme
     pelittää
 
-  – käärmeyksilön lainahistorian tulostus (ylläpeto)
+  * käärmeyksilön lainahistorian tulostus (ylläpeto)
+    wontfix: aikabudjetti ei salli
 
   + lainaajan lainahistorian tulostus
     omasivu valmis
