@@ -22,10 +22,9 @@ td {
 	border: solid 1px gray;
 }
 
-td.id, td.alkupera, td.yllapeto, td.myrkyllisyys, td.uhanalaisuus, td.poista {
+td.id, td.alkupera, td.yllapeto, td.myrkyllisyys, td.uhanalaisuus, td.promoa, td.poista {
 	text-align: center;
 }
 
-td > a {
-	color: #911;
-}
+td.promoa > a { color: #070; }
+td.poista > a { color: #911; }

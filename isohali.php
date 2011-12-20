@@ -11,9 +11,9 @@ require_once 'xhtml.php';
 class ISOHALI {
 	private $moodi;
 
-	private $kayttaja_pois;
-	private $kaarme_pois;
-	private $laji_pois;
+	private $annettu_kayttaja;
+	private $annettu_kaarme;
+	private $annettu_laji;
 
 	public function __construct() {
 		if (!with(new AUTH)->yllapeto()) {
@@ -23,47 +23,77 @@ class ISOHALI {
 
 		$this->moodi = hae_oikea_arvo("moodi", "/^\w+$/");
 
-		$this->kayttaja_pois = hae_arvo("tunnus");
-		$this->kaarme_pois = hae_numeroarvo("id");
-		$this->laji_pois = hae_arvo("laji");
+		$this->annettu_kayttaja = hae_arvo("tunnus");
+		$this->annettu_kaarme = hae_numeroarvo("id");
+		$this->annettu_laji = hae_arvo("laji");
+	}
+
+	private function kayttajan_ylennys() {
+		global $_sql_hali_promoa_kayttaja;
+
+		if (!empty($this->annettu_kayttaja)) {
+			with(new PGDB)->kysele($_sql_hali_promoa_kayttaja, $this->annettu_kayttaja);
+		}
 	}
 
 	private function kayttajan_poisto() {
-		global $_sql_hali_poista_kayttaja;
+		global $_sql_hali_poista_kayttaja, $_sql_hali_pois_kayt_lainat;
 
-		if (!empty($this->kayttaja_pois)) {
-			with(new PGDB)->kysele($_sql_hali_poista_kayttaja, $this->kayttaja_pois);
+		if (!empty($this->annettu_kayttaja)) {
+			$kanto = new PGDB;
+			$kanto->kysele($_sql_hali_pois_kayt_lainat, $this->annettu_kayttaja);
+			$kanto->kysele($_sql_hali_poista_kayttaja, $this->annettu_kayttaja);
 		}
 	}
 
 	private function kaarmeen_poisto() {
-		global $_sql_hali_poista_kaarme;
+		global $_sql_hali_poista_kaarme, $_sql_hali_pois_kaar_lainat;
 
-		if (!empty($this->kaarme_pois)) {
-			with(new PGDB)->kysele($_sql_hali_poista_kaarme, $this->kaarme_pois);
+		if (!empty($this->annettu_kaarme)) {
+			$kanto = new PGDB;
+			$kanto->kysele($_sql_hali_pois_kaar_lainat, $this->annettu_kaarme);
+			$kanto->kysele($_sql_hali_poista_kaarme, $this->annettu_kaarme);
 		}
 	}
 
 	private function lajin_poisto() {
-		global $_sql_hali_poista_laji;
+		global $_sql_hali_poista_laji, $_sql_hali_refaktoroi_kaarmeet;
 
-		if (!empty($this->laji_pois)) {
-			with(new PGDB)->kysele($_sql_hali_poista_laji, $this->laji_pois);
+		if (!empty($this->annettu_laji)) {
+			$kanto = new PGDB;
+			$maski = preg_replace("/[^a-z]/i", "%", $this->annettu_laji);
+
+			$kanto->kysele($_sql_hali_refaktoroi_kaarmeet, $this->annettu_laji);
+			$kanto->kysele($_sql_hali_poista_laji, $this->annettu_laji);
 		}
 	}
 
-	private function poistolinkki($foo, $bar) {
-		$a = "<a href=\"?moodi=poista&%s=%s\">&#215;</a>";
+	private function promolinkki($eka, $toka) {
+		$linkki = "<a href=\"?moodi=promota&%s=%s\">&#8679;</a>";
+
+		if ($eka["yllapeto"] === "f") {
+			return array_merge(
+				$eka, array("promoa" => sprintf($linkki, $toka, $eka[$toka]))
+			);
+		}
+		else {
+			return array_merge($eka, array("tyhja" => ""));
+		}
+	}
+
+	private function poistolinkki($eka, $toka) {
+		$linkki = "<a href=\"?moodi=poista&%s=%s\">&#215;</a>";
 
 		return array_merge(
-			$foo,
-			array("poista" => sprintf($a, $bar, $foo[$bar]))
+			$eka, array("poista" => sprintf($linkki, $toka, $eka[$toka]))
 		);
 	}
 
 	public function duunaa() {
-		if ($this->moodi === "poista") {
-
+		if ($this->moodi === "promota") {
+			$this->kayttajan_ylennys();
+		}
+		elseif ($this->moodi === "poista") {
 			$this->kayttajan_poisto();
 			$this->kaarmeen_poisto();
 			$this->lajin_poisto();
@@ -92,11 +122,16 @@ class ISOHALI {
 				"tunnus" => "Tunnus",
 				"yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>",
 				"luotu" => "Luontiaika",
+				"promoa" => "<abbr title=\"Tee käyttäjästä ylipeto\">&#8679;</abbr>",
 				"poista" => "<abbr title=\"Poista käyttäjä\">&#215;</abbr>"
 			),
 			array_map(
 				array($this, "poistolinkki"),
-				$kayttajat,
+				array_map(
+					array($this, "promolinkki"),
+					$kayttajat,
+					array_fill(0, count($kayttajat), "tunnus")
+				),
 				array_fill(0, count($kayttajat), "tunnus")
 			)
 		);
