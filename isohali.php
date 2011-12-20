@@ -52,6 +52,15 @@ class ISOHALI {
 		}
 	}
 
+	private function poistolinkki($foo, $bar) {
+		$a = "<a href=\"?moodi=poista&%s=%s\">&#215;</a>";
+
+		return array_merge(
+			$foo,
+			array("poista" => sprintf($a, $bar, $foo[$bar]))
+		);
+	}
+
 	public function duunaa() {
 		if ($this->moodi === "poista") {
 
@@ -63,28 +72,22 @@ class ISOHALI {
 		return $this;
 	}
 
-	private function poistolinkki($foo, $bar) {
-		$a = "<a href=\"?moodi=poista&%s=%s\">&#215;</a>";
-
-		return array_merge(
-			$foo,
-			array("poista" => sprintf($a, $bar, $foo[$bar]))
-		);
-	}
-
 	public function ja_tulosta() {
 		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit;
 
-		$sivu = new XHTML("Karmia > Isohali", "isohali.css", array("script" => "isohali.js"));
+		$sivu = new XHTML(
+			"Karmia > Isohali",
+			array("style" => "isohali.css", "script" => "isohali.js")
+		);
 
-		$sivu->kappale("Interaktiivinen Selkärangattomien Otusten Hallintalista");
+		$sivu->kappale("<b>I</b>nteraktiivinen <b>S</b>elkärangattomien <b>O</b>tusten <b>Ha</b>llinta<b>li</b>sta");
 
 		$kayttajat= with(new PGDB)->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
 		$kaarmeet = with(new PGDB)->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
 		$lajit    = with(new PGDB)->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
 
 		$sivu->taulukoi(
-			"Palvelun käyttäjät.",
+			"kayttajat",
 			array(
 				"tunnus" => "Tunnus",
 				"yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>",
@@ -99,7 +102,7 @@ class ISOHALI {
 		);
 
 		$sivu->taulukoi(
-			"Ihan simona matoja.",
+			"kaarmeet",
 			array(
 				"id" => "#",
 				"nimi" => "Nimi",
@@ -114,7 +117,7 @@ class ISOHALI {
 		);
 
 		$sivu->taulukoi(
-			"Lajit. Piste.",
+			"lajit",
 			array(
 				"id" => "#",
 				"laji" => "Laji",

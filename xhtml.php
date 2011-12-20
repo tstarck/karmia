@@ -6,7 +6,6 @@ $alku = <<<ALKU
 <head>
 <title>%s</title>
 <link rel="shortcut icon" type="image/png" href="icon.png" />
-<link rel="stylesheet" href="%s" media="screen" />
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="linkit.js"></script>
 <script src="linkit.php"></script>
@@ -16,7 +15,7 @@ $alku = <<<ALKU
 <ul id="linkit"></ul>
 ALKU;
 
-$tagit = array(
+$elementit = array(
 	"script" => "<script src=\"%s\"></script>\n",
 	"style"  => "<link rel=\"stylesheet\" href=\"%s\" media=\"screen\" />\n"
 );
@@ -27,18 +26,20 @@ $loppu = <<<LOPPU
 LOPPU;
 
 class XHTML {
-	function __construct($otsake="Karmia", $tyyli="main.css", $ekstrat=null) {
-		global $alku;
+	function __construct($otsikko="Karmia", $otsakkeet=null) {
+		global $alku, $elementit;
 
-		$tmp = "";
+		$raw = "";
 
-		if (!empty($ekstrat)) {
-			foreach ($ekstrat as $avain => $arvo) {
-				$tmp .= sprintf($tagit[$avain], $arvo);
+		if (!empty($otsakkeet)) {
+			foreach ($otsakkeet as $avain => $arvo) {
+				$raw .= sprintf($elementit[$avain], $arvo);
 			}
 		}
 
-		echo sprintf($alku, $otsake, $tyyli, $tmp);
+		echo "<!-- ", $raw, " -->\n";
+
+		echo sprintf($alku, $otsikko, $raw);
 	}
 
 	function __destruct() {
@@ -46,14 +47,10 @@ class XHTML {
 		echo $loppu;
 	}
 
-	public function taulukoi($kuvaus=null, $otsake=null, $data=null) {
+	public function taulukoi($id, $otsake=null, $data=null) {
 		$tr = "<td class=\"%s\">%s</td>\n";
 
-		echo "<table>\n";
-
-		if (!empty($kuvaus)) {
-			echo "<caption>", $kuvaus, "</caption>\n";
-		}
+		echo sprintf("<table id=\"%s\">\n", $id);
 
 		if (!empty($otsake)) {
 			echo "<thead>\n";
