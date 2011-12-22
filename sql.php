@@ -57,6 +57,8 @@ LEFT OUTER JOIN lainat t
 WHERE  k.laji = l.id AND
        l.alkupera = a.id AND
        l.myrkyllisyys = m.id
+
+ORDER BY k.id ASC
 JSON;
 
 /* Isohalin listat
@@ -89,8 +91,10 @@ $_sql_hali_poista_kaarme    = "DELETE FROM kaarmeet WHERE id = %s";
 
 /* Jos lajiluokka poistetaan, pitää lajin
  * käärmeet merkitä tuntemattomiksi
+ *
+ * Huom! Lajin 1 poistoyritys on no-op!
  */
 $_sql_hali_refaktoroi_kaarmeet = "UPDATE kaarmeet SET laji = 1 WHERE laji = (SELECT id FROM lajit WHERE laji LIKE '%s')";
-$_sql_hali_poista_laji         = "DELETE FROM lajit WHERE laji = '%s'";
+$_sql_hali_poista_laji         = "DELETE FROM lajit WHERE laji = '%s' AND id <> 1";
 
 ?>
