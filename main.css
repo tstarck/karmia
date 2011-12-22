@@ -1,4 +1,5 @@
 /* main.css */
+/* eli perussetti joka sivulle */
 
 html, body { margin: 0; }
 
@@ -12,10 +13,11 @@ p {
 	font-size: 12pt;
 }
 
-abbr { border: none; }
-
 a { text-decoration: none; }
 
+abbr { border: none; }
+
+/* Linkkilistan tyylittely */
 ul {
 	display: block;
 	margin: 0 0 1em 0;

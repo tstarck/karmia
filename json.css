@@ -2,7 +2,10 @@
 
 @import url(main.css) screen;
 
-table { border-collapse: collapse; }
+table {
+	margin: 0.2em 2em;
+	border-collapse: collapse;
+}
 
 /* Katkoviivat riveille */
 tr             { border-top: dotted 1px gray; }

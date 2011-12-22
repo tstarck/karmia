@@ -157,7 +157,7 @@ class ISOHALI {
 		$sivu->taulukoi(
 			"kayttajat",
 			array(
-				"tunnus" => "Tunnus",
+				"tunnus" => "<abbr title=\"Selkärangaton otu.. tarkoitan siis käyttäjä!\">Tunnus</abbr>",
 				"yllapeto" => "<abbr title=\"Ylläpitäjä\">Peto?</abbr>",
 				"luotu" => "Luontiaika",
 				"promoa" => "<abbr title=\"Tee käyttäjästä ylipeto\">&#8679;</abbr>",
@@ -177,7 +177,7 @@ class ISOHALI {
 		$sivu->taulukoi(
 			"kaarmeet",
 			array(
-				"id" => "#",
+				"id" => "",
 				"nimi" => "Nimi",
 				"laji" => "Laji",
 				"poista" => "<abbr title=\"Lopeta käärme\">&#215;</abbr>"
@@ -202,7 +202,7 @@ class ISOHALI {
 		$sivu->taulukoi(
 			"lajit",
 			array(
-				"id" => "#",
+				"id" => "",
 				"laji" => "Laji",
 				"latin" => "Latinaksi",
 				"alkupera" => "Alkuperä",
