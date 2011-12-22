@@ -2,6 +2,7 @@
 
 @import url(main.css) screen;
 
+/* Kirjautumis- ja käyttäjälomakkeen tyylit */
 form { margin: 1em; }
 
 form > label {
@@ -18,21 +19,13 @@ form > input {
 	border: solid 1px gray;
 }
 
-form > a {
-	font: 10pt sans-serif;
-	text-decoration: none;
-}
-form > a:hover {
-	text-decoration: underline;
-}
+form > a       { font: 10pt sans-serif; }
+form > a:hover { text-decoration: underline; }
 
-form > br {
-	clear: left;
-}
+form > br { clear: left; }
 
-#virheloki {
-	display: none;
-}
+/* Virhetilanteiden hailaitit */
+#virheloki { display: none; }
 
 #virheloki > * {
 	margin: 1em 2em;
@@ -42,12 +35,12 @@ form > br {
 	border: dotted 1px #c00;
 }
 
-#virhemerkki {
+#virheilmo {
 	display: none;
 	color: #c00;
 	font: bold 12pt serif;
 	font-variant: small-caps;
 }
-#virhemerkki > strong {
+#virheilmo > strong {
 	font-size: 16pt;
 }
