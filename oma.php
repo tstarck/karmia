@@ -21,7 +21,7 @@ class OMA {
 
 		$tunnus = $this->tunnistus->kayttaja();
 
-		$sivu = new XHTML("Karmia > Oma sivu", array("style" => "isohali.css"));
+		$sivu = new XHTML("Karmia > Oma sivu", array("css" => "isohali.css"));
 
 		$sivu->kappale(
 			($this->tunnistus->yllapeto())? "Ylläpitäjä: ": "Käyttäjä: ",
