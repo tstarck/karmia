@@ -12,14 +12,10 @@ tr:hover       { background-color: #eee; }
 /* Taulukon tekstityylit */
 td       { padding: 0.2em 1.2em; }
 td.nro   { font: bold 10pt monospace; }
+td.laina { font: 13pt sans-serif; }
 td.nimi  { font: bold 11pt sans-serif; }
 td.laji  { font: 10pt sans-serif; }
 td.latin { font-style: italic; }
-
-td > abbr {
-	font: 13pt sans-serif;
-	border: none;
-}
 
 td > a       { color: black; }
 td > a:hover { text-decoration: underline; }
