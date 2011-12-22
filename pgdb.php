@@ -54,23 +54,22 @@ class PGDB {
 
 		$likaiset = func_get_args();
 		$muoto = array_shift($likaiset);
-		$puhtaat = array_map(array($this, "sanitoi"), $likaiset);
+		$pesty = array_map(array($this, "sanitoi"), $likaiset);
 
 		/* Tää ois kiva tehdä jotenkin elegantimmin, mutta kuinka?
 		 * Ainakaan sprintf() ei suostu nomnommaamaan taulukkoa
 		 * sellaisenaan :-\
 		 */
-		switch (count($puhtaat)) {
-			case 0:
-				$kysely = $muoto; break;
-			case 1:
-				$kysely = sprintf($muoto, $puhtaat[0]); break;
-			case 2:
-				$kysely = sprintf($muoto, $puhtaat[0], $puhtaat[1]); break;
-			case 3:
-				$kysely = sprintf($muoto, $puhtaat[0], $puhtaat[1], $puhtaat[2]); break;
+		switch (count($pesty)) {
+			case 0: $kysely = $muoto; break;
+			case 1: $kysely = sprintf($muoto, $pesty[0]); break;
+			case 2: $kysely = sprintf($muoto, $pesty[0], $pesty[1]); break;
+			case 3: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2]); break;
+			case 4: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2], $pesty[3]); break;
+			case 5: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2], $pesty[3], $pesty[4]); break;
+			case 6: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2], $pesty[3], $pesty[4], $pesty[5]); break;
 			default:
-				error_log("kysely(args > 3) on toteuttamatta");
+				error_log("kysely(args > 6) on toteuttamatta");
 				die;
 		}
 

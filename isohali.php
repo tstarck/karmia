@@ -6,9 +6,9 @@ require_once 'sql.php';
 require_once 'xhtml.php';
 
 /* Interaktiivinen selkärangattomien otusten hallintalista
- * ^               ^                 ^       ^^      ^^
  */
 class ISOHALI {
+	private $kanto;
 	private $moodi;
 
 	public function __construct() {
@@ -16,6 +16,8 @@ class ISOHALI {
 			header("HTTP/1.1 401 Unauthorized");
 			die("401 Unauthorized");
 		}
+
+		$this->kanto = new PGDB;
 
 		$this->moodi = hae_oikea_arvo("moodi", "/^\w+$/");
 	}
@@ -26,21 +28,42 @@ class ISOHALI {
 		$kayttaja = hae_arvo("tunnus");
 
 		if (!empty($kayttaja)) {
-			with(new PGDB)->kysele($_sql_hali_promoa_kayttaja, $kayttaja);
+			$this->kysele($_sql_hali_promoa_kayttaja, $kayttaja);
 		}
 	}
 
 	private function kaarmeen_lisays() {
-		/*
-			[nimi] => Hermanni
-			[laji] => 3
-		*/
+		global $_sql_hali_uusi_kaarme;
+
+		$nimi = hae_arvo("nimi");
+		$laji = hae_arvo("lajinro");
+
+		if (!empty($nimi) and ctype_digit($laji)) {
+			$this->kanto->kysele($_sql_hali_uusi_kaarme, $nimi, $laji);
+		}
 	}
 
 	private function lajin_lisays() {
-		echo "<!-- kusti polkee: ";
-		print_r($_POST);
-		echo "-->\n";
+		global $_sql_hali_uusi_laji;
+
+		$laji         = hae_arvo("laji");
+		$latin        = hae_arvo("latin");
+		$alkupera     = hae_arvo("alkupera");
+		$vari         = hae_arvo("vari");
+		$myrkyllisyys = hae_arvo("myrkyllisyys");
+		$uhanalaisuus = hae_arvo("uhanalaisuus");
+
+		if (empty($laji)) return;
+		if (empty($latin)) return;
+
+		if (!ctype_digit($alkupera)) return;
+		if (!ctype_digit($myrkyllisyys)) return;
+
+		if (!preg_match("/^..?$/", $uhanalaisuus)) return;
+
+		$this->kanto->kysele($_sql_hali_uusi_laji,
+			$laji, $latin, $alkupera, $vari, $myrkyllisyys, $uhanalaisuus
+		);
 	}
 
 	private function kayttajan_poisto() {
@@ -49,9 +72,8 @@ class ISOHALI {
 		$kayttaja = hae_arvo("tunnus");
 
 		if (!empty($kayttaja)) {
-			$kanto = new PGDB;
-			$kanto->kysele($_sql_hali_pois_kayt_lainat, $kayttaja);
-			$kanto->kysele($_sql_hali_poista_kayttaja, $kayttaja);
+			$this->kanto->kysele($_sql_hali_pois_kayt_lainat, $kayttaja);
+			$this->kanto->kysele($_sql_hali_poista_kayttaja, $kayttaja);
 		}
 	}
 
@@ -61,9 +83,8 @@ class ISOHALI {
 		$kaarme = hae_numeroarvo("id");
 
 		if (!empty($kaarme)) {
-			$kanto = new PGDB;
-			$kanto->kysele($_sql_hali_pois_kaar_lainat, $kaarme);
-			$kanto->kysele($_sql_hali_poista_kaarme, $kaarme);
+			$this->kanto->kysele($_sql_hali_pois_kaar_lainat, $kaarme);
+			$this->kanto->kysele($_sql_hali_poista_kaarme, $kaarme);
 		}
 	}
 
@@ -73,11 +94,10 @@ class ISOHALI {
 		$laji = hae_arvo("laji");
 
 		if (!empty($laji)) {
-			$kanto = new PGDB;
 			$maski = preg_replace("/[^a-z]/i", "%", $laji);
 
-			$kanto->kysele($_sql_hali_refaktoroi_kaarmeet, $laji);
-			$kanto->kysele($_sql_hali_poista_laji, $laji);
+			$this->kanto->kysele($_sql_hali_refaktoroi_kaarmeet, $laji);
+			$this->kanto->kysele($_sql_hali_poista_laji, $laji);
 		}
 	}
 
@@ -122,12 +142,10 @@ class ISOHALI {
 	public function ja_tulosta() {
 		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit, $_sql_hali_alkuperat;
 
-		$kanto = new PGDB;
-
-		$kayttajat = $kanto->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
-		$kaarmeet  = $kanto->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
-		$lajit     = $kanto->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
-		$alkuperat = $kanto->kysele($_sql_hali_alkuperat)->anna_kaikki()->taulukkona();
+		$kayttajat = $this->kanto->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
+		$kaarmeet  = $this->kanto->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
+		$lajit     = $this->kanto->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
+		$alkuperat = $this->kanto->kysele($_sql_hali_alkuperat)->anna_kaikki()->taulukkona();
 
 		$sivu = new XHTML(
 			"Karmia > Isohali",
@@ -175,7 +193,7 @@ class ISOHALI {
 			"kaarme", $_SERVER["SCRIPT_NAME"], array(
 				array("lbl", "nimi", "Lisää käärme:"),
 				array("inp", "nimi", "Nimi"),
-				array("sel", "laji", array("id", "laji", $lajit)),
+				array("sel", "lajinro", array("id", "laji", $lajit)),
 				array("hid", "moodi", "uusi"),
 				array("sub", "Lisää")
 			)

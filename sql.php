@@ -4,7 +4,7 @@
  */
 $_sql_auth_tunnistus = "SELECT tunnus, yllapeto, luotu FROM kayttajat WHERE tunnus = '%s' AND salasana = '%s'";
 
-/* Käyttjän lisääminen
+/* Käyttäjän lisääminen
  */
 $_sql_uusi_kayttaja  = "INSERT INTO kayttajat VALUES ('%s', '%s')";
 
@@ -69,6 +69,11 @@ $_sql_hali_alkuperat = "SELECT id, alkupera FROM alkupera ORDER BY id";
 /* Anna käyttäjälle ylläpeto-oikeudet
  */
 $_sql_hali_promoa_kayttaja  = "UPDATE kayttajat SET yllapeto = true WHERE tunnus = '%s'";
+
+/* Lisää uusi käärme tai laji
+ */
+$_sql_hali_uusi_kaarme      = "INSERT INTO kaarmeet VALUES ('%s', '%s')";
+$_sql_hali_uusi_laji        = "INSERT INTO lajit VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
 
 /* Käyttäjän avoimet lainat suljetaan,
  * jos käyttäjä poistetaan
