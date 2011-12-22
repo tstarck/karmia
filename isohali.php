@@ -38,6 +38,9 @@ class ISOHALI {
 	}
 
 	private function lajin_lisays() {
+		echo "<!-- kusti polkee: ";
+		print_r($_POST);
+		echo "-->\n";
 	}
 
 	private function kayttajan_poisto() {
@@ -131,10 +134,6 @@ class ISOHALI {
 			array("css" => "isohali.css", "js" => "isohali.js")
 		);
 
-		echo "<!-- kusti polkee: ";
-		print_r($_POST);
-		echo "-->\n";
-
 		$sivu->kappale("<b>I</b>nteraktiivinen <b>S</b>elkärangattomien <b>O</b>tusten <b>Ha</b>llinta<b>li</b>sta");
 
 		$sivu->taulukoi(
@@ -175,7 +174,7 @@ class ISOHALI {
 		$sivu->lomake(
 			"kaarme", $_SERVER["SCRIPT_NAME"], array(
 				array("lbl", "nimi", "Lisää käärme:"),
-				array("inp", "nimi"),
+				array("inp", "nimi", "Nimi"),
 				array("sel", "laji", array("id", "laji", $lajit)),
 				array("hid", "moodi", "uusi"),
 				array("sub", "Lisää")
@@ -189,7 +188,7 @@ class ISOHALI {
 				"laji" => "Laji",
 				"latin" => "Latinaksi",
 				"alkupera" => "Alkuperä",
-				"vari" => "Väri",
+				"vari" => "Väri / ulkonäkö",
 				"myrkyllisyys" => "<abbr title=\"Myrkyllisyys\">Myrk.</abbr>",
 				"uhanalaisuus" => "<abbr title=\"Uhanalaisuus\">Uhan.</abbr>",
 				"poista" => "<abbr title=\"Poista laji\">&#215;</abbr>"
@@ -208,15 +207,28 @@ class ISOHALI {
 			array("n" => 3, "m" => "tappavan myrkyllinen")
 		);
 
+		$uhanalaisuudet = array(
+			array("n" => "-", "m" => "-"),
+			array("n" => "LC", "m" => "LC"),
+			array("n" => "NT", "m" => "NT"),
+			array("n" => "VU", "m" => "VU"),
+			array("n" => "EN", "m" => "EN"),
+			array("n" => "CR", "m" => "CR"),
+			array("n" => "EW", "m" => "EW"),
+			array("n" => "EX", "m" => "EX"),
+			array("n" => "DD", "m" => "DD"),
+			array("n" => "NE", "m" => "NE")
+		);
+
 		$sivu->lomake(
 			"laji", $_SERVER["SCRIPT_NAME"], array(
-				array("lbl", "laji", "Lisä uusi laji:"),
-				array("inp", "laji"),
-				array("inp", "latin"),
+				array("lbl", "laji", "Lisää uusi laji:"),
+				array("inp", "laji", "Lajin nimi"),
+				array("inp", "latin", "Latinankielinen nimi"),
 				array("sel", "alkupera", array("id", "alkupera", $alkuperat)),
-				array("inp", "vari"),
+				array("inp", "vari", "Väri / ulkonäkö"),
 				array("sel", "myrkyllisyys", array("n", "m", $myrkyllisyydet)),
-				array("inp", "uhanalaisuus"),
+				array("sel", "uhanalaisuus", array("n", "m", $uhanalaisuudet)),
 				array("hid", "moodi", "uusi"),
 				array("sub", "Lisää")
 			)

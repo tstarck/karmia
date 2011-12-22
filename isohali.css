@@ -2,19 +2,37 @@
 
 @import url(main.css) screen;
 
-table {
+form, table {
 	margin: 2em;
-	border-collapse: collapse;
 }
 
-table > caption {
-	display: none;
+form {
+	max-width: 24em;
+	border: solid 1px gray;
 }
 
-thead td {
+form > * { margin: 0.5em 1.5em; }
+
+form > label {
+	display: block;
+	max-width: 10em;
+	margin: -1px 2px 2px -1px;
+	padding: 0.1em 1em;
 	font: bold 12pt sans-serif;
-	border-bottom: solid 2px gray;
+	border: solid 1px white;
+	border-right: solid 1px gray;
+	border-bottom: solid 1px gray;
 }
+
+form > input[type="text"] {
+	width: 20em;
+}
+
+table { border-collapse: collapse; }
+
+table > caption { display: none; }
+
+thead td { font: bold 12pt sans-serif; }
 
 td {
 	padding: 0.1em 1em;
@@ -22,9 +40,8 @@ td {
 	border: solid 1px gray;
 }
 
-td.id, td.alkupera, td.yllapeto, td.myrkyllisyys, td.uhanalaisuus, td.promoa, td.poista {
-	text-align: center;
-}
+td                         { text-align: center; }
+td.laji, td.latin, td.vari { text-align: left; }
 
 td.promoa > a { color: #070; }
 td.poista > a { color: #911; }
