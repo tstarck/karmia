@@ -64,6 +64,7 @@ JSON;
 $_sql_hali_kayttajat = "SELECT tunnus, yllapeto, luotu FROM kayttajat ORDER BY luotu";
 $_sql_hali_kaarmeet  = "SELECT id, nimi, laji FROM kaarmeet ORDER BY id";
 $_sql_hali_lajit     = "SELECT id, laji, latin, alkupera, vari, myrkyllisyys, uhanalaisuus FROM lajit ORDER BY id";
+$_sql_hali_alkuperat = "SELECT id, alkupera FROM alkupera ORDER BY id";
 
 /* Anna käyttäjälle ylläpeto-oikeudet
  */

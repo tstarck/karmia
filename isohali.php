@@ -11,10 +11,6 @@ require_once 'xhtml.php';
 class ISOHALI {
 	private $moodi;
 
-	private $annettu_kayttaja;
-	private $annettu_kaarme;
-	private $annettu_laji;
-
 	public function __construct() {
 		if (!with(new AUTH)->yllapeto()) {
 			header("HTTP/1.1 401 Unauthorized");
@@ -22,49 +18,63 @@ class ISOHALI {
 		}
 
 		$this->moodi = hae_oikea_arvo("moodi", "/^\w+$/");
-
-		$this->annettu_kayttaja = hae_arvo("tunnus");
-		$this->annettu_kaarme = hae_numeroarvo("id");
-		$this->annettu_laji = hae_arvo("laji");
 	}
 
 	private function kayttajan_ylennys() {
 		global $_sql_hali_promoa_kayttaja;
 
-		if (!empty($this->annettu_kayttaja)) {
-			with(new PGDB)->kysele($_sql_hali_promoa_kayttaja, $this->annettu_kayttaja);
+		$kayttaja = hae_arvo("tunnus");
+
+		if (!empty($kayttaja)) {
+			with(new PGDB)->kysele($_sql_hali_promoa_kayttaja, $kayttaja);
 		}
+	}
+
+	private function kaarmeen_lisays() {
+		/*
+			[nimi] => Hermanni
+			[laji] => 3
+		*/
+	}
+
+	private function lajin_lisays() {
 	}
 
 	private function kayttajan_poisto() {
 		global $_sql_hali_poista_kayttaja, $_sql_hali_pois_kayt_lainat;
 
-		if (!empty($this->annettu_kayttaja)) {
+		$kayttaja = hae_arvo("tunnus");
+
+		if (!empty($kayttaja)) {
 			$kanto = new PGDB;
-			$kanto->kysele($_sql_hali_pois_kayt_lainat, $this->annettu_kayttaja);
-			$kanto->kysele($_sql_hali_poista_kayttaja, $this->annettu_kayttaja);
+			$kanto->kysele($_sql_hali_pois_kayt_lainat, $kayttaja);
+			$kanto->kysele($_sql_hali_poista_kayttaja, $kayttaja);
 		}
 	}
 
 	private function kaarmeen_poisto() {
 		global $_sql_hali_poista_kaarme, $_sql_hali_pois_kaar_lainat;
 
-		if (!empty($this->annettu_kaarme)) {
+		$kaarme = hae_numeroarvo("id");
+
+		if (!empty($kaarme)) {
 			$kanto = new PGDB;
-			$kanto->kysele($_sql_hali_pois_kaar_lainat, $this->annettu_kaarme);
-			$kanto->kysele($_sql_hali_poista_kaarme, $this->annettu_kaarme);
+			$kanto->kysele($_sql_hali_pois_kaar_lainat, $kaarme);
+			$kanto->kysele($_sql_hali_poista_kaarme, $kaarme);
 		}
 	}
 
 	private function lajin_poisto() {
 		global $_sql_hali_poista_laji, $_sql_hali_refaktoroi_kaarmeet;
 
-		if (!empty($this->annettu_laji)) {
-			$kanto = new PGDB;
-			$maski = preg_replace("/[^a-z]/i", "%", $this->annettu_laji);
+		$laji = hae_arvo("laji");
 
-			$kanto->kysele($_sql_hali_refaktoroi_kaarmeet, $this->annettu_laji);
-			$kanto->kysele($_sql_hali_poista_laji, $this->annettu_laji);
+		if (!empty($laji)) {
+			$kanto = new PGDB;
+			$maski = preg_replace("/[^a-z]/i", "%", $laji);
+
+			$kanto->kysele($_sql_hali_refaktoroi_kaarmeet, $laji);
+			$kanto->kysele($_sql_hali_poista_laji, $laji);
 		}
 	}
 
@@ -93,6 +103,10 @@ class ISOHALI {
 		if ($this->moodi === "promota") {
 			$this->kayttajan_ylennys();
 		}
+		elseif ($this->moodi === "uusi") {
+			$this->kaarmeen_lisays();
+			$this->lajin_lisays();
+		}
 		elseif ($this->moodi === "poista") {
 			$this->kayttajan_poisto();
 			$this->kaarmeen_poisto();
@@ -103,18 +117,25 @@ class ISOHALI {
 	}
 
 	public function ja_tulosta() {
-		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit;
+		global $_sql_hali_kayttajat, $_sql_hali_kaarmeet, $_sql_hali_lajit, $_sql_hali_alkuperat;
+
+		$kanto = new PGDB;
+
+		$kayttajat = $kanto->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
+		$kaarmeet  = $kanto->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
+		$lajit     = $kanto->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
+		$alkuperat = $kanto->kysele($_sql_hali_alkuperat)->anna_kaikki()->taulukkona();
 
 		$sivu = new XHTML(
 			"Karmia > Isohali",
-			array("style" => "isohali.css", "script" => "isohali.js")
+			array("css" => "isohali.css", "js" => "isohali.js")
 		);
 
-		$sivu->kappale("<b>I</b>nteraktiivinen <b>S</b>elkärangattomien <b>O</b>tusten <b>Ha</b>llinta<b>li</b>sta");
+		echo "<!-- kusti polkee: ";
+		print_r($_POST);
+		echo "-->\n";
 
-		$kayttajat= with(new PGDB)->kysele($_sql_hali_kayttajat)->anna_kaikki()->taulukkona();
-		$kaarmeet = with(new PGDB)->kysele($_sql_hali_kaarmeet)->anna_kaikki()->taulukkona();
-		$lajit    = with(new PGDB)->kysele($_sql_hali_lajit)->anna_kaikki()->taulukkona();
+		$sivu->kappale("<b>I</b>nteraktiivinen <b>S</b>elkärangattomien <b>O</b>tusten <b>Ha</b>llinta<b>li</b>sta");
 
 		$sivu->taulukoi(
 			"kayttajat",
@@ -151,6 +172,16 @@ class ISOHALI {
 			)
 		);
 
+		$sivu->lomake(
+			"kaarme", $_SERVER["SCRIPT_NAME"], array(
+				array("lbl", "nimi", "Lisää käärme:"),
+				array("inp", "nimi"),
+				array("sel", "laji", array("id", "laji", $lajit)),
+				array("hid", "moodi", "uusi"),
+				array("sub", "Lisää")
+			)
+		);
+
 		$sivu->taulukoi(
 			"lajit",
 			array(
@@ -167,6 +198,27 @@ class ISOHALI {
 				array($this, "poistolinkki"),
 				$lajit,
 				array_fill(0, count($lajit), "laji")
+			)
+		);
+
+		$myrkyllisyydet = array(
+			array("n" => 0, "m" => "ei tiedossa"),
+			array("n" => 1, "m" => "ei myrkyllinen"),
+			array("n" => 2, "m" => "myrkyllinen"),
+			array("n" => 3, "m" => "tappavan myrkyllinen")
+		);
+
+		$sivu->lomake(
+			"laji", $_SERVER["SCRIPT_NAME"], array(
+				array("lbl", "laji", "Lisä uusi laji:"),
+				array("inp", "laji"),
+				array("inp", "latin"),
+				array("sel", "alkupera", array("id", "alkupera", $alkuperat)),
+				array("inp", "vari"),
+				array("sel", "myrkyllisyys", array("n", "m", $myrkyllisyydet)),
+				array("inp", "uhanalaisuus"),
+				array("hid", "moodi", "uusi"),
+				array("sub", "Lisää")
 			)
 		);
 	}
