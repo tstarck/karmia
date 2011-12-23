@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage[finnish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+
+\begin{document}
+
+\title{\Huge{\bf Karmia} \\ \large{Käärmetietokantasovellus}}
+\author{Tuomas Starck ja Hanna Vuorivirta}
+\maketitle
+
+\vspace{4em}
+
+\section{Johdanto}
+
+\subsection{Järjeselmän tarkoitus}
+
+\paragraph{} Työn aihe on käärmetietokanta, joka toimii apuvälineenä käärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista käärmeyksilöistä ja -lajeista ominaisuuksineen sekä käyttäjän mahdollisuus lainata itselleen käärme ja palauttaa se.
+
+\subsection{Toimintaympäristö}
+
+\paragraph{} Ohjelmisto jakaantuu sekä palvelimen että käyttäjän puolella ajettaviin komponentteihin, jotka tukevat toisiaan. Eri komponentit keskustelevat HTTP-käytännön välityksellä, joten palvelimen tulee olla yhteensopiva HTTP-palvelin ja käyttäjän ohjelmaympäristö on selain.
+
+\subsection{Rajaukset}
+
+\paragraph{} Järjestelmä käyttää yksinkertaistettua mallia salasanojen käsittelyyn, joka ei ole riittävän turvallinen suojaamaan käyttäjän salasanatietoja sellaisessa tapauksessa, jossa hyökkääjä pääsee käsiksi palvelinpuolen tietoihin. Järjestelmää ei siis suositella yleiseen käyttöön ilman muutoksia.
+
+\paragraph{} Järjestelmä ei ole erityisesti suunniteltu skaalautumaan suuriin tieto- tai käyttäjämääriin. Esimerkiksi kaikkien maapallon käärmeiden lukumäärä voi olla liian suuri, jotta kaikkien käärmeiden tiedot olisivat järjestelmän hallittavissa.
+
+\subsection{Toteutusympäristö}
+
+\paragraph{} En tiedä, mitä sieniä pitää syödä, jotta onnistuu kirjoittamaan ohjeisiin sanan \emph{toteutusympäristö} selitykseksi: ''Missä ympäristössä työ toteutetaan.'' Minustakin olisi hauska kirjoittaa sanakirja tähän tyyliin:
+
+\begin{description}
+\item[femme fatale] Sellainen femme, joka on fatale.
+\item[fennisti] Se, mikä fennisti on.
+\item[fenomenaalinen] Se, mitä voi kuvailla fenomenaaliseksi.
+\end{description}
+
+\paragraph{} Ja niin edelleen. Mutten tiedä, mitä Laine tarkoittaa ympäristöllä, jossa työ toteutetaan, joten\ldots
+
+\section{Yleiskuva järjestelmästä}
+
+\subsection{Sidosryhmäkaavio}
+
+% jokin kuva kai tähän
+
+\subsection{Käyttäjäryhmät}
+
+\paragraph{Tunnistautumaton} Tunnistautumaton on kuka tahansa, joka ei ole vielä kirjautunut järjestelmään tai luonut itselleen käyttäjätunnusta.
+\paragraph{Käyttäjä} Käyttäjä on järjestelmän tunnistama henkilö.
+\paragraph{Ylläpeto} Ylläpeto on käyttäjä, jolla on erityisiä oikeuksia hallita järjestelmän tietosisältöä.
+
+\section{Käyttötapaukset}
+
+\subsection{Tavalliset käyttötapaukset}
+
+\begin{description}
+\item[Uuden tunnuksen luonti] \hfill \\
+Tunnistautumaton käyttäjä voi luoda itselleen käyttöluvan järjestelmään antamalla haluamansa tunnuksen ja salasanan. Jo aiemmin käytössä olevan tunnuksen antaminen ei johda onnistuneeseen uuden tunnuksen luontiin.
+\item[Tunnistautuminen] \hfill \\
+Tunnistautumaton käyttäjä kirjautuu järjestelmään.
+\item[Käärmetietojen selaus] \hfill \\
+Järjestelmä näyttää käyttäjälle järjestelmän tuntemat käärmeet niihin liittyvine tietoineen mukaanlukien mahdollisuuden lainata tai palauttaa käärmeen.
+\item[Lainaa käärme] \hfill \\
+Käyttäjä lainaa saatavilla olevan käärmeen ja järjestelmä merkitsee käärmeen käyttäjälle lainaan.
+\item[Palauta käärme] \hfill \\
+Käyttäjä palauttaa lainassa olevan käärmeen ja järjestelmä merkitsee käärmeen saataville.
+\item[Tarkastele lainahistoriaa] \hfill \\
+Järjestelmä näyttää käyttäjälle käyttäjän oman lainahistorian (tai osan siitä).
+\end{description}
+
+\subsection{Etuoikeutetut käyttötapaukset}
+
+\begin{description}
+\item[Lisää käärme] \hfill \\
+Ylläpeto lisää käärmeen antamalla käärmeen nimen ja lajin. Järjestelmä luo uuden käärmeen, jonka tietoja voi selata ja jonka voi lainata.
+\item[Lisää laji] \hfill \\
+Ylläpeto lisää lajin antamalla lajin tarvittavat tiedot. Järjestelmä luo lajin, jonka tiedot voi liittää käärmeeseen.
+\item[Käyttäjän oikeuksien ylennys] \hfill \\
+Ylläpeto ylentää ei-ylläpeto-käyttäjän käyttöoikeudet ylläpeto-tasolle.
+\item[Käyttäjän poistaminen] \hfill \\
+Ylläpeto poistaa käyttäjän, jonka jälkeen kyseisellä käyttäjällä ei ole enää oikeutta käyttää järjestelmää.
+\item[Käärmeen poistaminen] \hfill \\
+Ylläpeto poistaa käärmeen, jolloin käärmeestä ei ole enää saatavilla tietoja eikä sitä voi lainata tai palauttaa.
+\item[Lajin poistaminen] \hfill \\
+Ylläpeto poistaa lajin, jolloin lajin tietoja ei voi enää liittää käärmeeseen.
+\end{description}
+
+\section{Tietosisältö}
+
+\subsection{}
+
+\paragraph{}
+
+% . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . %
+\section{}
+\subsection{}
+\paragraph{}
+% . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . %
+
+\end{document}
