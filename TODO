@@ -1,15 +1,16 @@
 
 # BUGS
 
-  – yhdistä kaarme.php indeksiin
-
   – dokumentointi ajan tasalle
 
-  – virheilmoitus varatun tunnuksen luonnista
-    [error] pg_query(): Query failed: duplicate key value violates unique constraint in pgdb.php on line 36
+  * yhdistä kaarme.php indeksiin
+    wontfix: en hitto jaksa säätää enää
 
-  – salasanamallista turvallisempi
-    pelkkä sha1() ilman suolaa on heikkoa settiä
+  * virheilmoitus varatun tunnuksen luonnista
+    wontfix: ei kriittinen ja aikabudjetti
+
+  * salasanamallista turvallisempi
+    wontfix: ei suositella tuotantokäyttöön
 
   + piä tietokanta konsistenttina poistotilanteessa
     pitäis olla nyt
@@ -46,9 +47,11 @@
   + käyttäjän ylennys ylläpedoksi (ylläpeto)
     toimii
 
-  – lisää käärme (ylläpeto)
+  + lisää käärme (ylläpeto)
+    on
 
-  – lisää laji (ylläpeto)
+  + lisää laji (ylläpeto)
+    on
 
   * lisää käärmeelle ominaisuus (ylläpeto)
     wontfix: suunniteltu huonosti
