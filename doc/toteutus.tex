@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage[finnish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+
+\begin{document}
+
+\title{\Huge{\bf Toteutusdokumentti} \\ \Large{Karmia käärmetietokantasovellus}}
+\author{Tuomas Starck}
+\maketitle
+
+\vspace{4em}
+
+\section{Johdanto}
+
+\subsection{Järjestelmän tarkoitus}
+
+\paragraph{} Järjestelmä on käärmetietokanta, joka toimii apuvälineenä käärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista käärmeyksilöistä ja -lajeista ominaisuuksineen sekä käyttäjän mahdollisuus lainata itselleen käärme ja palauttaa se.
+
+\subsection{Toimintaympäristö}
+
+\paragraph{} Ohjelmisto jakaantuu sekä palvelimen että käyttäjän puolella ajettaviin komponentteihin, jotka tukevat toisiaan. Eri komponentit keskustelevat HTTP-käytännön välityksellä, joten palvelimen tulee olla yhteensopiva HTTP-palvelin ja käyttäjän ohjelmaympäristö on selain.
+
+\section{Ohjelmiston yleisrakenne}
+
+\section{Järjestelmän komponentit}
+
+\section{Asennustiedot}
+
+\begin{enumerate}
+\list Karmian asennus ja käyttöönotto onnistuu helpoiten lataamalla ohjelmisto Githubista. \\ $ git clone git://url/ $
+\list foo
+\list bar
+\end{enumerate}
+
+\begin{verbatim}
+karmia
+├── auth.php
+├── common.php
+├── config
+├── data.sql
+├── doc
+│   ├── kaliflow.jpg
+│   ├── karmia.txt
+│   ├── suunnittelu.tex
+│   ├── tietokantakuva.jpg
+│   ├── toteutus.tex
+│   └── tree.txt
+├── icon.png
+├── index.php
+├── isohali.css
+├── isohali.js
+├── isohali.php
+├── json.css
+├── json.js
+├── json.php
+├── json.xhtml
+├── kaarme.php
+├── karmia.sql
+├── kirjaudu.php
+├── kirjaudu.xhtml
+├── linkit.js
+├── linkit.php
+├── lomake.css
+├── lomake.js
+├── main.css
+├── oma.php
+├── pgdb.php
+├── pois.php
+├── README
+├── sql.php
+├── TODO
+├── uusi
+│   ├── kayttaja.php
+│   └── kayttaja.xhtml
+└── xhtml.php
+\end{verbatim}
+
+\section{Käynnistys- ja käyttöohje}
+
+% \subsection{}
+
+% \begin{description}
+% \item[] \hfill \\
+% \end{description}
+
+% \begin{figure}
+% \caption{}
+% \includegraphics[]{kuva.png}
+% \end{figure}
+
+\end{document}
