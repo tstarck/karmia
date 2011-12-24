@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
 \usepackage[finnish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
@@ -8,17 +9,17 @@
 
 \begin{document}
 
-\title{\Huge{\bf Karmia} \\ \large{Käärmetietokantasovellus}}
-\author{Tuomas Starck ja Hanna Vuorivirta}
+\title{\Huge{\bf Suunnitteludokumentti} \\ \Large{Karmia käärmetietokantasovellus}}
+\author{Tuomas Starck}
 \maketitle
 
 \vspace{4em}
 
 \section{Johdanto}
 
-\subsection{Järjeselmän tarkoitus}
+\subsection{Järjestelmän tarkoitus}
 
-\paragraph{} Työn aihe on käärmetietokanta, joka toimii apuvälineenä käärmeiden välityksessä. Tietokantaan sisältyy tiedot saatavilla olevista käärmeyksilöistä ja -lajeista ominaisuuksineen sekä käyttäjän mahdollisuus lainata itselleen käärme ja palauttaa se.
+\paragraph{} Työn aihe on käärmetietokanta, joka toimii apuvälineenä käärmeiden vä\-li\-tyksessä. Tietokantaan sisältyy tiedot saatavilla olevista käärmeyksilöistä ja -lajeista ominaisuuksineen sekä käyttäjän mahdollisuus lainata itselleen käärme ja palauttaa se.
 
 \subsection{Toimintaympäristö}
 
@@ -28,7 +29,7 @@
 
 \paragraph{} Järjestelmä käyttää yksinkertaistettua mallia salasanojen käsittelyyn, joka ei ole riittävän turvallinen suojaamaan käyttäjän salasanatietoja sellaisessa tapauksessa, jossa hyökkääjä pääsee käsiksi palvelinpuolen tietoihin. Järjestelmää ei siis suositella yleiseen käyttöön ilman muutoksia.
 
-\paragraph{} Järjestelmä ei ole erityisesti suunniteltu skaalautumaan suuriin tieto- tai käyttäjämääriin. Esimerkiksi kaikkien maapallon käärmeiden lukumäärä voi olla liian suuri, jotta kaikkien käärmeiden tiedot olisivat järjestelmän hallittavissa.
+\paragraph{} Järjestelmä ei ole erityisesti suunniteltu skaalautumaan suuriin tieto- tai käyttäjämääriin. Esimerkiksi kaikkien maapallon käärmeiden lukumäärä voi olla liian suuri, jotta käärmeiden tiedot olisivat järjestelmän hallittavissa.
 
 \subsection{Toteutusympäristö}
 
@@ -40,19 +41,20 @@
 \item[fenomenaalinen] Se, mitä voi kuvailla fenomenaaliseksi.
 \end{description}
 
-\paragraph{} Ja niin edelleen. Mutten tiedä, mitä Laine tarkoittaa ympäristöllä, jossa työ toteutetaan, joten\ldots
+\paragraph{} Mitä lie Laine toteutusympäristöllä tarkoittaakaan, se jäi minulle salaisuudeksi.
 
 \section{Yleiskuva järjestelmästä}
 
-\subsection{Sidosryhmäkaavio}
-
-% jokin kuva kai tähän
-
 \subsection{Käyttäjäryhmät}
 
-\paragraph{Tunnistautumaton} Tunnistautumaton on kuka tahansa, joka ei ole vielä kirjautunut järjestelmään tai luonut itselleen käyttäjätunnusta.
-\paragraph{Käyttäjä} Käyttäjä on järjestelmän tunnistama henkilö.
-\paragraph{Ylläpeto} Ylläpeto on käyttäjä, jolla on erityisiä oikeuksia hallita järjestelmän tietosisältöä.
+\begin{description}
+\item[Tunnistautumaton] \hfill \\
+Tunnistautumaton on kuka tahansa, joka ei ole vielä kirjautunut järjestelmään tai luonut itselleen käyttäjätunnusta.
+\item[Käyttäjä] \hfill \\
+Käyttäjä on järjestelmän tunnistama henkilö.
+\item[Ylläpeto] \hfill \\
+Ylläpeto on käyttäjä, jolla on erityisiä oikeuksia hallita järjestelmän tietosisältöä.
+\end{description}
 
 \section{Käyttötapaukset}
 
@@ -90,16 +92,48 @@ Ylläpeto poistaa käärmeen, jolloin käärmeestä ei ole enää saatavilla tie
 Ylläpeto poistaa lajin, jolloin lajin tietoja ei voi enää liittää käärmeeseen.
 \end{description}
 
-\section{Tietosisältö}
+\section{Käyttöliittymän hahmotelma}
 
-\subsection{}
+\paragraph{} Käyttöliittymä koostuu viidestä näkymästä.
 
-\paragraph{}
+\begin{enumerate}
+\item Kirjautumislomake.
+\item Uuden käyttäjätunnuksen luontilomake.
+\item Oletusnäkymä, jossa käyttäjä voi tarkastella käärmeitä, niiden tietoja sekä lainata ja palauttaa käärmeen.
+\item Käyttäjän sivu, jolla näytetään käyttäjän perustiedot ja lainahistoria.
+\item Hallintasivu, jonka avulla ylläpeto voi tehdä lukuisia muutoksia järjestelmän tietoihin.
+\end{enumerate}
 
-% . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . %
-\section{}
-\subsection{}
-\paragraph{}
-% . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . % . %
+\paragraph{} Kuvaus käyttöliittymän logiikasta on liitteessä 1.
+
+\section{Relaatiotietokantakaavio}
+
+\begin{description}
+\item[\large \texttt{TABLE kayttajat}] \hfill \\
+Käyttäjien tunnukset, salasanat ja oikeudet.
+\item[\large \texttt{TABLE kaarmeet}] \hfill \\
+Käärmeiden nimet ja lajiviitteet.
+\item[\large \texttt{TABLE lajit}] \hfill \\
+Lajien nimet, viitteet alkuperään, fenotyypit, viitteet myrkyllisyyteen ja uhanalaisuusluokitukset.
+\item[\large \texttt{TABLE lainat}] \hfill \\
+Lainaaja, lainattu käärme ja lainan alku- ja loppuajat.
+\item[\large \texttt{TABLE alkupera}] \hfill \\
+Lajiin yhdistettävät alkuperätiedot.
+\item[\large \texttt{TABLE myrkyllisyys}] \hfill \\
+Lajiin yhdistettävät myrkyllisyystiedot.
+\end{description}
+
+\paragraph{} Tietokantakaavio on liittessä 2 ja tarkat \texttt{CREATE TABLE} -lauseet löytyvät mukana tulevasta tiedostosta \texttt{karmia.sql}.
+
+\section{Liitteet}
+
+\begin{figure}
+\caption{Käyttliittymän yhteydet ja logiikka}
+\end{figure}
+
+\begin{figure}
+\caption{Tietokantakaavio}
+\includegraphics[]{tietokanto.eps}
+\end{figure}
 
 \end{document}
