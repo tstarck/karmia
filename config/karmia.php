@@ -17,6 +17,6 @@ $_karmia_root = "/";
  * Muuttujan muoto on määritelty kohdassa connection_string sivulla:
  * http://fi.php.net/pg_connect
  */
-$_karmia_db_config = "host=localhost user=kayttaja password=abcdef0123456789";
+$_karmia_db_connection = "host=localhost user=kayttaja password=abcdef0123456789";
 
 ?>

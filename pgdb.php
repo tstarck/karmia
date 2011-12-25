@@ -6,7 +6,7 @@
  */
 
 /* Asetustiedosto, josta täytyy löytyä pg_connect:lle
- * kelpaava muuttuja $_karmia_db_config.
+ * kelpaava muuttuja $_karmia_db_connection.
  */
 require_once 'config/karmia.php';
 
@@ -18,9 +18,9 @@ class PGDB {
 	/* Alustaa olion ja avaan tietokantayhteyden.
 	 */
 	function __construct() {
-		global $_karmia_db_config;
+		global $_karmia_db_connection;
 		$this->vastaus = false;
-		$this->yhteys = pg_connect($_karmia_db_config);
+		$this->yhteys = pg_connect($_karmia_db_connection);
 	}
 
 	/* Hävittää olio ja sulkee yhteyden.
