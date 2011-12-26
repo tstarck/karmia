@@ -1,0 +1,52 @@
+
+# BUGS
+
+  – yhdistä kaarme.php indeksiin
+
+  – virheilmoitus varatun tunnuksen luonnista
+
+  – salasanamallista turvallisempi
+
+# TODOS / use cases
+
+  + tunnistautuminen
+    toimii
+
+  + luo käyttäjä
+    toimii
+
+  + käyttäjän ylennys ylläpedoksi (ylläpeto)
+    toimii
+
+  + lisää käärme (ylläpeto)
+    on
+
+  + lisää laji (ylläpeto)
+    on
+
+  * lisää käärmeelle ominaisuus (ylläpeto)
+    wontfix: suunniteltu huonosti
+
+  * poista käärmeeltä ominaisuus (ylläpeto)
+    wontfix: suunniteltu huonosti
+
+  + poista käärme (ylläpeto)
+    pelittää
+
+  * haku ominaisuuden perusteella
+    wontfix: aikabudjetti ei salli
+
+  + poista käyttäjä (ylläpeto)
+    pelittää
+
+  + lainaa käärme
+    pelittää
+
+  + palauta käärme
+    pelittää
+
+  * käärmeyksilön lainahistorian tulostus (ylläpeto)
+    wontfix: aikabudjetti ei salli
+
+  + lainaajan lainahistorian tulostus
+    omasivu valmis
