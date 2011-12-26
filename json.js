@@ -82,6 +82,8 @@ function rivittele(index, otus) {
 }
 
 function kaarmeile(tieto) {
+	if (!tieto) return;
+
 	var taulu = $('<table></table>');
 
 	tieto.forEach(function(otus, index) {
