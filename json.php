@@ -3,6 +3,7 @@
 require_once 'auth.php';
 require_once 'pgdb.php';
 require_once 'common.php';
+require_once 'sql.php';
 
 class JSON {
 	private $tunnistus;

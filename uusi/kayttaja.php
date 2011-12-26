@@ -2,8 +2,8 @@
 
 require_once '../config/karmia.php';
 require_once '../common.php';
-require_once '../sql.php';
 require_once '../pgdb.php';
+require_once '../sql.php';
 
 $error = array();
 

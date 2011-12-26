@@ -37,7 +37,7 @@ class PGDB {
 
 	/* Suorittaa tietokantakyselyn, kunhan yhteys on avattu.
 	 *
-	 * Metodi hyväksyy 1–4 argumenttia.
+	 * Metodi hyväksyy 1–7 argumenttia.
 	 *
 	 * Ensimmäinen argumentti tulee olla joko puhdas SQL-kysely tai
 	 * printf:lle annettava SQL-kyselyn muotoilu. Kummassakaan tapauksessa
@@ -69,7 +69,7 @@ class PGDB {
 			case 5: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2], $pesty[3], $pesty[4]); break;
 			case 6: $kysely = sprintf($muoto, $pesty[0], $pesty[1], $pesty[2], $pesty[3], $pesty[4], $pesty[5]); break;
 			default:
-				error_log("kysely(args > 6) on toteuttamatta");
+				error_log("kysely(argc >= ".count($pesty).") on toteuttamatta");
 				die;
 		}
 
