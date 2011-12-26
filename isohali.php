@@ -53,8 +53,9 @@ class ISOHALI {
 		$myrkyllisyys = hae_arvo("myrkyllisyys");
 		$uhanalaisuus = hae_arvo("uhanalaisuus");
 
-		if (empty($laji)) return;
+		if (empty($laji))  return;
 		if (empty($latin)) return;
+		if (empty($vari))  return;
 
 		if (!ctype_digit($alkupera)) return;
 		if (!ctype_digit($myrkyllisyys)) return;
@@ -102,7 +103,7 @@ class ISOHALI {
 	}
 
 	private function promolinkki($eka, $toka) {
-		$linkki = "<a href=\"?moodi=promota&%s=%s\">&#8679;</a>";
+		$linkki = "<a href=\"?moodi=promoa&%s=%s\">&#8679;</a>";
 
 		if ($eka["yllapeto"] === "f") {
 			return array_merge(
@@ -123,7 +124,7 @@ class ISOHALI {
 	}
 
 	public function duunaa() {
-		if ($this->moodi === "promota") {
+		if ($this->moodi === "promoa") {
 			$this->kayttajan_ylennys();
 		}
 		elseif ($this->moodi === "uusi") {
