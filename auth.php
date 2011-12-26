@@ -34,18 +34,19 @@ class AUTH {
 
 		$vastaus = with(new PGDB)->kysele($_sql_auth_tunnistus, $user, $pass)->anna_rivi()->taulukkona();
 
-		if ($vastaus !== false) {
-			$this->kayttaja = $vastaus["tunnus"];
-			$this->luontiaika = $vastaus["luotu"];
+		if ($vastaus === false) return;  // ei käyttäjää
+		if (empty($vastaus))    return;  // ei koko taulua tms.
 
-			if ($vastaus["yllapeto"] === "t") {
-				$this->yllapitelija = true;
-			}
+		$this->kayttaja = $vastaus["tunnus"];
+		$this->luontiaika = $vastaus["luotu"];
 
-			if (!headers_sent()) {
-				aseta_pipari("user", $user);
-				aseta_pipari("pass", $pass);
-			}
+		if ($vastaus["yllapeto"] === "t") {
+			$this->yllapitelija = true;
+		}
+
+		if (!headers_sent()) {
+			aseta_pipari("user", $user);
+			aseta_pipari("pass", $pass);
 		}
 	}
 
