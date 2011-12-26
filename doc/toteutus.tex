@@ -23,74 +23,293 @@
 
 \subsection{Toimintaympäristö}
 
-\paragraph{} Ohjelmisto jakaantuu sekä palvelimen että käyttäjän puolella ajettaviin komponentteihin, jotka tukevat toisiaan. Eri komponentit keskustelevat HTTP-käytännön välityksellä, joten palvelimen tulee olla yhteensopiva HTTP-palvelin ja käyttäjän ohjelmaympäristö on selain.
+\paragraph{} Ohjelmisto jakaantuu sekä palvelimen että käyttäjän puolella ajettaviin komponentteihin, jotka tukevat toisiaan. Eri komponentit keskustelevat HTTP-käytännön välityksellä.
+
+\paragraph{} Palvelinpuolen ohjelmisto on kirjoitettu PHP:lla, joten PHP-tulkki täytyy olla asennettuna. Lisäksi ohjelmisto tarvitsee PostgreSQL tai yhteensopivan tietokantaohjelmiston toimiakseen. Kehitystyö on tehty ja testattu PHP:n versiolla 5.3.2 ja PostgreSQL:n versiolla 8.4.9.
+
+\paragraph{} Asiakkaan puolella käytetään HTML5, CSS ja Javascript -tekniikoita, joten käyttäjällä tulee olla riittävän uusi ja standardeja kunnioittava WWW-selain. Todennäköisesti mikään IE:n versio ei riitä ja vastaavasti minkä tahansa muun selaimen moderni versio riittää ohjelmiston täysimääräiseen käyttöön. Toimivuus on testattu Chromium 15:sta ja Firefox 8:lla.
+
+% ° % ° % ° % ° % ° %
 
 \section{Ohjelmiston yleisrakenne}
 
+% ° % ° % ° % ° % ° %
+
 \section{Järjestelmän komponentit}
+
+\subsection{Aloitussivu}
+
+\paragraph{Tiedosto:} \large{\texttt{index.php}}, riippuvuudet: \texttt{auth.php common.php kaarme.php}
+
+\paragraph{} Aloitussivu tarkistaa, onko käyttäjä kirjautunut. Jos ei ole, käyttäjä ohjataan \emph{kirjautumissivulle}. Muussa tapauksessa suoritus ohjataan \emph{käärmeluokkaan} ja sen jälkeen käyttäjälle lähetetään pääsivu.
+
+% – % – %
+
+\subsection{Tunnistusluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{auth.php}}, riippuvuudet: \texttt{common.php pgdb.php sql.php}
+
+\paragraph{} Tunnistusluokka on apuluokka, joka vertaa selaimelta saatuja tietoja tallennettuihin käyttäjätietoihin. Jos käyttäjä tunnistetaan, tarjoaa tunnistusluokka getterit käyttäjätietoihin.
+
+% – % – %
+
+\subsection{Yleiskäyttöiset funktiot}
+
+\paragraph{Tiedosto:} \large{\texttt{common.php}}
+
+\paragraph{} Tiedostossa on joukko yleiskäyttöisiä staattisia funktioita, joiden avulla hoidetaan PHP:n idiomaattisia tehtäviä.
+
+% – % – %
+
+\subsection{Tietokantaluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{pgdb.php}}, riippuvuudet: \texttt{config/karmia.php}
+
+\paragraph{} Tietokantaluokka on apuluokka, joka abstraktoi alla olevan tietokannan muulta ohjelmistolta. Tietokantaluokan tehtävät ovat:
+\begin{itemize}
+\item tietokantayhteyden avaaminen ja sulkeminen,
+\item tietokantakyselyjen suorittaminen,
+\item vastausten käsittely ja
+\item tietokantasyötteen sanitointi
+\end{itemize}
+
+% – % – %
+
+\subsection{Asetustiedosto}
+
+\paragraph{Tiedosto:} \large{\texttt{config/karmia.php}}
+
+\paragraph{} Asetustiedosto pitää sisällään ohjelmiston staattiset asetukset. \emph{Koska asetustiedostossa on tavallisesti tietokannan salasana, on tärkeää varmistaa, ettei palvelin välitä tiedoston sisältöä millään tapaa!}
+
+% – % – %
+
+\subsection{SQL-kyselyt}
+
+\paragraph{Tiedosto:} \large{\texttt{sql.php}}
+
+\paragraph{} Kokoelma staattisia muuttuja, joihin on tallennettu kaikki ohjelmiston käyttämät SQL-kyselyt.
+
+% – % – %
+
+\subsection{Pääsivu}
+
+\paragraph{Tiedosto:} \large{\texttt{json.xhtml}}, riippuvuudet: \texttt{json.js json.php linkit.js linkit.php}
+
+\paragraph{} Staattinen tyhjä sivu, joka saa sisältönsä dynaamisesti.
+
+% – % – %
+
+\subsection{Linkkiluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{linkit.php}}, riippuvuudet: \texttt{config/karmia.php auth.php common.php}
+
+\paragraph{} Tarkistaa käyttäjän oikeudet ja palauttaa sen perusteella valitun joukon navigointitietoa json-pakettina.
+
+% – % – %
+
+\subsection{Linkkiparseri}
+
+\paragraph{Tiedosto:} \large{\texttt{linkit.js}}
+
+\paragraph{} Linkkiparseri ottaa argumentikseen json-muotoisen syötteen ja rakentaa kohdesivun DOM-puuhun listan navigointilinkkejä.
+
+% – % – %
+
+\subsection{Json-luokka}
+
+\paragraph{Tiedosto:} \large{\texttt{json.php}}, riippuvuudet: \texttt{auth.php pgdb.php common.php sql.php}
+
+\paragraph{} Json-luokka tarkistaa, että käyttäjä on kirjautunut ja hakee sitten tietokannasta kaiken \emph{pääsivulla} tarvittavan tiedon lähetettäväksi json-callbackinä takaisin.
+
+% – % – %
+
+\subsection{Json-parseri}
+
+\paragraph{Tiedosto:} \large{\texttt{json.js}}
+
+\paragraph{} Json-parseri sisältää funktiot, joilla luodaan \emph{pääsivun} taulukko sisältöineen ja hallitaan käyttöliittymän interaktiivisuus.
+
+% – % – %
+
+\subsection{Käärmeluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{kaarme.php}}, riippuvuudet: \texttt{config/karmia.php common.php sql.php}
+
+\paragraph{} Käärmeluokka käsittelee käärmeiden lainaus-/palautuskyselyt eli merkitsee käärmeen lainaan tunnistetulle käyttäjälle tai merkitsee käärmeen palautetuksi. Ohjelman suoritus tulee käärmeluokkaan \emph{aloitussivun} kautta ja se palautetaan \emph{aloitussivulle}, mikäli laina-/palautuspyyntöjä ei tullut käsiteltäväksi.
+
+\paragraph{} Parametrit:
+\begin{description}
+\item[lainaa =] lainattavan käärmeen tunnus
+\item[palauta =] palautettavan käärmeen tunnus
+\end{description}
+
+% – % – %
+
+\subsection{Kirjautumislomake}
+
+\paragraph{Tiedosto:} \large{\texttt{kirjaudu.xhtml}}
+
+\paragraph{} Staattinen sivu ja lomake, jolla kysytään käyttäjän tunnusta ja salasanaa sekä tarjotaan linkki, jolla voi siirtyä \emph{uuden tunnuksen lomakkeeseen}.
+
+% – % – %
+
+\subsection{Kirjautumisluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{kirjaudu.php}}, riippuvuudet: \texttt{config/karmia.php auth.php common.php}
+
+\paragraph{} Ottaa syötteeksi \emph{kirjautumislomakkeen} tiedot, tallentaa ne käyttäjän selaimeen ja ohjaa selaimen kutsumaan itseään ilman parametrejä. Mikäli syötettä ei ole eikä käyttäjää tunnisteta, oletetaan, että käyttäjä antoi virheelliset tiedot ja selain ohjataan takaisin \emph{kirjautumislomakkeelle}.
+
+\paragraph{} Parametrit:
+\begin{description}
+\item[user =] käyttäjätunnus
+\item[pass =] salasana
+\end{description}
+
+% – % – %
+
+\subsection{Uuden tunnuksen lomake}
+
+\paragraph{Tiedosto:} \large{\texttt{uusi/kayttaja.xhtml}}
+
+\paragraph{} Staattinen sivu ja lomake, johon voi syöttää tiedot uuden käyttäjätunnuksen luontia varten. Lomakkeen tiedot käsittelee ohjelma \emph{uuden tunnuksen luonti}.
+
+% – % – %
+
+\subsection{Uuden tunnuksen luonti}
+
+\paragraph{Tiedosto:} \large{\texttt{uusi/kayttaja.php}}, riippuvuudet: \texttt{config/karmia.php common.php pgdb.php sql.php}
+
+\paragraph{} Uuden käyttäjän luontia varten tarkistetaan, että tunnus on oikeanmuotoinen ja annetut salasanat ovat samat. Mikäli käyttäjän antamat tiedot ovat virheelliset, ohjataan selain takaisin \emph{uuden tunnuksen lomakkeelle}. Muussa tapauksessa uusi käyttäjä yritetään tallentaa tietokantaa, käyttäjä kirjata sisään ja selain ohjata aloitussivulle.
+
+\paragraph{} Tietokanta estää varaamasta käyttäjätunnusta, joka on jo aiemmin varattu, joten käyttäjätunnusta ei voi kaapata. Varatun tunnuksen rekisteröintiyrityksestä ei kuitenkaan tule käyttäjälle virheilmoitusta vaan yritys vain epäonnistuu.
+
+\paragraph{} Parametrit:
+\begin{description}
+\item[newuser =] toivottu uuden käyttäjän tunnus
+\item[passone =] uuden käyttäjän salasana
+\item[passtwo =] salasana toisen kerran
+\end{description}
+
+% – % – %
+
+\subsection{Käyttäjäsivu}
+
+\paragraph{Tiedosto:} \large{\texttt{oma.php}}, riippuvuudet: \texttt{auth.php sql.php xhtml.php}
+
+\paragraph{} Käyttäjäsivu on dynaamisesti luotu sivu, jolla näytetään kirjautuneen käyttäjän perustiedot (tunnus ja käyttöoikeudet) ja lainahistoria.
+
+% – % – %
+
+\subsection{Hallintasivu}
+
+\paragraph{Tiedosto:} \large{\texttt{isohali.php}}, riippuvuudet: \texttt{auth.php common.php sql.php xhtml.php}
+
+\paragraph{} Hallintasivu on dynaamisesti luotu sivu, joka on vain ylläpetokäyttäjän saatavilla. Hallintasivun avulla avulla voidaan ylentää käyttäjä ylläpedoksi, lisätä uusi käärme tai uusi laji tietokantaan sekä poistaa käyttäjä, käärme tai laji tietokannasta.
+
+\paragraph{Parametrit:} (kaikki arvot ovat merkkijonoja ellei toisin mainita)
+\begin{description}
+
+\item[moodi =] \{"promoa", "poista", "uusi"\} \hfill \\
+Tämä parametri toimii tarkisteena ja erottelee eri toiminnot toisistaan. \\
+
+Jos \texttt{moodi=promoa}:
+
+\item[tunnus =] käyttäjätunnus \hfill \\
+Korotetaan annetun käyttäjätunnuksen käyttäjän oikeudet ylläpetotasolle. \\
+
+Jos \texttt{moodi=poista}:
+
+\item[tunnus =] käyttäjätunnus \hfill \\
+Poistetaan annetun käyttäjätunnuksen tiedot järjestelmästä ja suljetaan käyttäjän avoimet lainat.
+
+\item[id =] tunnus (numeroarvo) \hfill \\
+Poistetaan annetun tunnuksen käärme tietokannasta ja suljetaan poistettavaa käärmettä koskevat avoimet lainat.
+
+\item[laji =] nimi \hfill \\
+Poistetaan annetun niminen laji tietokannasta ja merkitään poistettavan lajin käärmeen tuntemattomaan lajiin kuuluviksi. \\
+
+Jos \texttt{moodi=uusi}:
+
+\item[nimi =] käärmeen nimi
+\item[lajinro =] lajin tunnus (numeroarvo) \hfill \\
+Lisätään tietokantaan uusi käärme annetulla nimellä ja lajitietolla. Molemmat parametrit ovat pakolliset, jotta uusi käärme lisätään.
+
+\item[laji =] nimi
+\item[latin =] toinen nimi
+\item[alkupera =] alkupera (numeroarvo)
+\item[vari =] vari ja/tai kuvaus
+\item[myrkyllisyys =] myrkyllisyys (numeroarvo)
+\item[uhanalaisuus =] uhanalaisuusluokitus \hfill \\
+Litätään tietokantaan uusi laji annetuin tiedoin.
+\end{description}
+
+% – % – %
+
+\subsection{Uloskirjautuminen}
+
+\paragraph{Tiedosto:} \large{\texttt{pois.php}}, riippuvuudet: \texttt{config/karmia.php common.php}
+
+\paragraph{} Uloskirjautuminen poistaa tunnistetiedot käyttäjän selaimelta ja ohjaa käyttäjän \emph{aloitussivulle}.
+
+% – % – %
+
+\subsection{Sivunluontiluokka}
+
+\paragraph{Tiedosto:} \large{\texttt{xhtml.php}}
+
+\paragraph{} Sivunluontiluokka on apuluokka, jota käytetään XHTML-koodin generointiin.
+
+% – % – %
+
+\subsection{Muut}
+
+\paragraph{} Loput järjestelmän käyttämät tiedostot listataan lyhyesti, sillä niiden merkitys on vähäinen tai olematon järjestelmän toimintalogiikan kannalta.
+
+\begin{description}
+\item[icon.png] \hfill \\
+Karmian ikoni.
+\item[main.css] \hfill \\
+Kaikkien sivujen yhteiset tyylimääreet sekä linkkilistan esitysasu.
+\item[json.css] \hfill \\
+\emph{Pääsivulla} käytetyt tyylimääreet.
+\item[isohali.css] \hfill \\
+\emph{Käyttäjäsivun} ja \emph{hallintasivun} tyylimääreet.
+\item[lomake.css] \hfill \\
+\emph{Kirjaumis-} ja \emph{uuden tunnuksen lomakkeen} tyylimääreet.
+\item[isohali.js] \hfill \\
+\emph{Hallintasivun} käyttöliittymän dynaamisuus.
+\item[lomake.js] \hfill \\
+\emph{Kirjaumis-} ja \emph{uuden tunnuksen lomakkeen} käyttöliittymän dynaamisuus.
+\end{description}
+
+% ° % ° % ° % ° % ° %
 
 \section{Asennustiedot}
 
+\paragraph{} Karmian asennus ja käyttö edellyttää palvelinympäristön, jossa on käytettävissä \emph{PostgreSQL} tai yhteensopiva tietokantaohjelmisto sekä \emph{PHP}-ohjelmointikielen tulkki. Lisäksi HTTP-palvelimen tulisi kunnioittaa \emph{.htaccess}-tiedostojen direktiivejä.
+
+\paragraph{Asennus}
+
 \begin{enumerate}
-\list Karmian asennus ja käyttöönotto onnistuu helpoiten lataamalla ohjelmisto Githubista. \\ $ git clone git://url/ $
-\list foo
-\list bar
+\item Siirry palvelimella siihen hakemistoon, jonka alle tahdot asentaa Karmian.
+\item Lataa Karmia versionhallinnasta ja siirry karmian hakemistoon: \\
+\texttt{\$ git clone git://github.com/hunppa/karmia.git} \\
+\texttt{\$ cd karmia}
+\item Avaa tiedosto \emph{config/karmia.php} ja muokkaa asetusmuuttujat vastaamaan asennustasi.
+\item Lisää tietokantaan tarvittavat taulut ja alkuarvot: \\
+\texttt{\$ psql -f doc/karmia.sql}
+\item \emph{Tämä on valinnainen askel.} Halutessasi voit lisätä tietokantaan alustavaa testiaineistoa: \\
+\texttt{\$ psql -f doc/testdata.sql}
+\item Lisää ensimmäinen ylläpeto-oikeuksinen käyttäjä tietokantaan: \\
+\texttt{\$ psql -c "INSERT INTO kayttajat VALUES ('tunnus', 'salasana', true)"} \\
+jossa \emph{tunnus} on ylläpedon käyttäjätunnus ja \emph{salasana} on halutun salasanan SHA-1 tiiviste. Tiivisteen saa luotua komennolla: \\
+\texttt{\$ echo -n haluttu salasana | sha1sum}
 \end{enumerate}
 
-\begin{verbatim}
-karmia
-├── auth.php
-├── common.php
-├── config
-├── data.sql
-├── doc
-│   ├── kaliflow.jpg
-│   ├── karmia.txt
-│   ├── suunnittelu.tex
-│   ├── tietokantakuva.jpg
-│   ├── toteutus.tex
-│   └── tree.txt
-├── icon.png
-├── index.php
-├── isohali.css
-├── isohali.js
-├── isohali.php
-├── json.css
-├── json.js
-├── json.php
-├── json.xhtml
-├── kaarme.php
-├── karmia.sql
-├── kirjaudu.php
-├── kirjaudu.xhtml
-├── linkit.js
-├── linkit.php
-├── lomake.css
-├── lomake.js
-├── main.css
-├── oma.php
-├── pgdb.php
-├── pois.php
-├── README
-├── sql.php
-├── TODO
-├── uusi
-│   ├── kayttaja.php
-│   └── kayttaja.xhtml
-└── xhtml.php
-\end{verbatim}
+% ° % ° % ° % ° % ° %
 
 \section{Käynnistys- ja käyttöohje}
 
-% \subsection{}
-
-% \begin{description}
-% \item[] \hfill \\
-% \end{description}
-
-% \begin{figure}
-% \caption{}
-% \includegraphics[]{kuva.png}
-% \end{figure}
+\paragraph{} Jos asennus onnistui, on Karmia välittömästi käyttövalmis. Riittää, kun menet selaimella palvelimen siihen osoitteeseen, joka suorittaa Karmian \mbox{\emph{index.php}}-sivun. Voit joko luoda uuden käyttäjätunnuksen tai kirjautua järjestelmään asennuksen yhteydessä luodulla ylläpeto-tunnuksella.
 
 \end{document}
