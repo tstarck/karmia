@@ -3,7 +3,6 @@
 require_once 'config/karmia.php';
 require_once 'common.php';
 require_once 'sql.php';
-require_once 'xhtml.php';
 
 class KAARME {
 	private $tunnus;

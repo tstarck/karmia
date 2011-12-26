@@ -16,8 +16,8 @@ $alku = <<<ALKU
 ALKU;
 
 $elementit = array(
-	"js" => "<script src=\"%s\"></script>\n",
-	"css"  => "<link rel=\"stylesheet\" href=\"%s\" media=\"screen\" />\n",
+	"js"  => "<script src=\"%s\"></script>\n",
+	"css" => "<link rel=\"stylesheet\" href=\"%s\" media=\"screen\" />\n",
 	"frm" => "<form id=\"%1\$s\" name=\"%1\$s\" method=\"post\" action=\"%2\$s\">\n",
 	"lbl" => "<label for=\"%s\">%s</label>\n",
 	"inp" => "<input type=\"text\" id=\"%1\$s\" name=\"%1\$s\" value=\"%2\$s\" /><br />\n",
