@@ -1,4 +1,5 @@
 .htaccess
+config/karmia.php
 doc/kaliflow.eps
 doc/tietokanto.eps
 doc/suunnittelu.pdf
