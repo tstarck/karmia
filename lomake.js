@@ -37,7 +37,7 @@ function tarkista_virheet() {
 function tarkista_paritus() {
 	var eka   = document.getElementById('passone');
 	var toka  = document.getElementById('passtwo');
-	var virhe = document.getElementById('virhemerkki');
+	var virhe = document.getElementById('virheilmo');
 
 	if (eka.value == "" || toka.value == "") {
 		virhe.style.display = "none";

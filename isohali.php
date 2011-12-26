@@ -28,7 +28,7 @@ class ISOHALI {
 		$kayttaja = hae_arvo("tunnus");
 
 		if (!empty($kayttaja)) {
-			$this->kysele($_sql_hali_promoa_kayttaja, $kayttaja);
+			$this->kanto->kysele($_sql_hali_promoa_kayttaja, $kayttaja);
 		}
 	}
 
