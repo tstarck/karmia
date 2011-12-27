@@ -33,6 +33,13 @@
 
 \section{Ohjelmiston yleisrakenne}
 
+\begin{figure}[h]
+\caption{Rakennekaavio}
+\includegraphics[]{yleisrakenne.eps}
+\end{figure}
+
+\paragraph{} Rakennekaaviosta on jätetty selkeyden vuoksi pois sekä kaikkein triviaaleimmat osat (kuten tyylitiedostot) että kaikkein käytetyimmät apuluokat kuten \emph{tunnistusluokka}. Viimeksi mainittua käyttää lähes kaikki ohjelmiston komponentit, joten kaavio olisi monimutkaistunut huomattavasti.
+
 % ° % ° % ° % ° % ° %
 
 \section{Järjestelmän komponentit}
@@ -267,7 +274,7 @@ Litätään tietokantaan uusi laji annetuin tiedoin.
 
 \begin{description}
 \item[icon.png] \hfill \\
-Karmian ikoni.
+Karmian ikoni : D
 \item[main.css] \hfill \\
 Kaikkien sivujen yhteiset tyylimääreet sekä linkkilistan esitysasu.
 \item[json.css] \hfill \\
@@ -295,7 +302,7 @@ Kaikkien sivujen yhteiset tyylimääreet sekä linkkilistan esitysasu.
 \item Lataa Karmia versionhallinnasta ja siirry karmian hakemistoon: \\
 \texttt{\$ git clone git://github.com/hunppa/karmia.git} \\
 \texttt{\$ cd karmia}
-\item Avaa tiedosto \emph{config/karmia.php} ja muokkaa asetusmuuttujat vastaamaan asennustasi.
+\item Muokkaa tiedostoa \emph{config/karmia.php.example} niin, että asetusmuuttujat vastaavat asennusympäristöäsi. Tallenna tiedosto ilman \emph{.example}-päätettä niin, että sinulla on asetustiedosto nimeltään \texttt{config/karmia.php}.
 \item Lisää tietokantaan tarvittavat taulut ja alkuarvot: \\
 \texttt{\$ psql -f doc/karmia.sql}
 \item \emph{Tämä on valinnainen askel.} Halutessasi voit lisätä tietokantaan alustavaa testiaineistoa: \\
@@ -304,6 +311,7 @@ Kaikkien sivujen yhteiset tyylimääreet sekä linkkilistan esitysasu.
 \texttt{\$ psql -c "INSERT INTO kayttajat VALUES ('tunnus', 'salasana', true)"} \\
 jossa \emph{tunnus} on ylläpedon käyttäjätunnus ja \emph{salasana} on halutun salasanan SHA-1 tiiviste. Tiivisteen saa luotua komennolla: \\
 \texttt{\$ echo -n haluttu salasana | sha1sum}
+\item Tarkista lopuksi, että tiedostojen oikeudet ovat asianmukaiset.
 \end{enumerate}
 
 % ° % ° % ° % ° % ° %
